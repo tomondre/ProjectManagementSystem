@@ -1,4 +1,4 @@
-package model;
+package FileAdapter;
 
 import java.io.*;
 import java.util.ArrayList;
