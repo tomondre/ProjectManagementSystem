@@ -12,7 +12,7 @@ public class Task implements Serializable
   private MyDate deadline;
   private EmployeeList assignedToTask;
 
-  //TODO responsible team member will be the first one in the arraylist of assignedToTask - index 0
+  //responsible team member is the first one in the arraylist of assignedToTask - index 0
   public Task(int taskID, String description, double estimatedTime,
       MyDate deadline, Employee responsibleEmployee)
   {
@@ -26,6 +26,7 @@ public class Task implements Serializable
     assignedToTask.addEmployee(responsibleEmployee);
   }
 
+  //constructor for copy method
   public Task(int taskID, String description, double estimatedTime,
       MyDate deadline, double timeUsed, EmployeeList assignedToTask,
       boolean isDone)
@@ -40,15 +41,14 @@ public class Task implements Serializable
   }
 
   //TODO add also responsible employee
-  //TODO change this based on constructor
-  public void set(String description, String status, double estimatedTime,
-      MyDate deadline)
+  public void set(String description, double estimatedTime, MyDate deadline,
+      double timeUsed, boolean isDone)
   {
     this.description = description;
     this.timeUsed = timeUsed;
     this.deadline = deadline;
     this.estimatedTime = estimatedTime;
-    isDone = false;
+    this.isDone = isDone;
   }
 
   public int getTaskID()
@@ -93,27 +93,20 @@ public class Task implements Serializable
 
   public String toString()
   {
+
     return "ID: " + taskID + ", description: " + description + ", deadline: "
-        + deadline + ", timeUsed: " + timeUsed + ", reponsible:"
-        + assignedToTask.getResponsibleEmployee();
+        + deadline + ", estimatedTime: " + estimatedTime + ", timeUsed: "
+        + timeUsed + ",isDone: " + isDone + ", reponsible:" + assignedToTask
+        .getResponsibleEmployee();
+
   }
 
-  //TODO change when we will know whole contructor
-  public boolean equals(Object obj)
-  {
-    if (!(obj instanceof Task))
-    {
-      return false;
-    }
-    Task other = (Task) obj;
-    return false;
-  }
-
-  //  public void copyEmployeeList()
+  //toString with reduced attributes
+  //  public String toString()
   //  {
-  //    EmployeeList temp = assignedToTask.copy();
-  //    assignedToTask = null;
-  //    assignedToTask = temp;
+  //    return "ID: " + taskID + ", description: " + description + ", deadline: "
+  //        + deadline + ", timeUsed: " + timeUsed + ", reponsible:"
+  //        + assignedToTask.getResponsibleEmployee();
   //  }
 
   public Task copy()

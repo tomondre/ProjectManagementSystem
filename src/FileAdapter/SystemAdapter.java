@@ -30,43 +30,56 @@ public class SystemAdapter
   }
 
   //************************************Requirements*********************************
-  public void addRequirement(String projectName, Requirement requirement)
+  public void addRequirement(String projectName, int requirementId,
+      int priorityNumber, String description, double estimateTime, int day,
+      int month, int year, int employeeID)
   {
     ProjectManagmentSystem system = getSystem();
-    system.addRequirement(projectName, requirement);
+    system.addRequirement(projectName,
+        new Requirement(requirementId, priorityNumber, description,
+            estimateTime, new MyDate(day, month, year),
+            system.getEmployee(employeeID)));
     save(system);
   }
 
   //TODO change based on constructor
-  public void setRequirement(String projectName, int requirementID,
-      String description, double estimatedTime)
+  public void setRequirement(String projectName, int requirementId,
+      int priorityNumber, String description, double estimateTime, int day,
+      int month, int year, String status)
   {
     ProjectManagmentSystem system = getSystem();
     system
-        .setRequirement(projectName, requirementID, description, estimatedTime);
+        .setRequirement(projectName, requirementId, priorityNumber, description,
+            estimateTime, new MyDate(day, month, year), status);
     save(system);
   }
 
   //******************************************Tasks******************************************
-  public void addTask(String projectName, int requirementID, Task task)
+  public void addTask(String projectName, int requirementID, int taskID,
+      String description, double estimatedTime, int day, int month, int year,
+      int responsibleEmployeeID)
   {
     ProjectManagmentSystem system = getSystem();
-    system.addTask(projectName, requirementID, task);
+    system.addTask(projectName, requirementID,
+        new Task(taskID, description, estimatedTime,
+            new MyDate(day, month, year),
+            system.getEmployee(responsibleEmployeeID)));
     save(system);
   }
 
   //TODO change based on constructor
   public void setTask(String projectName, int requirementID, int taskID,
-      String description, String status, double estimatedTime, int day,
-      int month, int year)
+      String description, double estimatedTime, double timeUsed, boolean isDone,
+      int day, int month, int year)
   {
     ProjectManagmentSystem system = getSystem();
-    system.setTask(projectName, requirementID, taskID, description, status,
-        estimatedTime, new MyDate(day, month, year));
+    system
+        .setTask(projectName, requirementID, taskID, description, estimatedTime,
+            new MyDate(day, month, year), timeUsed, isDone);
     save(system);
   }
 
-  //**************************************System*****************************************
+  //**************************************File*****************************************
   public ProjectManagmentSystem getSystem()
   {
     ProjectManagmentSystem system = new ProjectManagmentSystem();

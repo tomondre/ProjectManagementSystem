@@ -8,6 +8,8 @@ public class Project implements Serializable
   private EmployeeList projectTeam;
   private RequirementList requirementList;
 
+  //TODO add status of the projects - this we will be displaying in the website
+
   public Project(String projectName)
   {
     projectTeam = new EmployeeList();

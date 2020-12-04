@@ -49,11 +49,13 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //TODO check if its the same as requirement constructor
-  public void setRequirement(String projectName, int requirementID,
-      String description, double estimatedTime)
+  public void setRequirement(String projectName, int requirementId,
+      int priorityNumber, String description, double estimateTime,
+      MyDate deadline, String status)
+
   {
-    getRequirementByID(projectName, requirementID)
-        .set(description, estimatedTime);
+    getRequirementByID(projectName, requirementId)
+        .set(priorityNumber, description, estimateTime, deadline, status);
   }
 
   public void setRequirementApproved(String projectName, int requirementID)
@@ -94,12 +96,13 @@ public class ProjectManagmentSystem implements Serializable
 
   //TODO change based on constructor of the Task
   public void setTask(String projectName, int requirementID, int taskID,
-      String description, String status, double estimatedTime, MyDate deadline)
+      String description, double estimatedTime, MyDate deadline,
+      double timeUsed, boolean isDone)
   {
     if (getTaskByID(projectName, requirementID, taskID) != null)
     {
       getTaskByID(projectName, requirementID, taskID)
-          .set(description, status, estimatedTime, deadline);
+          .set(description, estimatedTime, deadline, timeUsed, isDone);
     }
   }
 

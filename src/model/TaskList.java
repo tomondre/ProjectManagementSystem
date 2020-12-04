@@ -100,10 +100,9 @@ public class TaskList implements Serializable
       temp.add(task.copy());
     }
     return new TaskList(temp);
-
   }
 
-  //Method we are using when clearing employees working on tasks becasue we also have tasklist in employee
+  //Method we are using when clearing employees working on tasks because we also have tasklist in employee
   public void clear()
   {
     tasks.clear();

@@ -11,12 +11,12 @@ public class ProjectManagmentSystemTest
     System.out.println(system);
     system.addProject("NewProject");
     System.out.println(system);
-    system.addRequirement("NewProject", new Requirement(25, "ofnodnsfsnf", 50, responsibleEmployee));
+    system.addRequirement("NewProject", new Requirement(25,4, "ofnodnsfsnf", 50,new MyDate(25,11,2020), responsibleEmployee));
     System.out.println(system);
-    system.addRequirement("NewProject", new Requirement(24, "ofnodnsfsnf", 50, responsibleEmployee));
+    system.addRequirement("NewProject", new Requirement(24,3, "ofnodnsfsnf", 50,new MyDate(25,11,2020), responsibleEmployee));
     System.out.println(system);
     system.addProject("newneww");
-    system.addRequirement("newneww", new Requirement(24, "ofnodnsfsnf", 50,responsibleEmployee));
+    system.addRequirement("newneww", new Requirement(24,2, "ofnodnsfsnf", 50,new MyDate(25,11,2020),responsibleEmployee));
     system.addEmployee(responsibleEmployee);
     system.addTask("NewProject", 25,
         new Task(20, "kddskdmdks", 25, new MyDate(25, 11, 2020),
@@ -39,14 +39,14 @@ public class ProjectManagmentSystemTest
     system.addTask("NewProject", 25,
         new Task(4, "kddskdmdks",  25, new MyDate(25, 11, 2020),
             responsibleEmployee));
-    system.addRequirement("NewProject", new Requirement(1, "ofnodnsfsnf", 50,responsibleEmployee));
+    system.addRequirement("NewProject", new Requirement(1,1, "ofnodnsfsnf", 50,new MyDate(25,11,2020),responsibleEmployee));
     system
-        .addRequirement("NewProject", new Requirement(4, "'f,s,p[dslvs'", 50,responsibleEmployee));
+        .addRequirement("NewProject", new Requirement(4,8, "'f,s,p[dslvs'", 50,new MyDate(25,11,2020),responsibleEmployee));
     system.addRequirement("NewProject",
-        new Requirement(2, "f]dl]pfdss/f/s/f][sf", 50,responsibleEmployee));
+        new Requirement(2,5, "f]dl]pfdss/f/s/f][sf", 50,new MyDate(25,11,2020),responsibleEmployee));
     system.addRequirement("NewProject",
-        new Requirement(3, "fpmmdspf;d.sflskf", 50,responsibleEmployee));
-    system.addRequirement("NewProject", new Requirement(8, "a,da.'csacc.", 50,responsibleEmployee));
+        new Requirement(3,5, "fpmmdspf;d.sflskf", 50,new MyDate(25,11,2020),responsibleEmployee));
+    system.addRequirement("NewProject", new Requirement(8,7, "a,da.'csacc.", 50,new MyDate(25,11,2020),responsibleEmployee));
     System.out.println(system);
     system.getProjectByName("NewProject").sortRequirements();
     system.addUsedHourToTask("NewProject", 25, 3, 5);
@@ -61,7 +61,7 @@ public class ProjectManagmentSystemTest
     System.out.println(system);
     system.setTaskDone("NewProject", 25, 24);
     system.setTaskDone("NewProject", 25, 25);
-    system.setTaskDone("NewProject", 25, 20);
+//    system.setTaskDone("NewProject", 25, 20);
     system.setTaskDone("NewProject", 25, 19);
     system.setTaskDone("NewProject", 25, 1);
     system.setTaskDone("NewProject", 25, 2);

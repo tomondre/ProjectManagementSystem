@@ -12,31 +12,30 @@ public class Requirement implements Serializable
   private int requirementId;
   private String description;
   private String status;
-  private boolean functional;
   private double estimateTime;
   private int priorityNumber;
   private MyDate deadline;
   private TaskList taskList;
   private Employee responsibleEmployee;
 
-  //TODO add MyDate deadline, boolean  and also responsible team member
-  public Requirement(int requirementId, String description, double estimateTime,
-      Employee responsibleEmployee)
+  public Requirement(int requirementId, int priorityNumber, String description,
+      double estimateTime, MyDate deadline, Employee responsibleEmployee)
   {
+    this.priorityNumber = priorityNumber;
     this.responsibleEmployee = responsibleEmployee;
     taskList = new TaskList();
     this.requirementId = requirementId;
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
-    this.functional = functional;
-    status = STARTED;
+    status = NOTSTARTED;
     this.deadline = deadline;
   }
 
+  //Constructor for copy method
   public Requirement(int requirementId, int priorityNumber, String description,
-      double estimateTime, TaskList taskList, MyDate deadline,
-      boolean functional, String status)
+      double estimateTime, MyDate deadline, Employee responsibleEmployee,
+      TaskList taskList, String status)
   {
     this.priorityNumber = priorityNumber;
     this.taskList = taskList;
@@ -44,49 +43,18 @@ public class Requirement implements Serializable
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
-    this.functional = functional;
     this.status = status;
-
+    this.responsibleEmployee = responsibleEmployee;
   }
 
   //******************************SETTERS*****************************************
-  public void set(String description,
-      double estimateTime)              //change to match construcor, without unique requirementID
-
+  public void set(int priorityNumber, String description, double estimateTime,
+      MyDate deadline, String status)
   {
+    this.priorityNumber = priorityNumber;
     this.description = description;
     this.estimateTime = estimateTime;
-  }
-
-  public void setApproved()
-  {
-    status = APPROVED;
-  }
-
-  public void setRejected()
-  {
-    status = REJECTED;
-  }
-
-  public int getID()
-  {
-    return requirementId;
-  }
-
-  public boolean isDone()
-  {
-    return taskList.isDone();
-  }
-
-  //***********************************GETTERS**********************************
-
-  public String getStatus()
-  {
-    return status;
-  }
-
-  public void setStatus(String status)
-  {
+    this.deadline = deadline;
     if (status.charAt(0) == 'A' || status.charAt(0) == 'a')
     {
       this.status = APPROVED;
@@ -103,6 +71,28 @@ public class Requirement implements Serializable
     {
       this.status = ENDED;
     }
+  }
+
+  public void setApproved()
+  {
+    status = APPROVED;
+  }
+
+  public void setRejected()
+  {
+    status = REJECTED;
+  }
+
+  public boolean isDone()
+  {
+    return taskList.isDone();
+  }
+
+  //***********************************GETTERS**********************************
+
+  public String getStatus()
+  {
+    return status;
   }
 
   public double getLeftEstimate()
@@ -125,12 +115,12 @@ public class Requirement implements Serializable
     return priorityNumber;
   }
 
-  public void setPriority(int priority)
+  public int getID()
   {
-    priorityNumber = priority;
+    return requirementId;
   }
 
-  //********************************taskList*****************************************
+  //********************************taskList************************************
   public void addTask(Task task)
   {
     taskList.addTask(task);
@@ -174,13 +164,22 @@ public class Requirement implements Serializable
 
   public String toString()
   {
-    return "ID: " + requirementId + " status: " + status + taskList;
+    checkStatus();
+    return "ID: " + requirementId + ", priorityNumber: " + priorityNumber
+        + ", description: " + description + ", status: " + status
+        + ", estimate time: " + estimateTime + "timeUsed: " + taskList
+        .totalTimeUsed() + ", deadline: " + deadline + "responsibleEmployee:"
+        + responsibleEmployee +", tasks: " +  taskList;
   }
+
+  //  public String toString()
+  //  {
+  //    return "ID: " + requirementId + " status: " + status + taskList;
+  //  }
 
   public Requirement copy()
   {
     return new Requirement(requirementId, priorityNumber, description,
-        estimateTime, taskList.copy(), deadline, functional, status);
+        estimateTime, deadline, responsibleEmployee, taskList.copy(), status);
   }
-
 }
