@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Employee implements Serializable
 {
-  private final String TEAMMEMBER = "Team member";
-  private final String SCRUMMASTER = "Scrum master";
-  private final String PRODUCTOWNER = "Product owner";
-  private final String PROJECTCREATOR = "Project creator";
+  private static final String TEAM_MEMBER = "Team member";
+  private static final String SCRUM_MASTER = "Scrum master";
+  private static final String PRODUCT_OWNER = "Product owner";
+  private static final String PROJECT_CREATOR = "Project creator";
   private int employeeID;
   private String firstName;
   private String lastName;
@@ -66,22 +66,22 @@ public class Employee implements Serializable
     {
       if (role.charAt(0) == 'T' || role.charAt(0) == 't')
       {
-        this.role = TEAMMEMBER;
+        this.role = TEAM_MEMBER;
       }
       else if (role.charAt(0) == 'S' || role.charAt(0) == 's')
       {
-        this.role = SCRUMMASTER;
+        this.role = SCRUM_MASTER;
       }
 
       else if ((role.charAt(0) == 'P' || role.charAt(0) == 'p')
           && role.charAt(3) == 'd')
       {
-        this.role = PRODUCTOWNER;
+        this.role = PRODUCT_OWNER;
       }
       else if ((role.charAt(0) == 'P' || role.charAt(0) == 'p')
           && role.charAt(3) == 'j')
       {
-        this.role = PROJECTCREATOR;
+        this.role = PROJECT_CREATOR;
       }
     }
   }
