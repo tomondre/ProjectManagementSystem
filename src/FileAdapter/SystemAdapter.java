@@ -54,6 +54,27 @@ public class SystemAdapter
     save(system);
   }
 
+  public void setRequirementApproved(String projectName, int requirementID)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.setRequirementApproved(projectName, requirementID);
+    save(system);
+  }
+
+  public void setRequirementRejected(String projectName, int requirementID)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.setRequirementRejected(projectName, requirementID);
+    save(system);
+  }
+
+  public void removeRequirement(String projectName, int requirementID)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.removeRequirement(projectName, requirementID);
+    save(system);
+  }
+
   //******************************************Tasks******************************************
   public void addTask(String projectName, int requirementID, int taskID,
       String description, double estimatedTime, int day, int month, int year,
@@ -76,6 +97,21 @@ public class SystemAdapter
     system
         .setTask(projectName, requirementID, taskID, description, estimatedTime,
             new MyDate(day, month, year), timeUsed, isDone);
+    save(system);
+  }
+
+  public void removeTask(String projectName, int requirementID, int taskID)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.removeTask(projectName, requirementID, taskID);
+    save(system);
+  }
+
+  public void addUsedHoursToTask(String projectName, int requirementID,
+      int taskID, double hours)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.addUsedHourToTask(projectName, requirementID, taskID, hours);
     save(system);
   }
 

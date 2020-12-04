@@ -104,7 +104,7 @@ public class Project implements Serializable
     requirementList.sortRequirementsByPriorities();
   }
 
-  //change this so it will match contructor
+  //change this so it will match constructor
   public Project copy()
   {
     return new Project(projectName, requirementList.copy());
