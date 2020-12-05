@@ -1,11 +1,15 @@
 package GUI;
 
-import javafx.event.Event;
+import FileAdapter.SystemAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Project;
+import model.ProjectList;
 import model.ProjectManagmentSystem;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Controller
 {
@@ -22,7 +26,7 @@ public class Controller
 
   @FXML private Tab projectsTab;
 
-  @FXML private TextArea projectsTextArea;
+  @FXML private ListView<String> projectsListView;
 
   @FXML private TextField projectNameTextField;
 
@@ -118,9 +122,14 @@ public class Controller
 
   @FXML private Button saveEmployeeButton;
 
+  private SystemAdapter adapter;
+  private ProjectManagmentSystem colourIT;
+
   public void initialize()
   {
-
+    adapter = new SystemAdapter("colourIT.bin");
+    colourIT = adapter.getSystem();
+    updateProjects();
   }
 
   public void handleActions(ActionEvent e)
@@ -131,11 +140,20 @@ public class Controller
       projectStatusComboBox.setDisable(false);
       projectNameTextField.clear();
       projectStatusComboBox.getSelectionModel().select(0);
+
+
+
+
     }
     else if (e.getSource() == editProjectButton)
     {
+      String temp = projectsListView.getSelectionModel().getSelectedItem();
+      Project toEdit = adapter.getSystem().getProjectByName(temp);
+      projectNameTextField.setText(toEdit.getName());
       projectNameTextField.setEditable(true);
       projectStatusComboBox.setDisable(false);
+
+
     }
     else if (e.getSource() == assignEmployeeButton)
     {
@@ -148,6 +166,18 @@ public class Controller
     }
     else if (e.getSource() == saveProjectButton)
     {
+      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      String oldName = projectsListView.getSelectionModel().getSelectedItem();
+      String newName = projectNameTextField.getText();
+      if (index < 0)
+      {
+        adapter.addProject(newName);
+      }
+      else
+      {
+        adapter.editProject(newName, oldName);
+      }
+      updateProjects();
       projectNameTextField.setEditable(false);
       projectStatusComboBox.setDisable(true);
       availableEmployeeComboBox.setDisable(true);
@@ -209,13 +239,13 @@ public class Controller
     }
     else if (e.getSource() == saveTaskButton)
     {
-      taskIDTextField.setEditable(!true);
-      taskStatusComboBox.setDisable(!false);
-      taskDescriptionTextArea.setEditable(!true);
-      taskEstimateTextField.setEditable(!true);
-      taskTimeUsedTextField.setEditable(!true);
-      taskDeadline.setEditable(!true);
-      taskTeamMembersComboBox.setDisable(!false);
+      taskIDTextField.setEditable(false);
+      taskStatusComboBox.setDisable(true);
+      taskDescriptionTextArea.setEditable(false);
+      taskEstimateTextField.setEditable(false);
+      taskTimeUsedTextField.setEditable(false);
+      taskDeadline.setEditable(false);
+      taskTeamMembersComboBox.setDisable(true);
     }
 
     else if (e.getSource() == addEmployeeButton
@@ -235,10 +265,10 @@ public class Controller
     }
     else if (e.getSource() == saveEmployeeButton)
     {
-      employeeIDTextField.setEditable(!true);
-      employeeFirstName.setEditable(!true);
-      employeeLastName.setEditable(!true);
-      employeeRoleComboBox.setDisable(!false);
+      employeeIDTextField.setEditable(false);
+      employeeFirstName.setEditable(false);
+      employeeLastName.setEditable(false);
+      employeeRoleComboBox.setDisable(true);
     }
     else if (e.getSource() == exitMenuItem)
     {
@@ -273,22 +303,27 @@ public class Controller
     }
     else if (e.getSource() == projectsTab)
     {
-      ProjectManagmentSystem test =  new ProjectManagmentSystem();
-      test.getProjectByName(projectsTextArea.getSelectedText());
+      updateProjects();
     }
     else if (e.getSource() == requirementsTab)
     {
-
+      //TODO
     }
     else if (e.getSource() == tasksTab)
     {
-
+      //TODO
     }
     else if (e.getSource() == employeesTab)
     {
-
+      //TODO
     }
   }
 
+  public void updateProjects()
+  {
+    projectsListView.getItems().clear();
+    ProjectManagmentSystem temp = adapter.getSystem();
+    projectsListView.getItems().addAll(temp.toString().split("\n"));
+  }
 
 }
