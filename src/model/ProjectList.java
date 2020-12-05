@@ -37,7 +37,19 @@ public class ProjectList implements Serializable
     }
     return null;
   }
-
+  public void editProjectName(String newName, String oldName)
+  {
+    Project temp = getProjectByName(oldName);
+    Project newProj = getProjectByName(newName);
+    if (newProj == null)
+    {
+      temp.setProjectName(newName);
+    }
+    else
+    {
+      throw new IllegalArgumentException("Project already exists");
+    }
+  }
   public int size()
   {
     return projects.size();
