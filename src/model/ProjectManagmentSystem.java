@@ -34,11 +34,6 @@ public class ProjectManagmentSystem implements Serializable
     return projectList;
   }
 
-  public ProjectList getProjects()
-  {
-    return projectList;
-  }
-
   //******************************Requirement***********************************
   public void addRequirement(String projectName, Requirement requirement)
   {
@@ -141,12 +136,17 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //**********************************Employee**********************************
+  public EmployeeList getEmployees()
+  {
+    return employees;
+  }
+
   public Employee getEmployee(int employeeID)
   {
     return employees.getEmployeeByID(employeeID);
   }
 
-  public void addEmployee(Employee employee)
+  public void addEmployee(Employee employee) throws IllegalArgumentException
   {
     employees.addEmployee(employee);
   }
