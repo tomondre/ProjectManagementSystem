@@ -86,13 +86,6 @@ public class Employee implements Serializable
     }
   }
 
-  public String toString()
-  {
-    String temp = "";
-    return "No: " + employeeID + ", " + firstName + " " + lastName + ", " + role
-        + tasks;
-  }
-
   public void setTasks(TaskList tasks)
   {
     this.tasks = tasks;
@@ -117,5 +110,10 @@ public class Employee implements Serializable
   public int getId()
   {
     return employeeID;
+  }
+
+  public String toString()
+  {
+    return "(" + employeeID +")" + firstName + " " + lastName;
   }
 }
