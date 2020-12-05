@@ -45,7 +45,7 @@
       </MenuBar>
       <TabPane prefHeight="410.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="projectsTab" text="Projects">
+          <Tab fx:id="projectsTab" onSelectionChanged="#tabChange" text="Projects">
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -92,6 +92,11 @@
                                     <Insets />
                                  </VBox.margin>
                               </ComboBox>
+                              <ComboBox fx:id="employeeRoleComboBox" disable="true" prefHeight="25.0" prefWidth="225.0" promptText="Scrum master">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
                               <FlowPane alignment="TOP_CENTER" hgap="10.0" layoutX="10.0" layoutY="114.0" prefHeight="24.0" prefWidth="222.0">
                                  <children>
                                     <Button fx:id="assignEmployeeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActions" prefWidth="60.0" text="Assign" />
@@ -124,7 +129,7 @@
                   </HBox>
                </content>
           </Tab>
-          <Tab fx:id="requirementsTab" text="Requiremetns">
+          <Tab fx:id="requirementsTab" onSelectionChanged="#tabChange" text="Requiremetns">
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -181,7 +186,7 @@
                   </HBox>
                </content>
           </Tab>
-            <Tab fx:id="tasksTab" text="Tasks">
+            <Tab fx:id="tasksTab" onSelectionChanged="#tabChange" text="Tasks">
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -239,7 +244,7 @@
                   </HBox>
                </content>
             </Tab>
-            <Tab fx:id="employeesTab" text="Employees">
+            <Tab fx:id="employeesTab" onSelectionChanged="#tabChange" text="Employees">
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -269,18 +274,12 @@
                                  </VBox.margin>
                               </Label>
                               <TextField fx:id="employeeLastName" editable="false" prefHeight="25.0" prefWidth="89.0" promptText="Aliosman" />
-                              <Label layoutX="10.0" layoutY="99.0" text="Role:">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ComboBox fx:id="employeeRoleComboBox" disable="true" prefHeight="25.0" prefWidth="141.0" promptText="Scrum master" />
                               <Label text="Tasks:">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextArea fx:id="employeeTaskTextArea" editable="false" prefHeight="127.0" prefWidth="280.0" />
+                              <TextArea fx:id="employeeTaskTextArea" editable="false" prefHeight="173.0" prefWidth="280.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="5.0" />
