@@ -37,12 +37,17 @@ public class ProjectList implements Serializable
     }
     return null;
   }
-  public void editProjectName(String newName, String oldName)
+  public void editProject(String newName, String oldName, String status)
   {
     Project temp = getProjectByName(oldName);
-    Project newProj = getProjectByName(newName);
-    if (newProj == null)
+
+    if (newName.equals(oldName))
     {
+      temp.setStatus(status);
+    }
+    else if (getProjectByName(newName) == null)
+    {
+      temp.setStatus(status);
       temp.setProjectName(newName);
     }
     else
