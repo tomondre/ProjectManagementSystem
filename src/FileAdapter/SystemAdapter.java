@@ -19,6 +19,7 @@ public class SystemAdapter
   {
     mfio = new MyFileIO();
     this.fileName = fileName;
+
   }
 
   //*******************************************Projects********************************
@@ -28,7 +29,12 @@ public class SystemAdapter
     system.addProject(name);
     save(system);
   }
-
+  public void editProject(String newName, String oldName)
+  {
+    ProjectManagmentSystem system = getSystem();
+    system.editName(newName, oldName);
+    save(system);
+  }
   //************************************Requirements*********************************
   public void addRequirement(String projectName, int requirementId,
       int priorityNumber, String description, double estimateTime, int day,
