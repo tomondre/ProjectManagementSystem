@@ -55,10 +55,10 @@ public class ProjectList implements Serializable
 
   public String toString()
   {
-    String temp = "*******************************\n";
+    String temp ="";
     for (Project p : projects)
     {
-      temp += "\n" + p;
+      temp += p + "\n";
     }
     return temp;
   }
