@@ -7,17 +7,19 @@ public class Project implements Serializable
   private String projectName;
   private EmployeeList projectTeam;
   private RequirementList requirementList;
+  private String status;
   public static final String DONE = "Done";
   public static final String ARCHIVED = "Archived";
   public static final String IN_PROCESS = "In process";
 
   //TODO add status of the projects - this we will be displaying in the website
 
-  public Project(String projectName)
+  public Project(String projectName, String status)
   {
     projectTeam = new EmployeeList();
     this.projectName = projectName;
     requirementList = new RequirementList();
+    setStatus(status);
   }
 
   public Project(String projectName,
@@ -30,6 +32,16 @@ public class Project implements Serializable
   public String getName()
   {
     return projectName;
+  }
+
+  public void setStatus(String status)
+  {
+    this.status = status;
+  }
+
+  public String getStatus()
+  {
+    return status;
   }
 
   public void setProjectName(String name)
@@ -120,7 +132,7 @@ public class Project implements Serializable
 
   public String toString()
   {
-    return projectName;
+    return projectName + "(" + status + ")";
   }
 
   public RequirementList getRequirementList()
