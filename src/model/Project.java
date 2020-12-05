@@ -28,6 +28,10 @@ public class Project implements Serializable
   {
     return projectName;
   }
+  public void setProjectName(String name)
+  {
+    projectName = name;
+  }
 
   public RequirementList getAllRequirements()
   {
@@ -112,7 +116,7 @@ public class Project implements Serializable
 
   public String toString()
   {
-    return "Project: " + projectName + requirementList;
+    return projectName;
   }
 
   public RequirementList getRequirementList()
