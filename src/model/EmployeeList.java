@@ -31,6 +31,22 @@ public class EmployeeList implements Serializable
     employees.add(employee);
   }
 
+  public void editEmployee(Employee employee, Employee oldEmployee)
+  {
+    Employee temp = getEmployeeByID(oldEmployee.getId());
+    int newID = employee.getId();
+    for (Employee empl : employees)
+    {
+      if (newID == empl.getId() && !empl.equals(temp))
+      {
+        throw new IllegalArgumentException("Employee ID number already exists");
+      }
+    }
+     temp.setEmployeeID(newID);
+     temp.setFirstName(employee.getFirstName());
+     temp.setLastName(employee.getLastName());
+
+  }
   public Employee getEmployeeByID(int employeeID)
   {
     for (Employee e : employees)
@@ -68,6 +84,11 @@ public class EmployeeList implements Serializable
   public Employee getResponsibleEmployee()
   {
     return employees.get(0);
+  }
+
+  public Employee get(int index)
+  {
+    return employees.get(index);
   }
 
   public EmployeeList copy()
