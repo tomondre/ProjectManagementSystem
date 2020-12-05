@@ -1,179 +1,122 @@
-
 package GUI;
 
 import FileAdapter.SystemAdapter;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.Employee;
-import model.EmployeeList;
-import model.Project;
-import model.ProjectManagmentSystem;
+import model.*;
 
-public class Controller {
+public class Controller
+{
 
-  @FXML
-  private MenuItem exitMenuItem;
+  @FXML private MenuItem exitMenuItem;
 
-  @FXML
-  private RadioMenuItem ongoingProjects;
+  @FXML private RadioMenuItem ongoingProjects;
 
-  @FXML
-  private ToggleGroup projects;
+  @FXML private ToggleGroup projects;
 
-  @FXML
-  private RadioMenuItem archivedProjects;
+  @FXML private RadioMenuItem archivedProjects;
 
-  @FXML
-  private MenuItem aboutMenuItem;
+  @FXML private MenuItem aboutMenuItem;
 
-  @FXML
-  private Tab projectsTab;
+  @FXML private Tab projectsTab;
 
-  @FXML
-  private ListView<String> projectsListView;
+  @FXML private ListView<String> projectsListView;
 
-  @FXML
-  private TextField projectNameTextField;
+  @FXML private TextField projectNameTextField;
 
-  @FXML
-  private ComboBox<String> projectStatusComboBox;
+  @FXML private ComboBox<String> projectStatusComboBox;
 
-  @FXML
-  private Button addProjectButton;
+  @FXML private Button addProjectButton;
 
-  @FXML
-  private Button editProjectButton;
+  @FXML private Button editProjectButton;
 
-  @FXML
-  private ComboBox<?> availableEmployeeComboBox;
+  @FXML private ComboBox<?> availableEmployeeComboBox;
 
-  @FXML
-  private Button assignEmployeeButton;
+  @FXML private Button assignEmployeeButton;
 
-  @FXML
-  private Button removeEmployeeButton;
+  @FXML private Button removeEmployeeButton;
 
-  @FXML
-  private Button saveProjectButton;
+  @FXML private Button saveProjectButton;
 
-  @FXML
-  private ListView<?> teamMembersListView;
+  @FXML private ListView<?> teamMembersListView;
 
-  @FXML
-  private Tab requirementsTab;
+  @FXML private Tab requirementsTab;
 
-  @FXML
-  private ListView<?> requirementsListView;
+  @FXML private ListView<?> requirementsListView;
 
-  @FXML
-  private ComboBox<?> projectSelectedComboBox;
+  @FXML private ComboBox<?> projectSelectedComboBox;
 
-  @FXML
-  private TextField requirementIDTextField;
+  @FXML private TextField requirementIDTextField;
 
-  @FXML
-  private ComboBox<?> requirementStatusComboBox;
+  @FXML private ComboBox<?> requirementStatusComboBox;
 
-  @FXML
-  private ComboBox<?> requirementTypeComboBox;
+  @FXML private ComboBox<?> requirementTypeComboBox;
 
-  @FXML
-  private TextField requirementDescriptionTextField;
+  @FXML private TextField requirementDescriptionTextField;
 
-  @FXML
-  private TextField estimateHoursTextField;
+  @FXML private TextField estimateHoursTextField;
 
-  @FXML
-  private TextField priorityNumberTextField;
+  @FXML private TextField priorityNumberTextField;
 
-  @FXML
-  private TextField deadlineTextField;
+  @FXML private TextField deadlineTextField;
 
-  @FXML
-  private ComboBox<?> responsibleTeamMemberComboBox;
+  @FXML private ComboBox<?> responsibleTeamMemberComboBox;
 
-  @FXML
-  private Button addRequirementButton;
+  @FXML private Button addRequirementButton;
 
-  @FXML
-  private Button editRequirementButton;
+  @FXML private Button editRequirementButton;
 
-  @FXML
-  private Button saveRequirementButton;
+  @FXML private Button saveRequirementButton;
 
-  @FXML
-  private Tab tasksTab;
+  @FXML private Tab tasksTab;
 
-  @FXML
-  private ListView<?> tasksListView;
+  @FXML private ListView<?> tasksListView;
 
-  @FXML
-  private ComboBox<?> projectSelectedOnTasksComboBox;
+  @FXML private ComboBox<?> projectSelectedOnTasksComboBox;
 
-  @FXML
-  private ComboBox<?> requirementSelectedComboBox;
+  @FXML private ComboBox<?> requirementSelectedComboBox;
 
-  @FXML
-  private TextField taskIDTextField;
+  @FXML private TextField taskIDTextField;
 
-  @FXML
-  private ComboBox<?> taskStatusComboBox;
+  @FXML private ComboBox<?> taskStatusComboBox;
 
-  @FXML
-  private TextField taskDescriptionTextArea;
+  @FXML private TextField taskDescriptionTextArea;
 
-  @FXML
-  private TextField taskEstimateTextField;
+  @FXML private TextField taskEstimateTextField;
 
-  @FXML
-  private TextField taskTimeUsedTextField;
+  @FXML private TextField taskTimeUsedTextField;
 
-  @FXML
-  private TextField taskDeadline;
+  @FXML private TextField taskDeadline;
 
-  @FXML
-  private ComboBox<?> taskTeamMembersComboBox;
+  @FXML private ComboBox<?> taskTeamMembersComboBox;
 
-  @FXML
-  private Button addTaskButton;
+  @FXML private Button addTaskButton;
 
-  @FXML
-  private Button editTaskButton;
+  @FXML private Button editTaskButton;
 
-  @FXML
-  private Button saveTaskButton;
+  @FXML private Button saveTaskButton;
 
-  @FXML
-  private Tab employeesTab;
+  @FXML private Tab employeesTab;
 
-  @FXML
-  private ListView<String> employeesListView;
+  @FXML private ListView<String> employeesListView;
 
-  @FXML
-  private TextField employeeIDTextField;
+  @FXML private TextField employeeIDTextField;
 
-  @FXML
-  private TextField employeeFirstName;
+  @FXML private TextField employeeFirstName;
 
-  @FXML
-  private TextField employeeLastName;
+  @FXML private TextField employeeLastName;
 
-  @FXML
-  private ComboBox<?> employeeRoleComboBox;
+  @FXML private ComboBox<?> employeeRoleComboBox;
 
-  @FXML
-  private TextArea employeeTaskTextArea;
+  @FXML private TextArea employeeTaskTextArea;
 
-  @FXML
-  private Button addEmployeeButton;
+  @FXML private Button addEmployeeButton;
 
-  @FXML
-  private Button editEmployeeButton;
+  @FXML private Button editEmployeeButton;
 
-  @FXML
-  private Button saveEmployeeButton;
-
+  @FXML private Button saveEmployeeButton;
 
   private SystemAdapter adapter;
   private ProjectManagmentSystem colourIT;
@@ -181,8 +124,8 @@ public class Controller {
   public void initialize()
   {
     adapter = new SystemAdapter("colourIT.bin");
-    colourIT = adapter.getSystem();
     updateProjects();
+    updateEmployees();
   }
 
   public void handleActions(ActionEvent e)
@@ -203,8 +146,9 @@ public class Controller {
       }
       else
       {
-        String temp = projectsListView.getSelectionModel().getSelectedItem();
-        Project toEdit = adapter.getSystem().getProjectByName(temp);
+        int index = projectsListView.getSelectionModel().getSelectedIndex();
+        Project test = adapter.getSystem().getProjectList().get(index);
+        Project toEdit = adapter.getSystem().getProjectByName(test.getName());
         projectNameTextField.setText(toEdit.getName());
         projectNameTextField.setEditable(true);
         projectStatusComboBox.setDisable(false);
@@ -215,25 +159,36 @@ public class Controller {
     {
       availableEmployeeComboBox.setDisable(false);
       availableEmployeeComboBox.getSelectionModel().select(0);
+      employeeRoleComboBox.setDisable(false);
+      employeeRoleComboBox.getSelectionModel().select(0);
     }
     else if (e.getSource() == removeEmployeeButton)
     {
       availableEmployeeComboBox.setDisable(true);
+      employeeRoleComboBox.setDisable(true);
     }
     else if (e.getSource() == saveProjectButton)
     {
+      if (projectNameTextField.getText().isEmpty())
+      {
+        alertPopUp("Fill in all the fields.");
+        return;
+      }
       int index = projectsListView.getSelectionModel().getSelectedIndex();
-      String oldName = projectsListView.getSelectionModel().getSelectedItem();
       String newName = projectNameTextField.getText();
+      String status = projectStatusComboBox.getSelectionModel()
+          .getSelectedItem();
       if (index < 0)
       {
-        adapter.addProject(newName);
+        adapter.addProject(newName, status);
       }
       else
       {
         try
         {
-          adapter.editProject(newName, oldName);
+          String oldName = adapter.getSystem().getProjectList().get(index)
+              .getName();
+          adapter.editProject(newName, oldName, status);
         }
         catch (IllegalArgumentException er)
         {
@@ -244,6 +199,7 @@ public class Controller {
       projectNameTextField.setEditable(false);
       projectStatusComboBox.setDisable(true);
       availableEmployeeComboBox.setDisable(true);
+      employeeRoleComboBox.setDisable(true);
     }
 
     else if (e.getSource() == addRequirementButton
@@ -311,8 +267,7 @@ public class Controller {
       taskTeamMembersComboBox.setDisable(true);
     }
 
-    else if (e.getSource() == addEmployeeButton
-        || e.getSource() == editEmployeeButton)
+    else if (e.getSource() == addEmployeeButton)
     {
       employeeIDTextField.setEditable(true);
       employeeFirstName.setEditable(true);
@@ -326,16 +281,40 @@ public class Controller {
         employeeRoleComboBox.getSelectionModel().select(0);
       }
     }
+    else if (e.getSource() == editEmployeeButton)
+    {
+      if (employeesListView.getSelectionModel().getSelectedIndex() < 0)
+      {
+        alertPopUp("Choose employee to edit.");
+      }
+      else
+      {
+        int index = employeesListView.getSelectionModel().getSelectedIndex();
+        Employee toEdit = adapter.getSystem().getEmployees().get(index);
+        //TODO change employee ID from int to string
+        employeeIDTextField.setText(String.valueOf(toEdit.getId()));
+        employeeFirstName.setText(toEdit.getFirstName());
+        employeeLastName.setText(toEdit.getLastName());
+
+        employeeFieldsAreEditable(true);
+      }
+    }
     else if (e.getSource() == saveEmployeeButton)
     {
       //TODO change so it corresponds to te employee. Now is copied from the Projects
-      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      if (employeeIDTextField.getText().isEmpty() || employeeFirstName.getText().isEmpty() || employeeLastName.getText().isEmpty())
+      {
+        alertPopUp("Fill in all the fields.");
+        return;
+      }
+      int index = employeesListView.getSelectionModel().getSelectedIndex();
+      int employeeID = Integer.parseInt(employeeIDTextField.getText());
+      String firstName = employeeFirstName.getText();
+      String lastName = employeeLastName.getText();
+
+
       if (index < 0)
       {
-        int employeeID = Integer.parseInt(employeeIDTextField.getText());
-        String firstName = employeeFirstName.getText();
-        String lastName = employeeLastName.getText();
-
         Employee toAdd = new Employee(employeeID, firstName, lastName);
         try
         {
@@ -343,30 +322,25 @@ public class Controller {
         }
         catch (IllegalArgumentException empE)
         {
-
+          alertPopUp(empE.getMessage());
         }
       }
       else
       {
         try
         {
-         // adapter.editProject(newName, oldName);
-        }
-        catch (IllegalArgumentException er)
-        {
-          Alert alert = new Alert(Alert.AlertType.ERROR,
-              er.getMessage() , ButtonType.OK);
-          alert.setTitle("Overlapping data");
-          alert.setHeaderText(null);
+          Employee oldEmployee = adapter.getSystem().getEmployees().get(index);
+          Employee toEdit = new Employee(employeeID, firstName, lastName);
 
-          alert.showAndWait();
+          adapter.editEmployee(toEdit, oldEmployee);
+        }
+        catch (IllegalArgumentException error)
+        {
+          alertPopUp(error.getMessage());
         }
       }
       updateEmployees();
-      employeeIDTextField.setEditable(false);
-      employeeFirstName.setEditable(false);
-      employeeLastName.setEditable(false);
-      employeeRoleComboBox.setDisable(true);
+      employeeFieldsAreEditable(false);
     }
     else if (e.getSource() == exitMenuItem)
     {
@@ -399,32 +373,41 @@ public class Controller {
       alert.setContentText("Choose appropriate text");
       alert.showAndWait();
     }
-    else if (e.getSource() == projectsTab)
+  }
+
+  public void tabChange(Event event)
+  {
+    if (projectsTab.isSelected())
     {
       updateProjects();
     }
-    else if (e.getSource() == requirementsTab)
+    else if (requirementsTab.isSelected())
     {
       //TODO
     }
-    else if (e.getSource() == tasksTab)
+    else if (tasksTab.isSelected())
     {
       //TODO
     }
-    else if (e.getSource() == employeesTab)
+    else if (employeesTab.isSelected())
     {
       //TODO
+      updateEmployees();
     }
   }
 
   public void updateProjects()
   {
-    projectsListView.getItems().clear();
-    ProjectManagmentSystem temp = adapter.getSystem();
-    projectsListView.getItems().addAll(temp.toString().split("\n"));
-    projectStatusComboBox.getItems().add(Project.DONE);
-    projectStatusComboBox.getItems().add(Project.ARCHIVED);
-    projectStatusComboBox.getItems().add(Project.IN_PROCESS);
+    if (adapter != null)
+    {
+      projectsListView.getItems().clear();
+      projectStatusComboBox.getItems().clear();
+      ProjectManagmentSystem temp = adapter.getSystem();
+      projectsListView.getItems().addAll(temp.toString().split("\n"));
+      projectStatusComboBox.getItems().add(Project.IN_PROCESS);
+      projectStatusComboBox.getItems().add(Project.DONE);
+      projectStatusComboBox.getItems().add(Project.ARCHIVED);
+    }
   }
 
   public void updateEmployees()
@@ -434,10 +417,17 @@ public class Controller {
     employeesListView.getItems().addAll(employees.toString().split("\n"));
   }
 
+
+  public void employeeFieldsAreEditable(boolean areEditable)
+  {
+    employeeIDTextField.setEditable(areEditable);
+    employeeFirstName.setEditable(areEditable);
+    employeeLastName.setEditable(areEditable);
+    employeeRoleComboBox.setDisable(!areEditable);
+  }
   public void alertPopUp(String e)
   {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION,
-        e, ButtonType.OK);
+    Alert alert = new Alert(Alert.AlertType.INFORMATION, e, ButtonType.OK);
     alert.setTitle("Error");
     alert.setHeaderText(null);
 
