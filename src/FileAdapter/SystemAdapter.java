@@ -29,11 +29,17 @@ public class SystemAdapter
     system.addProject(name);
     save(system);
   }
-  public void editProject(String newName, String oldName)
+  public void editProject(String newName, String oldName) throws IllegalArgumentException
   {
     ProjectManagmentSystem system = getSystem();
-    system.editName(newName, oldName);
-    save(system);
+    try
+    {
+      system.getProjectList().editProjectName(newName, oldName);
+    }
+    finally
+    {
+      save(system);
+    }
   }
   //************************************Requirements*********************************
   public void addRequirement(String projectName, int requirementId,
