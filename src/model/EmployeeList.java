@@ -25,7 +25,7 @@ public class EmployeeList implements Serializable
     {
       if (e.getId() == employee.getId())
       {
-        return;
+        throw new IllegalArgumentException("Employee already exists.");
       }
     }
     employees.add(employee);
@@ -78,5 +78,15 @@ public class EmployeeList implements Serializable
       temp.add(e.copy());
     }
     return new EmployeeList(temp);
+  }
+
+  public String toString()
+  {
+    String str = "";
+    for (Employee employee : employees)
+    {
+      str += employee + "\n";
+    }
+    return str;
   }
 }
