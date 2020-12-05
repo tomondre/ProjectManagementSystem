@@ -4,7 +4,6 @@ import model.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class SystemAdapter
 {
@@ -21,19 +20,20 @@ public class SystemAdapter
   }
 
   //*******************************************Projects********************************
-  public void addProject(String name)
+  public void addProject(String name, String status)
   {
     ProjectManagmentSystem system = getSystem();
-    //system.getProjectList().addProject();
+    Project toAdd = new Project(name, status);
+    system.getProjectList().addProject(toAdd);
     save(system);
   }
 
-  public void editProject(String newName, String oldName) throws IllegalArgumentException
+  public void editProject(String newName, String oldName, String status) throws IllegalArgumentException
   {
     ProjectManagmentSystem system = getSystem();
     try
     {
-      system.getProjectList().editProjectName(newName, oldName);
+      system.getProjectList().editProject(newName, oldName, status);
     }
     finally
     {
@@ -165,6 +165,18 @@ public class SystemAdapter
     }
   }
 
+  public void editEmployee(Employee employee, Employee oldEmployee) throws IllegalArgumentException
+  {
+    ProjectManagmentSystem system = getSystem();
+    try
+    {
+      system.getEmployees().editEmployee(employee, oldEmployee);
+    }
+    finally
+    {
+      save(system);
+    }
+  }
 
   public void save(ProjectManagmentSystem system)
   {
