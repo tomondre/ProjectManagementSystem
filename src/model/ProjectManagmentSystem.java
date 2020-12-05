@@ -19,9 +19,9 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //********************************projectList************************************
-  public void addProject(String projectName)
+  public void addProject(Project project)
   {
-    projectList.addProject(new Project(projectName));
+    projectList.addProject(project);
   }
 
   public Project getProjectByName(String projectName)
