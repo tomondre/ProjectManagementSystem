@@ -29,10 +29,9 @@ public class ProjectManagmentSystem implements Serializable
     return projectList.getProjectByName(projectName);
   }
 
-  public void editName(String newName, String oldName)
+  public ProjectList getProjectList()
   {
-    Project temp = getProjectByName(oldName);
-    temp.setProjectName(newName);
+    return projectList;
   }
 
   public ProjectList getProjects()
