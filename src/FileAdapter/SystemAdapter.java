@@ -1,12 +1,10 @@
 package FileAdapter;
 
-import model.MyDate;
-import model.ProjectManagmentSystem;
-import model.Requirement;
-import model.Task;
+import model.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SystemAdapter
 {
@@ -26,9 +24,10 @@ public class SystemAdapter
   public void addProject(String name)
   {
     ProjectManagmentSystem system = getSystem();
-    system.addProject(name);
+    //system.getProjectList().addProject();
     save(system);
   }
+
   public void editProject(String newName, String oldName) throws IllegalArgumentException
   {
     ProjectManagmentSystem system = getSystem();
@@ -41,6 +40,7 @@ public class SystemAdapter
       save(system);
     }
   }
+
   //************************************Requirements*********************************
   public void addRequirement(String projectName, int requirementId,
       int priorityNumber, String description, double estimateTime, int day,
@@ -150,6 +150,21 @@ public class SystemAdapter
     }
     return system;
   }
+
+  //**************************************Employee*****************************************
+  public void addEmployee(Employee employee)
+  {
+    ProjectManagmentSystem system = getSystem();
+    try
+    {
+      system.getEmployees().addEmployee(employee);
+    }
+    finally
+    {
+      save(system);
+    }
+  }
+
 
   public void save(ProjectManagmentSystem system)
   {
