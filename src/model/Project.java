@@ -7,6 +7,9 @@ public class Project implements Serializable
   private String projectName;
   private EmployeeList projectTeam;
   private RequirementList requirementList;
+  public static final String DONE = "Done";
+  public static final String ARCHIVED = "Archived";
+  public static final String IN_PROCESS = "In process";
 
   //TODO add status of the projects - this we will be displaying in the website
 
@@ -28,6 +31,7 @@ public class Project implements Serializable
   {
     return projectName;
   }
+
   public void setProjectName(String name)
   {
     projectName = name;
