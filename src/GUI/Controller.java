@@ -5,6 +5,8 @@ import FileAdapter.SystemAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import model.Employee;
+import model.EmployeeList;
 import model.Project;
 import model.ProjectManagmentSystem;
 
@@ -35,7 +37,7 @@ public class Controller {
   private TextField projectNameTextField;
 
   @FXML
-  private ComboBox<?> projectStatusComboBox;
+  private ComboBox<String> projectStatusComboBox;
 
   @FXML
   private Button addProjectButton;
@@ -146,7 +148,7 @@ public class Controller {
   private Tab employeesTab;
 
   @FXML
-  private ListView<?> employeesListView;
+  private ListView<String> employeesListView;
 
   @FXML
   private TextField employeeIDTextField;
@@ -192,18 +194,21 @@ public class Controller {
       projectNameTextField.clear();
       projectStatusComboBox.getSelectionModel().select(0);
 
-
-
-
     }
     else if (e.getSource() == editProjectButton)
     {
-      String temp = projectsListView.getSelectionModel().getSelectedItem();
-      Project toEdit = adapter.getSystem().getProjectByName(temp);
-      projectNameTextField.setText(toEdit.getName());
-      projectNameTextField.setEditable(true);
-      projectStatusComboBox.setDisable(false);
-
+      if (projectsListView.getSelectionModel().getSelectedIndex() < 0)
+      {
+        alertPopUp("Choose project to edit.");
+      }
+      else
+      {
+        String temp = projectsListView.getSelectionModel().getSelectedItem();
+        Project toEdit = adapter.getSystem().getProjectByName(temp);
+        projectNameTextField.setText(toEdit.getName());
+        projectNameTextField.setEditable(true);
+        projectStatusComboBox.setDisable(false);
+      }
 
     }
     else if (e.getSource() == assignEmployeeButton)
@@ -232,12 +237,7 @@ public class Controller {
         }
         catch (IllegalArgumentException er)
         {
-          Alert alert = new Alert(Alert.AlertType.ERROR,
-              er.getMessage() , ButtonType.OK);
-          alert.setTitle("Overlapping data");
-          alert.setHeaderText(null);
-
-          alert.showAndWait();
+          alertPopUp(er.getMessage());
         }
       }
       updateProjects();
@@ -328,6 +328,41 @@ public class Controller {
     }
     else if (e.getSource() == saveEmployeeButton)
     {
+      //TODO change so it corresponds to te employee. Now is copied from the Projects
+      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      if (index < 0)
+      {
+        int employeeID = Integer.parseInt(employeeIDTextField.getText());
+        String firstName = employeeFirstName.getText();
+        String lastName = employeeLastName.getText();
+
+        Employee toAdd = new Employee(employeeID, firstName, lastName);
+        try
+        {
+          adapter.addEmployee(toAdd);
+        }
+        catch (IllegalArgumentException empE)
+        {
+
+        }
+      }
+      else
+      {
+        try
+        {
+         // adapter.editProject(newName, oldName);
+        }
+        catch (IllegalArgumentException er)
+        {
+          Alert alert = new Alert(Alert.AlertType.ERROR,
+              er.getMessage() , ButtonType.OK);
+          alert.setTitle("Overlapping data");
+          alert.setHeaderText(null);
+
+          alert.showAndWait();
+        }
+      }
+      updateEmployees();
       employeeIDTextField.setEditable(false);
       employeeFirstName.setEditable(false);
       employeeLastName.setEditable(false);
@@ -387,6 +422,25 @@ public class Controller {
     projectsListView.getItems().clear();
     ProjectManagmentSystem temp = adapter.getSystem();
     projectsListView.getItems().addAll(temp.toString().split("\n"));
+    projectStatusComboBox.getItems().add(Project.DONE);
+    projectStatusComboBox.getItems().add(Project.ARCHIVED);
+    projectStatusComboBox.getItems().add(Project.IN_PROCESS);
   }
 
+  public void updateEmployees()
+  {
+    employeesListView.getItems().clear();
+    EmployeeList employees = adapter.getSystem().getEmployees();
+    employeesListView.getItems().addAll(employees.toString().split("\n"));
+  }
+
+  public void alertPopUp(String e)
+  {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION,
+        e, ButtonType.OK);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+
+    alert.showAndWait();
+  }
 }
