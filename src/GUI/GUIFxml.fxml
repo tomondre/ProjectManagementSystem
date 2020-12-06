@@ -87,12 +87,12 @@
                                     <Insets top="35.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox fx:id="availableEmployeeComboBox" disable="true" prefWidth="222.0" promptText="Asan Aliosman">
+                              <ComboBox fx:id="availableEmployeeComboBox" disable="true" prefWidth="222.0" promptText="Team member">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox fx:id="employeeRoleComboBox" disable="true" prefHeight="25.0" prefWidth="225.0" promptText="Scrum master">
+                              <ComboBox fx:id="employeeRoleComboBox" disable="true" prefHeight="25.0" prefWidth="225.0" promptText="Role">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
