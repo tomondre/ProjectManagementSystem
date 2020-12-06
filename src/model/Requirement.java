@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Requirement implements Serializable
 {
-  private final String APPROVED = "Approved";                           //we have to decide which system of comparing Strings (roles and statuses) we want to use
-  private final String REJECTED = "Rejected";
-  private final String STARTED = "Started";
-  private final String NOTSTARTED = "Not started";
-  private final String ENDED = "Ended";
+  public static final String APPROVED = "Approved";                           //we have to decide which system of comparing Strings (roles and statuses) we want to use
+  public static final String REJECTED = "Rejected";
+  public static final String STARTED = "Started";
+  public static final String NOT_STARTED = "Not started";
+  public static final String ENDED = "Ended";
   private int requirementId;
   private String description;
   private String status;
@@ -17,9 +17,10 @@ public class Requirement implements Serializable
   private MyDate deadline;
   private TaskList taskList;
   private Employee responsibleEmployee;
+  private boolean isFunctional;
 
   public Requirement(int requirementId, int priorityNumber, String description,
-      double estimateTime, MyDate deadline, Employee responsibleEmployee)
+      double estimateTime, String status, boolean isFunctional, MyDate deadline, Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
     this.responsibleEmployee = responsibleEmployee;
@@ -28,7 +29,8 @@ public class Requirement implements Serializable
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
-    status = NOTSTARTED;
+    this.isFunctional = isFunctional;
+    setStatus(status);
     this.deadline = deadline;
   }
 
@@ -55,32 +57,12 @@ public class Requirement implements Serializable
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
-    if (status.charAt(0) == 'A' || status.charAt(0) == 'a')
-    {
-      this.status = APPROVED;
-    }
-    else if (status.charAt(0) == 'N' || status.charAt(0) == 'n')
-    {
-      this.status = NOTSTARTED;
-    }
-    else if (status.toLowerCase().charAt(0) == 's')
-    {
-      this.status = STARTED;
-    }
-    else if (status.charAt(0) == 'E' || status.charAt(0) == 'e')
-    {
-      this.status = ENDED;
-    }
+    setStatus(status);
   }
 
-  public void setApproved()
+  public void setStatus(String status)
   {
-    status = APPROVED;
-  }
-
-  public void setRejected()
-  {
-    status = REJECTED;
+    this.status = status;
   }
 
   public boolean isDone()
