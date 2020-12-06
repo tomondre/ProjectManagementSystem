@@ -243,7 +243,8 @@ public class Controller
           .addAll(Requirement.NOT_STARTED, Requirement.STARTED,
               Requirement.ENDED, Requirement.APPROVED, Requirement.REJECTED);
       requirementStatusComboBox.getSelectionModel().select(0);
-      requirementTypeComboBox.getItems().addAll(Requirement.FUNCTIONAL, Requirement.NON_FUNCTIONAL);
+      requirementTypeComboBox.getItems()
+          .addAll(Requirement.FUNCTIONAL, Requirement.NON_FUNCTIONAL);
       requirementTypeComboBox.getSelectionModel().select(0);
       requirementDescriptionTextField.clear();
       estimateHoursTextField.clear();
@@ -263,14 +264,19 @@ public class Controller
         alertPopUp("Choose requirement to edit.");
         return;
       }
-      int projectIndex = projectSelectedComboBox.getSelectionModel().getSelectedIndex();
+      int projectIndex = projectSelectedComboBox.getSelectionModel()
+          .getSelectedIndex();
       Project project = adapter.getSystem().getProjectList().get(projectIndex);
-      Requirement requirementToEdit = adapter.getSystem().getRequirementList(project.getName()).get(index);
+      Requirement requirementToEdit = adapter.getSystem()
+          .getRequirementList(project.getName()).get(index);
 
       requirementIDTextField.setText(requirementToEdit.getID());
-      requirementDescriptionTextField.setText(requirementToEdit.getDescription());
-      estimateHoursTextField.setText(String.valueOf(requirementToEdit.getEstimateTime()));
-      priorityNumberTextField.setText(String.valueOf(requirementToEdit.getPriority()));
+      requirementDescriptionTextField
+          .setText(requirementToEdit.getDescription());
+      estimateHoursTextField
+          .setText(String.valueOf(requirementToEdit.getEstimateTime()));
+      priorityNumberTextField
+          .setText(String.valueOf(requirementToEdit.getPriority()));
       deadlineTextField.setText(requirementToEdit.getDeadline().toString());
 
       //TODO responsible team member.
@@ -279,38 +285,26 @@ public class Controller
     else if (e.getSource() == saveRequirementButton)
     {
 
-
       requirementsFieldsAreEditable(false);
     }
-    else if (e.getSource() == addTaskButton || e.getSource() == editTaskButton)
+    else if (e.getSource() == addTaskButton)
     {
-      taskIDTextField.setEditable(true);
-      taskStatusComboBox.setDisable(false);
-      taskDescriptionTextArea.setEditable(true);
-      taskEstimateTextField.setEditable(true);
-      taskTimeUsedTextField.setEditable(true);
-      taskDeadline.setEditable(true);
-      taskTeamMembersComboBox.setDisable(false);
-      if (e.getSource() == addTaskButton)
-      {
-        taskIDTextField.clear();
-        taskStatusComboBox.getSelectionModel().select(0);
-        taskDescriptionTextArea.clear();
-        taskEstimateTextField.clear();
-        taskTimeUsedTextField.clear();
-        taskDeadline.clear();
-        taskTeamMembersComboBox.getSelectionModel().select(0);
-      }
+      taskFieldsAreEditable(true);
+      taskIDTextField.clear();
+      taskStatusComboBox.getSelectionModel().select(0);
+      taskDescriptionTextArea.clear();
+      taskEstimateTextField.clear();
+      taskTimeUsedTextField.clear();
+      taskDeadline.clear();
+      taskTeamMembersComboBox.getSelectionModel().select(0);
+    }
+    else if (e.getSource() == editTaskButton)
+    {
+      taskFieldsAreEditable(true);
     }
     else if (e.getSource() == saveTaskButton)
     {
-      taskIDTextField.setEditable(false);
-      taskStatusComboBox.setDisable(true);
-      taskDescriptionTextArea.setEditable(false);
-      taskEstimateTextField.setEditable(false);
-      taskTimeUsedTextField.setEditable(false);
-      taskDeadline.setEditable(false);
-      taskTeamMembersComboBox.setDisable(true);
+      taskFieldsAreEditable(false);
     }
 
     else if (e.getSource() == addEmployeeButton)
@@ -518,6 +512,17 @@ public class Controller
     employeeFirstName.setEditable(areEditable);
     employeeLastName.setEditable(areEditable);
     employeeRoleComboBox.setDisable(!areEditable);
+  }
+
+  public void taskFieldsAreEditable(boolean areEditable)
+  {
+    taskIDTextField.setEditable(areEditable);
+    taskStatusComboBox.setDisable(!areEditable);
+    taskDescriptionTextArea.setEditable(areEditable);
+    taskEstimateTextField.setEditable(areEditable);
+    taskTimeUsedTextField.setEditable(areEditable);
+    taskDeadline.setEditable(areEditable);
+    taskTeamMembersComboBox.setDisable(!areEditable);
   }
 
   public void teamMembersFieldsAreEditable(boolean areEditable)
