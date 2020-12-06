@@ -32,7 +32,7 @@ public class Controller
 
   @FXML private Button editProjectButton;
 
-  @FXML private ComboBox<?> availableEmployeeComboBox;
+  @FXML private ComboBox<String> availableEmployeeComboBox;
 
   @FXML private Button assignEmployeeButton;
 
@@ -40,7 +40,7 @@ public class Controller
 
   @FXML private Button saveProjectButton;
 
-  @FXML private ListView<?> teamMembersListView;
+  @FXML private ListView<String> teamMembersListView;
 
   @FXML private Tab requirementsTab;
 
@@ -108,7 +108,7 @@ public class Controller
 
   @FXML private TextField employeeLastName;
 
-  @FXML private ComboBox<?> employeeRoleComboBox;
+  @FXML private ComboBox<String> employeeRoleComboBox;
 
   @FXML private TextArea employeeTaskTextArea;
 
@@ -117,7 +117,9 @@ public class Controller
   @FXML private Button editEmployeeButton;
 
   @FXML private Button saveEmployeeButton;
-
+  //TODO stuped solution
+  private EmployeeList available;
+  private Project toEdit;
   private SystemAdapter adapter;
   private ProjectManagmentSystem colourIT;
 
@@ -138,6 +140,7 @@ public class Controller
       projectStatusComboBox.getSelectionModel().select(0);
 
     }
+
     else if (e.getSource() == editProjectButton)
     {
       if (projectsListView.getSelectionModel().getSelectedIndex() < 0)
@@ -147,20 +150,71 @@ public class Controller
       else
       {
         int index = projectsListView.getSelectionModel().getSelectedIndex();
+        //TODO there are 2 projects referring to the same object. Change it and try if it works.
         Project test = adapter.getSystem().getProjectList().get(index);
-        Project toEdit = adapter.getSystem().getProjectByName(test.getName());
+        toEdit = adapter.getSystem().getProjectByName(test.getName());
         projectNameTextField.setText(toEdit.getName());
-        projectNameTextField.setEditable(true);
-        projectStatusComboBox.setDisable(false);
-      }
 
+        projectFieldsAreEditable(true);
+        teamMembersFieldsAreEditable(true);
+
+        availableEmployeeComboBox.getSelectionModel().select(0);
+        employeeRoleComboBox.getSelectionModel().select(0);
+
+        availableEmployeeComboBox.getItems().clear();
+        employeeRoleComboBox.getItems().clear();
+
+        available = adapter.getSystem().getEmployees();
+        availableEmployeeComboBox.getItems()
+            .addAll(available.toString().split("\n"));
+
+        employeeRoleComboBox.getItems().add(Employee.DEVELOPER);
+        employeeRoleComboBox.getItems().add(Employee.SCRUM_MASTER);
+        employeeRoleComboBox.getItems().add(Employee.PRODUCT_OWNER);
+        employeeRoleComboBox.getItems().add(Employee.PROJECT_CREATOR);
+      }
+      updateTeamMembers();
     }
+    //TODO Not sure how to change it. To assign an employee and show it on the team members listview.
     else if (e.getSource() == assignEmployeeButton)
     {
-      availableEmployeeComboBox.setDisable(false);
-      availableEmployeeComboBox.getSelectionModel().select(0);
-      employeeRoleComboBox.setDisable(false);
-      employeeRoleComboBox.getSelectionModel().select(0);
+        int employeeIndex = availableEmployeeComboBox.getSelectionModel()
+            .getSelectedIndex();
+        Employee chosenEmployee = available.get(employeeIndex);
+
+        String role = employeeRoleComboBox.getSelectionModel().getSelectedItem();
+
+        toEdit.addTeamMember(chosenEmployee, role);
+        updateTeamMembers();
+
+      /*if (projectsListView.getSelectionModel().getSelectedIndex() == -1)
+      {
+        alertPopUp("Select project.");
+        return;
+      }
+      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      Project toAssignTeamMember = adapter.getSystem().getProjectList()
+          .get(index);
+
+
+      availableEmployeeComboBox.getItems().clear();
+      employeeRoleComboBox.getItems().clear();
+      EmployeeList available = adapter.getSystem().getEmployees();
+      availableEmployeeComboBox.getItems()
+          .addAll(available.toString().split("\n"));
+      employeeRoleComboBox.getItems().add(Employee.DEVELOPER);
+      employeeRoleComboBox.getItems().add(Employee.SCRUM_MASTER);
+      employeeRoleComboBox.getItems().add(Employee.PRODUCT_OWNER);
+      employeeRoleComboBox.getItems().add(Employee.PROJECT_CREATOR);
+
+      int employeeIndex = availableEmployeeComboBox.getSelectionModel()
+          .getSelectedIndex();
+      Employee chosenEmployee = available.get(employeeIndex);
+
+      String role = employeeRoleComboBox.getSelectionModel().getSelectedItem();
+
+      toAssignTeamMember.addTeamMember(chosenEmployee, role);*/
+
     }
     else if (e.getSource() == removeEmployeeButton)
     {
@@ -302,7 +356,8 @@ public class Controller
     else if (e.getSource() == saveEmployeeButton)
     {
       //TODO change so it corresponds to te employee. Now is copied from the Projects
-      if (employeeIDTextField.getText().isEmpty() || employeeFirstName.getText().isEmpty() || employeeLastName.getText().isEmpty())
+      if (employeeIDTextField.getText().isEmpty() || employeeFirstName.getText()
+          .isEmpty() || employeeLastName.getText().isEmpty())
       {
         alertPopUp("Fill in all the fields.");
         return;
@@ -311,7 +366,6 @@ public class Controller
       int employeeID = Integer.parseInt(employeeIDTextField.getText());
       String firstName = employeeFirstName.getText();
       String lastName = employeeLastName.getText();
-
 
       if (index < 0)
       {
@@ -410,6 +464,21 @@ public class Controller
     }
   }
 
+  public void updateTeamMembers()
+  {
+    if (projectsListView.getSelectionModel().getSelectedIndex() != -1)
+    {
+      teamMembersListView.getItems().clear();
+      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      Project getEmployeesFromProject = adapter.getSystem().getProjectList().get(index);
+      EmployeeList teamMembers = adapter.getSystem().getProjectList().getTeamMembers(getEmployeesFromProject);
+      if (teamMembers != null)
+      {
+        teamMembersListView.getItems().addAll(teamMembers.toString().split("\n"));
+      }
+    }
+  }
+
   public void updateEmployees()
   {
     employeesListView.getItems().clear();
@@ -417,6 +486,11 @@ public class Controller
     employeesListView.getItems().addAll(employees.toString().split("\n"));
   }
 
+  public void projectFieldsAreEditable(boolean areEditable)
+  {
+    projectNameTextField.setEditable(areEditable);
+    projectStatusComboBox.setDisable(!areEditable);
+  }
 
   public void employeeFieldsAreEditable(boolean areEditable)
   {
@@ -425,6 +499,15 @@ public class Controller
     employeeLastName.setEditable(areEditable);
     employeeRoleComboBox.setDisable(!areEditable);
   }
+
+  public void teamMembersFieldsAreEditable(boolean areEditable)
+  {
+    availableEmployeeComboBox.setDisable(!areEditable);
+    availableEmployeeComboBox.getSelectionModel().select(0);
+    employeeRoleComboBox.setDisable(!areEditable);
+
+  }
+
   public void alertPopUp(String e)
   {
     Alert alert = new Alert(Alert.AlertType.INFORMATION, e, ButtonType.OK);
