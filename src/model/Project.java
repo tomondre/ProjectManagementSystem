@@ -82,6 +82,11 @@ public class Project implements Serializable
     }
   }
 
+  public EmployeeList getAllTeamMembers()
+  {
+    return projectTeam;
+  }
+
   public Employee getTeamMember(int employeeID)
   {
     if (projectTeam != null)

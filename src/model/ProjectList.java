@@ -60,6 +60,11 @@ public class ProjectList implements Serializable
     return projects.size();
   }
 
+  public EmployeeList getTeamMembers(Project project)
+  {
+    return project.getAllTeamMembers();
+  }
+
   public void remove(Project project)
   {
     projects.remove(project);
