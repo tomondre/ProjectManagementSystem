@@ -78,6 +78,25 @@ public class Requirement implements Serializable
   }
 
   //***********************************GETTERS**********************************
+  public String getDescription()
+  {
+    return description;
+  }
+
+  public double getEstimateTime()
+  {
+    return estimateTime;
+  }
+
+  public int getPriorityNumber()
+  {
+    return priorityNumber;
+  }
+
+  public MyDate getDeadline()
+  {
+    return deadline;
+  }
 
   public String getStatus()
   {
