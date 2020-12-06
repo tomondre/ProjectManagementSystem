@@ -9,6 +9,8 @@ public class Requirement implements Serializable
   public static final String STARTED = "Started";
   public static final String NOT_STARTED = "Not started";
   public static final String ENDED = "Ended";
+  public static final String FUNCTIONAL = "Functional";
+  public static final String NON_FUNCTIONAL = "Non functional";
   private int requirementId;
   private String description;
   private String status;
@@ -17,10 +19,10 @@ public class Requirement implements Serializable
   private MyDate deadline;
   private TaskList taskList;
   private Employee responsibleEmployee;
-  private boolean isFunctional;
+  private String requirementType;
 
   public Requirement(int requirementId, int priorityNumber, String description,
-      double estimateTime, String status, boolean isFunctional, MyDate deadline, Employee responsibleEmployee)
+      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
     this.responsibleEmployee = responsibleEmployee;
@@ -29,7 +31,7 @@ public class Requirement implements Serializable
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
-    this.isFunctional = isFunctional;
+    setRequirementType(requirementType);
     setStatus(status);
     this.deadline = deadline;
   }
@@ -63,6 +65,11 @@ public class Requirement implements Serializable
   public void setStatus(String status)
   {
     this.status = status;
+  }
+
+  public void setRequirementType(String requirementType)
+  {
+    this.requirementType = requirementType;
   }
 
   public boolean isDone()
