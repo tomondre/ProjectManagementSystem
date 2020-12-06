@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Employee implements Serializable
 {
-  private static final String TEAM_MEMBER = "Team member";
-  private static final String SCRUM_MASTER = "Scrum master";
-  private static final String PRODUCT_OWNER = "Product owner";
-  private static final String PROJECT_CREATOR = "Project creator";
+  public static final String DEVELOPER = "Developer";
+  public static final String SCRUM_MASTER = "Scrum master";
+  public static final String PRODUCT_OWNER = "Product owner";
+  public static final String PROJECT_CREATOR = "Project creator";
   private int employeeID;
   private String firstName;
   private String lastName;
@@ -87,28 +87,7 @@ public class Employee implements Serializable
 
   public void setRole(String role)
   {
-    if (role != "")
-    {
-      if (role.charAt(0) == 'T' || role.charAt(0) == 't')
-      {
-        this.role = TEAM_MEMBER;
-      }
-      else if (role.charAt(0) == 'S' || role.charAt(0) == 's')
-      {
-        this.role = SCRUM_MASTER;
-      }
-
-      else if ((role.charAt(0) == 'P' || role.charAt(0) == 'p')
-          && role.charAt(3) == 'd')
-      {
-        this.role = PRODUCT_OWNER;
-      }
-      else if ((role.charAt(0) == 'P' || role.charAt(0) == 'p')
-          && role.charAt(3) == 'j')
-      {
-        this.role = PROJECT_CREATOR;
-      }
-    }
+    this.role = role;
   }
 
   public void setTasks(TaskList tasks)
@@ -140,5 +119,10 @@ public class Employee implements Serializable
   public String toString()
   {
     return "(" + employeeID +")" + firstName + " " + lastName;
+  }
+
+  public String toStringTeamMember()
+  {
+    return firstName + " " + lastName + "(" + role + ")";
   }
 }
