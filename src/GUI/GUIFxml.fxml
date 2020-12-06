@@ -142,7 +142,7 @@
                         <VBox prefHeight="200.0" prefWidth="300.0">
                            <children>
                               <Label text="Project selected:" />
-                              <ComboBox fx:id="projectSelectedComboBox" prefHeight="25.0" prefWidth="329.0" />
+                              <ComboBox fx:id="projectSelectedComboBox" onAction="#handleActions" prefHeight="25.0" prefWidth="329.0" />
                               <Label text="Requirement ID:">
                                  <VBox.margin>
                                     <Insets top="5.0" />
