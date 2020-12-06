@@ -119,7 +119,7 @@ public class Controller
   @FXML private Button editEmployeeButton;
 
   @FXML private Button saveEmployeeButton;
-  //TODO stuped solution
+  //TODO stupid solution
   private EmployeeList available;
   private Project toEdit;
   private SystemAdapter adapter;
@@ -139,8 +139,7 @@ public class Controller
     {
       projectNameTextField.setEditable(true);
       projectStatusComboBox.setDisable(false);
-      projectNameTextField.clear();
-      projectStatusComboBox.getSelectionModel().select(0);
+      getProjectFieldsCleared();
 
     }
 
@@ -165,19 +164,12 @@ public class Controller
       Command = "assign";
       teamMembersFieldsAreEditable(true);
 
-      availableEmployeeComboBox.getSelectionModel().select(0);
-      employeeRoleComboBox.getSelectionModel().select(0);
-
-      availableEmployeeComboBox.getItems().clear();
-      employeeRoleComboBox.getItems().clear();
+      getTeamMembersFieldsCleared();
 
       available = adapter.getSystem().getEmployees();
       availableEmployeeComboBox.getItems()
           .addAll(available.toString().split("\n"));
 
-      employeeRoleComboBox.getItems()
-          .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER,
-              Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
     }
     else if (e.getSource() == removeEmployeeButton)
     {
@@ -213,6 +205,7 @@ public class Controller
           alertPopUp(er.getMessage());
         }
       }
+      //TODO not sure. As probably have to change the whole save button for the projects
       if (Command.equals("assign"))
       {
         int employeeIndex = availableEmployeeComboBox.getSelectionModel()
@@ -228,30 +221,17 @@ public class Controller
       }
       updateProjects();
       updateTeamMembers();
-      projectNameTextField.setEditable(false);
-      projectStatusComboBox.setDisable(true);
-      availableEmployeeComboBox.setDisable(true);
-      employeeRoleComboBox.setDisable(true);
+
+      projectFieldsAreEditable(false);
+      teamMembersFieldsAreEditable(false);
+
+      getTeamMembersFieldsCleared();
     }
 
     else if (e.getSource() == addRequirementButton)
     {
       requirementsFieldsAreEditable(true);
-
-      requirementIDTextField.clear();
-      requirementStatusComboBox.getItems()
-          .addAll(Requirement.NOT_STARTED, Requirement.STARTED,
-              Requirement.ENDED, Requirement.APPROVED, Requirement.REJECTED);
-      requirementStatusComboBox.getSelectionModel().select(0);
-      requirementTypeComboBox.getItems()
-          .addAll(Requirement.FUNCTIONAL, Requirement.NON_FUNCTIONAL);
-      requirementTypeComboBox.getSelectionModel().select(0);
-      requirementDescriptionTextField.clear();
-      estimateHoursTextField.clear();
-      priorityNumberTextField.clear();
-      deadlineTextField.clear();
-      //TODO responsible team member. First have to figure out how to assign the team members to the projects.
-      responsibleTeamMemberComboBox.getSelectionModel().select(0);
+      getRequirementFieldsCleared();
     }
 
     else if (e.getSource() == editRequirementButton)
@@ -280,23 +260,63 @@ public class Controller
       deadlineTextField.setText(requirementToEdit.getDeadline().toString());
 
       //TODO responsible team member.
-
+      getRequirementFieldsCleared();
     }
     else if (e.getSource() == saveRequirementButton)
     {
-
+      //TODO proper validator for text
+      if (requirementIDTextField.getText().isEmpty())
+      {
+        alertPopUp("Fill in all the fields.");
+        return;
+      }
+      int index = requirementsListView.getSelectionModel().getSelectedIndex();
+      int projectIndex = projectSelectedComboBox.getSelectionModel()
+          .getSelectedIndex();
+      Project selectedProject = adapter.getSystem().getProjectList()
+          .get(projectIndex);
+      String requirementID = requirementIDTextField.getText();
+      String status = requirementStatusComboBox.getSelectionModel()
+          .getSelectedItem();
+      String requirementType = requirementTypeComboBox.getSelectionModel()
+          .getSelectedItem();
+      String requirementDescription = requirementDescriptionTextField.getText();
+      double timeEstimate = Double
+          .parseDouble(estimateHoursTextField.getText());
+      int priorityNumber = Integer.parseInt(priorityNumberTextField.getText());
+      String[] date = deadlineTextField.getText().split("[0-9]+");
+      MyDate deadline = new MyDate(Integer.parseInt(date[0]),
+          Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+      int responsibleEmployeeIndex = responsibleTeamMemberComboBox
+          .getSelectionModel().getSelectedIndex();
+      //TODO to be changed to take from the employees assigned to the project
+      Employee responsibleEmployee = adapter.getSystem().getEmployees()
+          .get(responsibleEmployeeIndex);
+      if (index < 0)
+      {
+        adapter.addRequirement(selectedProject.getName(), requirementID,
+            priorityNumber, requirementDescription, timeEstimate, status,
+            requirementType, deadline, responsibleEmployee);
+      }
+      else
+      {
+        try
+        {
+          //TODO finish the edit requirement.
+          //adapter
+        }
+        catch (IllegalArgumentException er)
+        {
+          alertPopUp(er.getMessage());
+        }
+      }
       requirementsFieldsAreEditable(false);
+      getRequirementFieldsCleared();
     }
     else if (e.getSource() == addTaskButton)
     {
       taskFieldsAreEditable(true);
-      taskIDTextField.clear();
-      taskStatusComboBox.getSelectionModel().select(0);
-      taskDescriptionTextArea.clear();
-      taskEstimateTextField.clear();
-      taskTimeUsedTextField.clear();
-      taskDeadline.clear();
-      taskTeamMembersComboBox.getSelectionModel().select(0);
+      getTaskFieldsCleared();
     }
     else if (e.getSource() == editTaskButton)
     {
@@ -305,6 +325,7 @@ public class Controller
     else if (e.getSource() == saveTaskButton)
     {
       taskFieldsAreEditable(false);
+      getTaskFieldsCleared();
     }
 
     else if (e.getSource() == addEmployeeButton)
@@ -407,11 +428,7 @@ public class Controller
     }
     else if (e.getSource() == aboutMenuItem)
     {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setHeaderText(null);
-      alert.setTitle("About");
-      alert.setContentText("Choose appropriate text");
-      alert.showAndWait();
+      alertPopUp("Choose appropriate text");
     }
     else if (e.getSource() == projectSelectedComboBox)
     {
@@ -458,9 +475,8 @@ public class Controller
       projectStatusComboBox.getItems().clear();
       ProjectManagmentSystem temp = adapter.getSystem();
       projectsListView.getItems().addAll(temp.toString().split("\n"));
-      projectStatusComboBox.getItems().add(Project.IN_PROCESS);
-      projectStatusComboBox.getItems().add(Project.DONE);
-      projectStatusComboBox.getItems().add(Project.ARCHIVED);
+      projectStatusComboBox.getItems()
+          .addAll(Project.IN_PROCESS, Project.DONE, Project.ARCHIVED);
     }
   }
 
@@ -528,9 +544,60 @@ public class Controller
   public void teamMembersFieldsAreEditable(boolean areEditable)
   {
     availableEmployeeComboBox.setDisable(!areEditable);
-    availableEmployeeComboBox.getSelectionModel().select(0);
     employeeRoleComboBox.setDisable(!areEditable);
 
+  }
+
+  public void getProjectFieldsCleared()
+  {
+    projectNameTextField.clear();
+    projectStatusComboBox.getSelectionModel().select(0);
+  }
+
+  public void getTeamMembersFieldsCleared()
+  {
+    availableEmployeeComboBox.getSelectionModel().select(0);
+    employeeRoleComboBox.getSelectionModel().select(0);
+
+    availableEmployeeComboBox.getItems().clear();
+    employeeRoleComboBox.getItems().clear();
+
+    employeeRoleComboBox.getItems()
+        .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER,
+            Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
+
+  }
+
+  public void getRequirementFieldsCleared()
+  {
+    requirementIDTextField.clear();
+    requirementStatusComboBox.getItems().clear();
+    requirementStatusComboBox.getItems()
+        .addAll(Requirement.NOT_STARTED, Requirement.STARTED, Requirement.ENDED,
+            Requirement.APPROVED, Requirement.REJECTED);
+    requirementStatusComboBox.getSelectionModel().select(0);
+    requirementTypeComboBox.getItems().clear();
+    requirementTypeComboBox.getItems()
+        .addAll(Requirement.FUNCTIONAL, Requirement.NON_FUNCTIONAL);
+    requirementTypeComboBox.getSelectionModel().select(0);
+    requirementDescriptionTextField.clear();
+    estimateHoursTextField.clear();
+    priorityNumberTextField.clear();
+    deadlineTextField.clear();
+    //TODO responsible team member. First have to figure out how to assign the team members to the projects.
+    responsibleTeamMemberComboBox.getItems().clear();
+    responsibleTeamMemberComboBox.getSelectionModel().select(0);
+  }
+
+  public void getTaskFieldsCleared()
+  {
+    taskIDTextField.clear();
+    taskStatusComboBox.getSelectionModel().select(0);
+    taskDescriptionTextArea.clear();
+    taskEstimateTextField.clear();
+    taskTimeUsedTextField.clear();
+    taskDeadline.clear();
+    taskTeamMembersComboBox.getSelectionModel().select(0);
   }
 
   public void alertPopUp(String e)
