@@ -71,7 +71,7 @@ public class Project implements Serializable
     projectTeam.deleteRoles();
   }
 
-  public void addTeamMemberToTask(int requirementID, int taskID, int employeeID)
+  public void addTeamMemberToTask(String requirementID, int taskID, int employeeID)
   {
     if (getTaskById(requirementID, taskID) != null
         && getTeamMember(employeeID) != null)
@@ -99,12 +99,12 @@ public class Project implements Serializable
     return null;
   }
 
-  public Task getTaskById(int requirementID, int taskID)
+  public Task getTaskById(String requirementID, int taskID)
   {
     return requirementList.getTaskById(requirementID, taskID);
   }
 
-  public Requirement getRequirementByID(int requirementID)
+  public Requirement getRequirementByID(String requirementID)
   {
     return requirementList.getRequirementByID(requirementID);
   }
@@ -114,7 +114,7 @@ public class Project implements Serializable
     requirementList.addRequirement(requirement);
   }
 
-  public void removeRequirement(int requirementID)
+  public void removeRequirement(String requirementID)
   {
     requirementList.removeRequirement(requirementID);
   }
@@ -123,11 +123,11 @@ public class Project implements Serializable
   {
     return projectTeam;
   }
-
-  public void sortRequirements()
+  //TODO requirement sorting
+  /*public void sortRequirements()
   {
     requirementList.sortRequirementsByPriorities();
-  }
+  }*/
 
   //change this so it will match constructor
   public Project copy()

@@ -11,7 +11,7 @@ public class Requirement implements Serializable
   public static final String ENDED = "Ended";
   public static final String FUNCTIONAL = "Functional";
   public static final String NON_FUNCTIONAL = "Non functional";
-  private int requirementId;
+  private String requirementId;
   private String description;
   private String status;
   private double estimateTime;
@@ -21,7 +21,7 @@ public class Requirement implements Serializable
   private Employee responsibleEmployee;
   private String requirementType;
 
-  public Requirement(int requirementId, int priorityNumber, String description,
+  public Requirement(String requirementId, int priorityNumber, String description,
       double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
@@ -37,7 +37,7 @@ public class Requirement implements Serializable
   }
 
   //Constructor for copy method
-  public Requirement(int requirementId, int priorityNumber, String description,
+  public Requirement(String requirementId, int priorityNumber, String description,
       double estimateTime, MyDate deadline, Employee responsibleEmployee,
       TaskList taskList, String status)
   {
@@ -104,7 +104,7 @@ public class Requirement implements Serializable
     return priorityNumber;
   }
 
-  public int getID()
+  public String getID()
   {
     return requirementId;
   }

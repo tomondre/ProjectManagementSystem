@@ -36,8 +36,8 @@ public class RequirementList implements Serializable
     }
     requirements.add(r);
   }
-
-  public void sortRequirementsByPriorities()
+  //TODO fix the sorting
+  /*public void sortRequirementsByPriorities()
   {
 
     Requirement temp;
@@ -59,13 +59,13 @@ public class RequirementList implements Serializable
         }
       }
     }
-  }
+  }*/
 
-  public Requirement getRequirementByID(int requirementID)
+  public Requirement getRequirementByID(String requirementID)
   {
     for (Requirement requirement : requirements)
     {
-      if (requirement.getID() == requirementID)
+      if (requirement.getID().equals(requirementID))
       {
         return requirement;
       }
@@ -73,7 +73,12 @@ public class RequirementList implements Serializable
     return null;
   }
 
-  public void removeRequirement(int requirementID)
+  public Requirement get(int index)
+  {
+    return requirements.get(index);
+  }
+
+  public void removeRequirement(String requirementID)
   {
     requirements.remove(getRequirementByID(requirementID));
   }
@@ -91,7 +96,7 @@ public class RequirementList implements Serializable
     return temp;
   }
 
-  public Task getTaskById(int requirementID, int taskID)
+  public Task getTaskById(String requirementID, int taskID)
   {
     if (getRequirementByID(requirementID) != null)
     {

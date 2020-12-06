@@ -43,13 +43,13 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public Requirement getRequirementByID(String projectName, int requirementID)
+  public Requirement getRequirementByID(String projectName, String  requirementID)
   {
     return getProjectByName(projectName).getRequirementByID(requirementID);
   }
 
   //TODO check if its the same as requirement constructor
-  public void setRequirement(String projectName, int requirementId,
+  public void setRequirement(String projectName, String requirementId,
       int priorityNumber, String description, double estimateTime,
       MyDate deadline, String status)
 
@@ -57,18 +57,18 @@ public class ProjectManagmentSystem implements Serializable
     getRequirementByID(projectName, requirementId)
         .set(priorityNumber, description, estimateTime, deadline, status);
   }
-
-  public void setRequirementApproved(String projectName, int requirementID)
+  //TODO requirements status will be changed differently
+  /*public void setRequirementApproved(String projectName, String requirementID)
   {
     getRequirementByID(projectName, requirementID).setApproved();
   }
 
-  public void setRequirementRejected(String projectName, int requirementID)
+  public void setRequirementRejected(String projectName, String requirementID)
   {
     getRequirementByID(projectName, requirementID).setRejected();
-  }
+  }*/
 
-  public void removeRequirement(String projectName, int requirementID)
+  public void removeRequirement(String projectName, String requirementID)
   {
     if (getProjectByName(projectName) != null)
     {
@@ -77,7 +77,7 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //**********************************Tasks*************************************
-  public void addTask(String projectName, int requirementID, Task task)
+  public void addTask(String projectName, String requirementID, Task task)
   {
     if (getRequirementByID(projectName, requirementID) != null)
     {
@@ -85,7 +85,7 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public Task getTaskByID(String projectName, int requirementID, int taskID)
+  public Task getTaskByID(String projectName, String requirementID, int taskID)
   {
     if (getRequirementByID(projectName, requirementID) != null)
     {
@@ -95,7 +95,7 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //TODO change based on constructor of the Task
-  public void setTask(String projectName, int requirementID, int taskID,
+  public void setTask(String projectName, String requirementID, int taskID,
       String description, double estimatedTime, MyDate deadline,
       double timeUsed, boolean isDone)
   {
@@ -106,7 +106,7 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public void removeTask(String projectName, int requirementID, int taskID)
+  public void removeTask(String projectName, String requirementID, int taskID)
   {
     if (getRequirementByID(projectName, requirementID) != null)
     {
@@ -114,7 +114,7 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public void addUsedHourToTask(String projectName, int requirementID,
+  public void addUsedHourToTask(String projectName, String requirementID,
       int taskID, double hours)
   {
     if (getTaskByID(projectName, requirementID, taskID) != null)
@@ -123,7 +123,7 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public void setTaskDone(String projectName, int requirementID, int taskID)
+  public void setTaskDone(String projectName, String requirementID, int taskID)
   {
     if (getTaskByID(projectName, requirementID, taskID) != null)
     {
@@ -180,7 +180,7 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public void addTeamMemberToTask(String projectName, int requirementID,
+  public void addTeamMemberToTask(String projectName, String requirementID,
       int taskID, int employeeID)
   {
     if (getProjectByName(projectName) != null)
@@ -223,7 +223,7 @@ public class ProjectManagmentSystem implements Serializable
   }
 
   //********************************LISTS***************************************
-  public TaskList getTaskList(String projectName, int requirementID)
+  public TaskList getTaskList(String projectName, String requirementID)
   {
     if (getRequirementByID(projectName, requirementID) != null)
     {

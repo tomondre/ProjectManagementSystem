@@ -42,20 +42,19 @@ public class SystemAdapter
   }
 
   //************************************Requirements*********************************
-  public void addRequirement(String projectName, int requirementId,
-      int priorityNumber, String description, double estimateTime, int day,
-      int month, int year, int employeeID)
-  {
+  public void addRequirement(String projectName, String requirementId, int priorityNumber, String description,
+      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  {//TODO how do we do the MyDate
     ProjectManagmentSystem system = getSystem();
     system.addRequirement(projectName,
         new Requirement(requirementId, priorityNumber, description,
-            estimateTime, new MyDate(day, month, year),
-            system.getEmployee(employeeID)));
+            estimateTime,status, requirementType, deadline/*new MyDate(day, month, year)*/,
+            responsibleEmployee));
     save(system);
   }
 
   //TODO change based on constructor
-  public void setRequirement(String projectName, int requirementId,
+  public void setRequirement(String projectName, String requirementId,
       int priorityNumber, String description, double estimateTime, int day,
       int month, int year, String status)
   {
@@ -65,8 +64,8 @@ public class SystemAdapter
             estimateTime, new MyDate(day, month, year), status);
     save(system);
   }
-
-  public void setRequirementApproved(String projectName, int requirementID)
+  //TODO will be done differently. Not to be deleted.
+  /*public void setRequirementApproved(String projectName, int requirementID)
   {
     ProjectManagmentSystem system = getSystem();
     system.setRequirementApproved(projectName, requirementID);
@@ -78,9 +77,9 @@ public class SystemAdapter
     ProjectManagmentSystem system = getSystem();
     system.setRequirementRejected(projectName, requirementID);
     save(system);
-  }
+  }*/
 
-  public void removeRequirement(String projectName, int requirementID)
+  public void removeRequirement(String projectName, String requirementID)
   {
     ProjectManagmentSystem system = getSystem();
     system.removeRequirement(projectName, requirementID);
@@ -88,7 +87,7 @@ public class SystemAdapter
   }
 
   //******************************************Tasks******************************************
-  public void addTask(String projectName, int requirementID, int taskID,
+  public void addTask(String projectName, String requirementID, int taskID,
       String description, double estimatedTime, int day, int month, int year,
       int responsibleEmployeeID)
   {
@@ -101,7 +100,7 @@ public class SystemAdapter
   }
 
   //TODO change based on constructor
-  public void setTask(String projectName, int requirementID, int taskID,
+  public void setTask(String projectName, String requirementID, int taskID,
       String description, double estimatedTime, double timeUsed, boolean isDone,
       int day, int month, int year)
   {
@@ -112,14 +111,14 @@ public class SystemAdapter
     save(system);
   }
 
-  public void removeTask(String projectName, int requirementID, int taskID)
+  public void removeTask(String projectName, String requirementID, int taskID)
   {
     ProjectManagmentSystem system = getSystem();
     system.removeTask(projectName, requirementID, taskID);
     save(system);
   }
 
-  public void addUsedHoursToTask(String projectName, int requirementID,
+  public void addUsedHoursToTask(String projectName, String requirementID,
       int taskID, double hours)
   {
     ProjectManagmentSystem system = getSystem();
