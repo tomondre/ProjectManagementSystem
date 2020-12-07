@@ -25,7 +25,6 @@ public class ProjectList implements Serializable
     projects.add(project);
   }
 
-  //TODO return deafult project?
   public Project getProjectByName(String projectName)
   {
     for (Project p : projects)
@@ -37,6 +36,7 @@ public class ProjectList implements Serializable
     }
     return null;
   }
+
   public void editProject(String newName, String oldName, String status)
   {
     Project temp = getProjectByName(oldName);
@@ -55,6 +55,7 @@ public class ProjectList implements Serializable
       throw new IllegalArgumentException("Project already exists");
     }
   }
+
   public int size()
   {
     return projects.size();
