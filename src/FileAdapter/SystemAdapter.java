@@ -16,7 +16,6 @@ public class SystemAdapter
   {
     mfio = new MyFileIO();
     this.fileName = fileName;
-
   }
 
   //*******************************************Projects********************************
@@ -53,15 +52,13 @@ public class SystemAdapter
     save(system);
   }
 
-  //TODO change based on constructor
-  public void setRequirement(String projectName, String requirementId,
-      int priorityNumber, String description, double estimateTime, int day,
-      int month, int year, String status)
+  public void setRequirement(String projectName, String requirementId, int priorityNumber, String description,
+      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
   {
     ProjectManagmentSystem system = getSystem();
     system
         .setRequirement(projectName, requirementId, priorityNumber, description,
-            estimateTime, new MyDate(day, month, year), status);
+estimateTime, status, requirementType, deadline, responsibleEmployee);
     save(system);
   }
   //TODO will be done differently. Not to be deleted.
