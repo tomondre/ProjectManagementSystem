@@ -32,7 +32,8 @@
                   <RadioMenuItem fx:id="ongoingProjects" mnemonicParsing="false" onAction="#handleActions" selected="true" text="Current">
                      <toggleGroup>
                         <ToggleGroup fx:id="projects" />
-                     </toggleGroup></RadioMenuItem>
+                     </toggleGroup>
+                  </RadioMenuItem>
                   <RadioMenuItem fx:id="archivedProjects" mnemonicParsing="false" onAction="#handleActions" text="Archived" toggleGroup="$projects" />
                </items>
           </Menu>
@@ -52,7 +53,7 @@
                         <VBox prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label text="Projects:" />
-                              <ListView fx:id="projectsListView" prefHeight="315.0" prefWidth="179.0" />
+                              <ListView fx:id="projectsListView" onMouseClicked="#fillFieldsInProjectTab" prefHeight="315.0" prefWidth="179.0" />
                            </children>
                         </VBox>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="222.0">
