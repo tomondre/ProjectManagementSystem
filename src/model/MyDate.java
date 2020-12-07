@@ -15,6 +15,6 @@ public class MyDate implements Serializable
 
   public String toString()
   {
-    return day + "." + month + "." + year;
+    return day + "/" + month + "/" + year;
   }
 }
