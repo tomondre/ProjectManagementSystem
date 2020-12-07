@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ProjectManagmentSystem implements Serializable
 {
   private EmployeeList employees;
-  private ProjectList projectList;
+  private ProjectList ongoingProjectList;
   private ProjectList archivedProjects;
 
   //TODO check the roles when assigning employees to project team
@@ -14,24 +14,34 @@ public class ProjectManagmentSystem implements Serializable
   public ProjectManagmentSystem()
   {
     employees = new EmployeeList();
-    projectList = new ProjectList();
+    ongoingProjectList = new ProjectList();
     archivedProjects = new ProjectList();
   }
 
   //********************************projectList************************************
+  public ProjectList getAllProjectsOngoing()
+  {
+    return ongoingProjectList;
+  }
+
+  public ProjectList getAllArchivedProjects()
+  {
+    return archivedProjects;
+  }
+
   public void addProject(Project project)
   {
-    projectList.addProject(project);
+    ongoingProjectList.addProject(project);
   }
 
   public Project getProjectByName(String projectName)
   {
-    return projectList.getProjectByName(projectName);
+    return ongoingProjectList.getProjectByName(projectName);
   }
 
   public ProjectList getProjectList()
   {
-    return projectList;
+    return ongoingProjectList;
   }
 
   //******************************Requirement***********************************
@@ -172,6 +182,16 @@ public class ProjectManagmentSystem implements Serializable
     return null;
   }
 
+  //TODO test delete if doesnt work
+  public EmployeeList getAllEmployeesAssignedToProject(String projectName)
+  {
+    if (getProjectByName(projectName) != null)
+    {
+      return getProjectByName(projectName).getAllTeamMembers();
+    }
+    return null;
+  }
+
   public void setEmployee(int employeeID, String firstName, String lastName)
   {
     if (getEmployee(employeeID) != null)
@@ -213,7 +233,7 @@ public class ProjectManagmentSystem implements Serializable
       Project temp = getProjectByName(projectName);
       archivedProjects.addProject(temp.copy());
       temp.deleteTeamRoles();
-      projectList.remove(temp);
+      ongoingProjectList.remove(temp);
     }
   }
 
@@ -243,6 +263,6 @@ public class ProjectManagmentSystem implements Serializable
 
   public String toString()
   {
-    return projectList.toString();
+    return ongoingProjectList.toString();
   }
 }
