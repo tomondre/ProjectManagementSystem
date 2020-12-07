@@ -270,6 +270,7 @@ public class Controller
       else
       {
         requirementsFieldsAreEditable(true);
+        requirementIDTextField.setEditable(false);
       }
 
       //TODO responsible team member.
