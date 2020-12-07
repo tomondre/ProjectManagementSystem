@@ -83,17 +83,9 @@ public class RequirementList implements Serializable
     requirements.remove(getRequirementByID(requirementID));
   }
 
-  public String toString()
+  public int size()
   {
-    String temp = "\n";
-    if (requirements.size() != 0)
-    {
-      for (Requirement r : requirements)
-      {
-        temp += "    Requirement: " + r + "\n";
-      }
-    }
-    return temp;
+    return requirements.size();
   }
 
   public Task getTaskById(String requirementID, int taskID)
@@ -113,6 +105,19 @@ public class RequirementList implements Serializable
     for (Requirement r : requirements)
     {
       temp.addRequirement(r.copy());
+    }
+    return temp;
+  }
+  //TODO is it needed this toString?
+  public String toString()
+  {
+    String temp = "";
+    if (requirements.size() != 0)
+    {
+      for (Requirement r : requirements)
+      {
+        temp += "    Requirement: " + r + "\n";
+      }
     }
     return temp;
   }
