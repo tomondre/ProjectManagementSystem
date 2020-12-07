@@ -58,14 +58,12 @@ public class ProjectManagmentSystem implements Serializable
     return getProjectByName(projectName).getRequirementByID(requirementID);
   }
 
-  //TODO check if its the same as requirement constructor
-  public void setRequirement(String projectName, String requirementId,
-      int priorityNumber, String description, double estimateTime,
-      MyDate deadline, String status)
+  public void setRequirement(String projectName, String requirementId, int priorityNumber, String description,
+      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
 
   {
     getRequirementByID(projectName, requirementId)
-        .set(priorityNumber, description, estimateTime, deadline, status);
+        .set(priorityNumber, description, estimateTime, deadline, status, requirementType, responsibleEmployee);
   }
   //TODO requirements status will be changed differently
   /*public void setRequirementApproved(String projectName, String requirementID)
