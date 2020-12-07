@@ -20,7 +20,6 @@ public class EmployeeList implements Serializable
   //TODO compare employeeID in list if it already exist
   public void addEmployee(Employee employee)
   {
-
     for (Employee e : employees)
     {
       if (e.getId() == employee.getId())
@@ -47,6 +46,7 @@ public class EmployeeList implements Serializable
      temp.setLastName(employee.getLastName());
 
   }
+
   public Employee getEmployeeByID(int employeeID)
   {
     for (Employee e : employees)
@@ -89,6 +89,11 @@ public class EmployeeList implements Serializable
   public Employee get(int index)
   {
     return employees.get(index);
+  }
+
+  public int size()
+  {
+    return employees.size();
   }
 
   public EmployeeList copy()
