@@ -52,14 +52,15 @@ public class Requirement implements Serializable
   }
 
   //******************************SETTERS*****************************************
-  public void set(int priorityNumber, String description, double estimateTime,
-      MyDate deadline, String status)
+  public void set(int priorityNumber, String description, double estimateTime, MyDate deadline, String status, String requirementType, Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
     setStatus(status);
+    setRequirementType(requirementType);
+    this.responsibleEmployee = responsibleEmployee;
   }
 
   public void setStatus(String status)
@@ -88,11 +89,6 @@ public class Requirement implements Serializable
     return estimateTime;
   }
 
-  public int getPriorityNumber()
-  {
-    return priorityNumber;
-  }
-
   public MyDate getDeadline()
   {
     return deadline;
@@ -103,9 +99,19 @@ public class Requirement implements Serializable
     return status;
   }
 
+  public String getRequirementType()
+  {
+    return requirementType;
+  }
+
   public double getLeftEstimate()
   {
     return estimateTime - taskList.totalTimeUsed();
+  }
+
+  public Employee getResponsibleEmployee()
+  {
+    return responsibleEmployee;
   }
 
   public boolean isApproved()
@@ -173,11 +179,7 @@ public class Requirement implements Serializable
   public String toString()
   {
     checkStatus();
-    return "ID: " + requirementId + ", priorityNumber: " + priorityNumber
-        + ", description: " + description + ", status: " + status
-        + ", estimate time: " + estimateTime + "timeUsed: " + taskList
-        .totalTimeUsed() + ", deadline: " + deadline + "responsibleEmployee:"
-        + responsibleEmployee +", tasks: " +  taskList;
+    return "ID: " + requirementId;
   }
 
   //  public String toString()
