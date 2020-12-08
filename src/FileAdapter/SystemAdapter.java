@@ -19,7 +19,7 @@ public class SystemAdapter
   }
 
   //*******************************************Projects********************************
-  public void addProject(String name, String status)
+  public void addProject(String name, String status) throws IllegalArgumentException
   {
     ProjectManagmentSystem system = getSystem();
     Project toAdd = new Project(name, status);
