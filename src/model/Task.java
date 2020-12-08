@@ -94,20 +94,9 @@ public class Task implements Serializable
   public String toString()
   {
 
-    return "ID: " + taskID + ", description: " + description + ", deadline: "
-        + deadline + ", estimatedTime: " + estimatedTime + ", timeUsed: "
-        + timeUsed + ",isDone: " + isDone + ", reponsible:" + assignedToTask
-        .getResponsibleEmployee();
+    return "ID: " + taskID;
 
   }
-
-  //toString with reduced attributes
-  //  public String toString()
-  //  {
-  //    return "ID: " + taskID + ", description: " + description + ", deadline: "
-  //        + deadline + ", timeUsed: " + timeUsed + ", reponsible:"
-  //        + assignedToTask.getResponsibleEmployee();
-  //  }
 
   public Task copy()
   {

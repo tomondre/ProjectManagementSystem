@@ -108,19 +108,6 @@ public class RequirementList implements Serializable
     }
     return temp;
   }
-  //TODO is it needed this toString?
-  public String toString()
-  {
-    String temp = "";
-    if (requirements.size() != 0)
-    {
-      for (Requirement r : requirements)
-      {
-        temp += "    Requirement: " + r + "\n";
-      }
-    }
-    return temp;
-  }
 }
 
 

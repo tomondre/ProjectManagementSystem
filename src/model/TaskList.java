@@ -67,10 +67,10 @@ public class TaskList implements Serializable
 
   public String toString()
   {
-    String temp = "\n      ";
+    String temp = "";
     for (Task task : tasks)
     {
-      temp += "Task: " + task + "\n      ";
+      temp += "Task: " + task + "\n";
     }
     return temp;
   }

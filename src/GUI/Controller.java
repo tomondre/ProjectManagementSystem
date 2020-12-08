@@ -460,7 +460,11 @@ public class Controller
         requirementsListView.getItems().addAll(requirements.get(i));
       }
     }
-    else if (e.getSource() == requirementSelectedComboBox)
+    else if (e.getSource() == projectSelectedOnTasksComboBox)
+    {
+      updateRequirementToSelect();
+    }
+   /* else if (e.getSource() == requirementSelectedComboBox)
     {
       tasksListView.getItems().clear();
       Requirement selectedRequirement = requirementSelectedComboBox.getSelectionModel().getSelectedItem();
@@ -472,7 +476,7 @@ public class Controller
           tasksListView.getItems().add(taskList.get(i));
         }
       }
-    }
+    }*/
   }
 
   public void tabChange(Event event)
@@ -489,7 +493,6 @@ public class Controller
     else if (tasksTab.isSelected())
     {
       updateProjectsToSelect(projectSelectedOnTasksComboBox);
-      updateRequirementToSelect();
     }
     else if (employeesTab.isSelected())
     {
@@ -557,7 +560,7 @@ public class Controller
 
   public void updateProjectsToSelect(ComboBox<Project> comboBox)
   {
-    comboBox.getItems().clear();
+
     ProjectList projectList = adapter.getSystem().getProjectList();
     for (int i = 0; i < projectList.size(); i++)
     {
@@ -576,6 +579,7 @@ public class Controller
       {
         requirementSelectedComboBox.getItems().add(requirementList.get(i));
       }
+      requirementSelectedComboBox.getSelectionModel().select(0);
     }
   }
 
@@ -784,5 +788,10 @@ public class Controller
     alert.setHeaderText(null);
 
     alert.showAndWait();
+  }
+
+  public void doNothing()
+  {
+
   }
 }
