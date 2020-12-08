@@ -1,4 +1,5 @@
 package GUI;
+//TODO ask Allen about on mouse click on the ListView how to not throw illegal argument exception when clicking on not existing item.
 
 import FileAdapter.SystemAdapter;
 import javafx.event.ActionEvent;
@@ -190,7 +191,14 @@ public class Controller
       switch (Command)
       {
         case "add":
-          adapter.addProject(newName, status);
+          try
+          {
+            adapter.addProject(newName, status);
+          }
+          catch (IllegalArgumentException event)
+          {
+            alertPopUp(event.getMessage());
+          }
           break;
         case "assign":
           Employee chosenEmployee = availableEmployeeComboBox
@@ -271,10 +279,10 @@ public class Controller
       {
         requirementsFieldsAreEditable(true);
         requirementIDTextField.setEditable(false);
+        fillRequirementsFields();
       }
 
       //TODO responsible team member.
-      getRequirementFieldsCleared();
     }
     else if (e.getSource() == saveRequirementButton)
     {
@@ -716,6 +724,12 @@ public class Controller
     priorityNumberTextField
         .setText(String.valueOf(selectedRequirement.getPriority()));
     deadlineTextField.setText(selectedRequirement.getDeadline().toString());
+    responsibleTeamMemberComboBox.getItems().clear();
+    EmployeeList employeeList = projectSelectedComboBox.getSelectionModel().getSelectedItem().getProjectTeam();
+    for (int i = 0; i < employeeList.size(); i++)
+    {
+      responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
+    }
     responsibleTeamMemberComboBox.getSelectionModel()
         .select(selectedRequirement.getResponsibleEmployee());
   }
