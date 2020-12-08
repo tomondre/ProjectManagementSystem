@@ -50,13 +50,13 @@
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="200.0">
+                        <VBox maxHeight="400.0" prefHeight="315.0" prefWidth="200.0">
                            <children>
                               <Label text="Projects:" />
                               <ListView fx:id="projectsListView" onMouseClicked="#fillFieldsInProjectTab" prefHeight="315.0" prefWidth="179.0" />
                            </children>
                         </VBox>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="222.0">
+                        <VBox maxHeight="400.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="222.0">
                            <children>
                               <Label text="Project name:">
                                  <VBox.margin>
@@ -117,10 +117,10 @@
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="200.0">
+                        <VBox maxHeight="400.0" prefHeight="315.0" prefWidth="200.0">
                            <children>
                               <Label text="Team members:" />
-                              <ListView fx:id="teamMembersListView" prefHeight="315.0" prefWidth="179.0" />
+                              <ListView fx:id="teamMembersListView" maxHeight="0.0" prefHeight="315.0" prefWidth="179.0" />
                            </children>
                         </VBox>
                      </children>
