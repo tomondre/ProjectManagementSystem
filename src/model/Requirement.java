@@ -173,12 +173,16 @@ public class Requirement implements Serializable
       return false;
     }
     Requirement other = (Requirement) obj;
-    return false;                             //edit this based on constructor
+    return this.requirementId.equals(other.requirementId) && this.description.equals(other.description)
+        && this.status.equals(other.status)
+        && this.estimateTime == other.estimateTime
+        && this.priorityNumber == other.priorityNumber && this.deadline.equals(other.deadline)
+        && this.responsibleEmployee.equals(other.responsibleEmployee) && this.requirementType.equals(
+        other.requirementType);                             //edit this based on constructor
   }
-
   public String toString()
   {
-    checkStatus();
+    //checkStatus();
     return "ID: " + requirementId;
   }
 

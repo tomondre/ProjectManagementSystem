@@ -90,7 +90,7 @@ public class Controller
 
   @FXML private TextField taskDeadline;
 
-  @FXML private ListView<Task> taskTeamMembersListView;
+  @FXML private ListView<Employee> taskTeamMembersListView;
 
   @FXML private Button addTaskButton;
 
@@ -123,8 +123,8 @@ public class Controller
   public void initialize()
   {
     adapter = new SystemAdapter("colourIT.bin");
-    taskTeamMembersListView.getSelectionModel()
-        .setSelectionMode(SelectionMode.MULTIPLE);
+    // taskTeamMembersListView.getSelectionModel()
+    //    .setSelectionMode(SelectionMode.MULTIPLE);
     updateProjects();
     updateEmployees();
   }
@@ -464,11 +464,16 @@ public class Controller
     {
       updateRequirementToSelect();
     }
-   /* else if (e.getSource() == requirementSelectedComboBox)
+    else if (e.getSource() == requirementSelectedComboBox)
     {
+
       tasksListView.getItems().clear();
-      Requirement selectedRequirement = requirementSelectedComboBox.getSelectionModel().getSelectedItem();
+      taskTeamMembersListView.getItems().clear();
+      Requirement selectedRequirement = requirementSelectedComboBox
+          .getSelectionModel().getSelectedItem();
       TaskList taskList = selectedRequirement.getTaskList();
+      EmployeeList employees = projectSelectedOnTasksComboBox
+          .getSelectionModel().getSelectedItem().getAllTeamMembers();
       if (taskList.size() > 0)
       {
         for (int i = 0; i < taskList.size(); i++)
@@ -476,7 +481,15 @@ public class Controller
           tasksListView.getItems().add(taskList.get(i));
         }
       }
-    }*/
+      if (employees.size() > 0)
+      {
+        for (int i = 0; i < employees.size(); i++)
+        {
+          taskTeamMembersListView.getItems().add(employees.get(i));
+        }
+      }
+
+    }
   }
 
   public void tabChange(Event event)
@@ -488,11 +501,11 @@ public class Controller
     else if (requirementsTab.isSelected())
     {
       updateProjectsToSelect(projectSelectedComboBox);
-      updateRequirements();
     }
     else if (tasksTab.isSelected())
     {
       updateProjectsToSelect(projectSelectedOnTasksComboBox);
+      updateRequirementToSelect();
     }
     else if (employeesTab.isSelected())
     {
@@ -560,7 +573,7 @@ public class Controller
 
   public void updateProjectsToSelect(ComboBox<Project> comboBox)
   {
-
+    comboBox.getItems().clear();
     ProjectList projectList = adapter.getSystem().getProjectList();
     for (int i = 0; i < projectList.size(); i++)
     {
@@ -571,15 +584,18 @@ public class Controller
   public void updateRequirementToSelect()
   {
     requirementSelectedComboBox.getItems().clear();
-    if (projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex() != -1)
+    if (projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex()
+        != -1)
     {
-      Project selectedProject = projectSelectedOnTasksComboBox.getSelectionModel().getSelectedItem();
-      RequirementList requirementList = adapter.getSystem().getRequirementList(selectedProject.getName());
+
+      Project selectedProject = projectSelectedOnTasksComboBox
+          .getSelectionModel().getSelectedItem();
+      RequirementList requirementList = adapter.getSystem()
+          .getRequirementList(selectedProject.getName());
       for (int i = 0; i < requirementList.size(); i++)
       {
         requirementSelectedComboBox.getItems().add(requirementList.get(i));
       }
-      requirementSelectedComboBox.getSelectionModel().select(0);
     }
   }
 
@@ -693,7 +709,6 @@ public class Controller
     taskEstimateTextField.clear();
     taskTimeUsedTextField.clear();
     taskDeadline.clear();
-    taskTeamMembersListView.getSelectionModel().select(0);
   }
 
   public boolean taskFieldsValidation()
@@ -788,10 +803,5 @@ public class Controller
     alert.setHeaderText(null);
 
     alert.showAndWait();
-  }
-
-  public void doNothing()
-  {
-
   }
 }
