@@ -2,16 +2,15 @@ package model;
 
 import java.io.Serializable;
 
-public class ProjectManagmentSystem implements Serializable
+public class ProjectManagementSystem implements Serializable
 {
   private EmployeeList employees;
   private ProjectList ongoingProjectList;
   private ProjectList archivedProjects;
 
-  //TODO check the roles when assigning employees to project team
-  //TODO we dont have to copy every single object in project, we just have to copy the employeelist which has references to employees;
+  //TODO we dont have to copy every single object in project, we just have to copy the employee list which has references to employees;
   //We have decided to use following path to get specific projectList/requirements/tasks: String projectName / int requirementID / int taskID
-  public ProjectManagmentSystem()
+  public ProjectManagementSystem()
   {
     employees = new EmployeeList();
     ongoingProjectList = new ProjectList();
@@ -65,16 +64,6 @@ public class ProjectManagmentSystem implements Serializable
     getRequirementByID(projectName, requirementId)
         .set(priorityNumber, description, estimateTime, deadline, status, requirementType, responsibleEmployee);
   }
-  //TODO requirements status will be changed differently
-  /*public void setRequirementApproved(String projectName, String requirementID)
-  {
-    getRequirementByID(projectName, requirementID).setApproved();
-  }
-
-  public void setRequirementRejected(String projectName, String requirementID)
-  {
-    getRequirementByID(projectName, requirementID).setRejected();
-  }*/
 
   public void removeRequirement(String projectName, String requirementID)
   {
@@ -170,17 +159,6 @@ public class ProjectManagmentSystem implements Serializable
     }
   }
 
-  public Employee getEmployeeAssignedToProject(String projectName,
-      int employeeID)
-  {
-    if (getProjectByName(projectName) != null)
-    {
-      return getProjectByName(projectName).getTeamMember(employeeID);
-    }
-    return null;
-  }
-
-  //TODO test delete if doesnt work
   public EmployeeList getAllEmployeesAssignedToProject(String projectName)
   {
     if (getProjectByName(projectName) != null)

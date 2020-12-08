@@ -10,8 +10,6 @@ public class SystemAdapter
   private MyFileIO mfio;
   private String fileName;
 
-  //TODO we will also have to  make methods for exporting Lists
-
   public SystemAdapter(String fileName)
   {
     mfio = new MyFileIO();
@@ -21,7 +19,7 @@ public class SystemAdapter
   //*******************************************Projects********************************
   public void addProject(String name, String status) throws IllegalArgumentException
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     Project toAdd = new Project(name, status);
     system.getProjectList().addProject(toAdd);
     save(system);
@@ -29,7 +27,7 @@ public class SystemAdapter
 
   public void editProject(String newName, String oldName, String status) throws IllegalArgumentException
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     try
     {
       system.getProjectList().editProject(newName, oldName, status);
@@ -43,11 +41,11 @@ public class SystemAdapter
   //************************************Requirements*********************************
   public void addRequirement(String projectName, String requirementId, int priorityNumber, String description,
       double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
-  {//TODO how do we do the MyDate
-    ProjectManagmentSystem system = getSystem();
+  {
+    ProjectManagementSystem system = getSystem();
     system.addRequirement(projectName,
         new Requirement(requirementId, priorityNumber, description,
-            estimateTime,status, requirementType, deadline/*new MyDate(day, month, year)*/,
+            estimateTime,status, requirementType, deadline,
             responsibleEmployee));
     save(system);
   }
@@ -55,30 +53,16 @@ public class SystemAdapter
   public void setRequirement(String projectName, String requirementId, int priorityNumber, String description,
       double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system
         .setRequirement(projectName, requirementId, priorityNumber, description,
 estimateTime, status, requirementType, deadline, responsibleEmployee);
     save(system);
   }
-  //TODO will be done differently. Not to be deleted.
-  /*public void setRequirementApproved(String projectName, int requirementID)
-  {
-    ProjectManagmentSystem system = getSystem();
-    system.setRequirementApproved(projectName, requirementID);
-    save(system);
-  }
-
-  public void setRequirementRejected(String projectName, int requirementID)
-  {
-    ProjectManagmentSystem system = getSystem();
-    system.setRequirementRejected(projectName, requirementID);
-    save(system);
-  }*/
-
+  //TODO remove requirement
   public void removeRequirement(String projectName, String requirementID)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system.removeRequirement(projectName, requirementID);
     save(system);
   }
@@ -88,7 +72,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
       String description, double estimatedTime, int day, int month, int year,
       int responsibleEmployeeID)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system.addTask(projectName, requirementID,
         new Task(taskID, description, estimatedTime,
             new MyDate(day, month, year),
@@ -101,7 +85,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
       String description, double estimatedTime, double timeUsed, boolean isDone,
       int day, int month, int year)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system
         .setTask(projectName, requirementID, taskID, description, estimatedTime,
             new MyDate(day, month, year), timeUsed, isDone);
@@ -110,7 +94,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
 
   public void removeTask(String projectName, String requirementID, int taskID)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system.removeTask(projectName, requirementID, taskID);
     save(system);
   }
@@ -118,18 +102,18 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
   public void addUsedHoursToTask(String projectName, String requirementID,
       int taskID, double hours)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     system.addUsedHourToTask(projectName, requirementID, taskID, hours);
     save(system);
   }
 
   //**************************************File*****************************************
-  public ProjectManagmentSystem getSystem()
+  public ProjectManagementSystem getSystem()
   {
-    ProjectManagmentSystem system = new ProjectManagmentSystem();
+    ProjectManagementSystem system = new ProjectManagementSystem();
     try
     {
-      system = (ProjectManagmentSystem) mfio.readObjectFromFile(fileName);
+      system = (ProjectManagementSystem) mfio.readObjectFromFile(fileName);
     }
 
     catch (FileNotFoundException e)
@@ -150,7 +134,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
   //**************************************Employee*****************************************
   public void addEmployee(Employee employee)
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     try
     {
       system.getEmployees().addEmployee(employee);
@@ -163,7 +147,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
 
   public void editEmployee(Employee employee, Employee oldEmployee) throws IllegalArgumentException
   {
-    ProjectManagmentSystem system = getSystem();
+    ProjectManagementSystem system = getSystem();
     try
     {
       system.getEmployees().editEmployee(employee, oldEmployee);
@@ -174,7 +158,7 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
     }
   }
 
-  public void save(ProjectManagmentSystem system)
+  public void save(ProjectManagementSystem system)
   {
     try
     {

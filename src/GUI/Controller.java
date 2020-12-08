@@ -1,5 +1,4 @@
 package GUI;
-//TODO ask Allen about on mouse click on the ListView how to not throw illegal argument exception when clicking on not existing item.
 
 import FileAdapter.SystemAdapter;
 import javafx.event.ActionEvent;
@@ -118,7 +117,6 @@ public class Controller
   @FXML private Button editEmployeeButton;
 
   @FXML private Button saveEmployeeButton;
-  //TODO stupid solution
   private SystemAdapter adapter;
   private String Command = "";
 
@@ -169,7 +167,7 @@ public class Controller
         availableEmployeeComboBox.getItems().addAll(availableEmployees.get(i));
       }
     }
-    //TODO think if we really need to remove employee from a project.
+    //TODO think if we really need to remove employee from a project. If we have time. Khaled
     else if (e.getSource() == removeEmployeeButton)
     {
       Command = "remove";
@@ -178,7 +176,6 @@ public class Controller
     }
     else if (e.getSource() == saveProjectButton)
     {
-      //TODO Command needs all the ifs to be done with else if.
       if (projectNameTextField.getText().isEmpty())
       {
         alertPopUp("Fill in all the fields.");
@@ -210,7 +207,7 @@ public class Controller
           Project assignEmployee = projectsListView.getSelectionModel()
               .getSelectedItem();
           //TODO make a method in the systemAdapter for assigning employee to a project
-          ProjectManagmentSystem system = adapter.getSystem();
+          ProjectManagementSystem system = adapter.getSystem();
           system.addEmployeeToAProject(assignEmployee.getName(),
               chosenEmployee.getId(), role);
           adapter.save(system);
@@ -281,8 +278,6 @@ public class Controller
         requirementIDTextField.setEditable(false);
         fillRequirementsFields();
       }
-
-      //TODO responsible team member.
     }
     else if (e.getSource() == saveRequirementButton)
     {
@@ -308,7 +303,6 @@ public class Controller
       MyDate deadline = new MyDate(Integer.parseInt(date[0]),
           Integer.parseInt(date[1]), Integer.parseInt(date[2]));
 
-      //TODO to be changed to take from the employees assigned to the project CHECK
       Employee responsibleEmployee = responsibleTeamMemberComboBox
           .getSelectionModel().getSelectedItem();
 
@@ -367,7 +361,6 @@ public class Controller
         getTaskFieldsCleared();
       }
     }
-
     else if (e.getSource() == addEmployeeButton)
     {
       getEmployeeFieldsCleared();
@@ -486,7 +479,6 @@ public class Controller
     }
     else if (employeesTab.isSelected())
     {
-      //TODO
       updateEmployees();
     }
   }
@@ -657,7 +649,6 @@ public class Controller
     estimateHoursTextField.clear();
     priorityNumberTextField.clear();
     deadlineTextField.clear();
-    //TODO responsible team member. First have to figure out how to assign the team members to the projects.
     responsibleTeamMemberComboBox.getItems().clear();
     responsibleTeamMemberComboBox.getSelectionModel().select(0);
   }
@@ -712,26 +703,30 @@ public class Controller
   {
     Requirement selectedRequirement = requirementsListView.getSelectionModel()
         .getSelectedItem();
-    requirementIDTextField.setText(selectedRequirement.getID());
-    requirementStatusComboBox.getSelectionModel()
-        .select(selectedRequirement.getStatus());
-    requirementTypeComboBox.getSelectionModel()
-        .select(selectedRequirement.getRequirementType());
-    requirementDescriptionTextField
-        .setText(selectedRequirement.getDescription());
-    estimateHoursTextField
-        .setText(String.valueOf(selectedRequirement.getEstimateTime()));
-    priorityNumberTextField
-        .setText(String.valueOf(selectedRequirement.getPriority()));
-    deadlineTextField.setText(selectedRequirement.getDeadline().toString());
-    responsibleTeamMemberComboBox.getItems().clear();
-    EmployeeList employeeList = projectSelectedComboBox.getSelectionModel().getSelectedItem().getProjectTeam();
-    for (int i = 0; i < employeeList.size(); i++)
+    if (selectedRequirement != null)
     {
-      responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
+      requirementIDTextField.setText(selectedRequirement.getID());
+      requirementStatusComboBox.getSelectionModel()
+          .select(selectedRequirement.getStatus());
+      requirementTypeComboBox.getSelectionModel()
+          .select(selectedRequirement.getRequirementType());
+      requirementDescriptionTextField
+          .setText(selectedRequirement.getDescription());
+      estimateHoursTextField
+          .setText(String.valueOf(selectedRequirement.getEstimateTime()));
+      priorityNumberTextField
+          .setText(String.valueOf(selectedRequirement.getPriority()));
+      deadlineTextField.setText(selectedRequirement.getDeadline().toString());
+      responsibleTeamMemberComboBox.getItems().clear();
+      EmployeeList employeeList = projectSelectedComboBox.getSelectionModel()
+          .getSelectedItem().getProjectTeam();
+      for (int i = 0; i < employeeList.size(); i++)
+      {
+        responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
+      }
+      responsibleTeamMemberComboBox.getSelectionModel()
+          .select(selectedRequirement.getResponsibleEmployee());
     }
-    responsibleTeamMemberComboBox.getSelectionModel()
-        .select(selectedRequirement.getResponsibleEmployee());
   }
 
   public void fillFieldsEmployeeTab()

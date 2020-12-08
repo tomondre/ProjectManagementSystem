@@ -17,7 +17,6 @@ public class EmployeeList implements Serializable
     this.employees = employees;
   }
 
-  //TODO compare employeeID in list if it already exist
   public void addEmployee(Employee employee)
   {
     for (Employee e : employees)
