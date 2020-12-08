@@ -18,8 +18,7 @@ public class ProjectList implements Serializable
     {
       if (p.getName().equals(project.getName()))
       {
-        System.out.println("Project already exist");
-        return;
+        throw new IllegalArgumentException("Project already exists");
       }
     }
     projects.add(project);
