@@ -102,6 +102,16 @@ public class TaskList implements Serializable
     return new TaskList(temp);
   }
 
+  public int size()
+  {
+    return tasks.size();
+  }
+
+  public Task get(int index)
+  {
+    return tasks.get(index);
+  }
+
   //Method we are using when clearing employees working on tasks because we also have tasklist in employee
   public void clear()
   {
