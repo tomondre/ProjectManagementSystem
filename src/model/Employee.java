@@ -128,11 +128,7 @@ public class Employee implements Serializable
 
   public String toString()
   {
-    return "(" + employeeID +")" + firstName + " " + lastName;
-  }
-
-  public String toStringTeamMember()
-  {
-    return firstName + " " + lastName + "(" + role + ")";
+    String toAppend = role.equals("") ? "": "(" + role + ")";
+    return firstName + " " + lastName + " " + toAppend;
   }
 }

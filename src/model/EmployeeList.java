@@ -110,13 +110,4 @@ public class EmployeeList implements Serializable
     return str;
   }
 
-  public String toStringProjectTeam()
-  {
-    String str = "";
-    for (Employee employee : employees)
-    {
-      str += employee.toStringTeamMember() + "\n";
-    }
-    return str;
-  }
 }

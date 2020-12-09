@@ -1,5 +1,6 @@
 package GUI;
 //TODO when you remove a requirement or task the save buttons validator brakes on task at least.
+//TODO when pressing on add task the tasks added to the project disappear. Change the clearing method.
 import FileAdapter.SystemAdapter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -218,7 +219,7 @@ public class Controller
           adapter.save(system);
           break;
         case "removeEmployee":
-          //TODO if we have time we can look at this as well.
+          //TODO Maybe we change it to edit role.
           break;
         case "editProject":
           try
@@ -455,8 +456,17 @@ public class Controller
           }
           break;
       }
+      int projectIndex = projectSelectedOnTasksComboBox
+          .getSelectionModel().getSelectedIndex();
+      int requirementIndex = requirementSelectedComboBox
+          .getSelectionModel().getSelectedIndex();
       taskFieldsAreEditable(false);
       getTaskFieldsCleared();
+      updateProjectsToSelect(projectSelectedOnTasksComboBox);
+      projectSelectedOnTasksComboBox.getSelectionModel().select(projectIndex);
+      updateRequirementToSelect();
+      requirementSelectedComboBox.getSelectionModel().select(requirementIndex);
+      updateTasks();
       Command = "";
     }
     else if (e.getSource() == addEmployeeButton)
