@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Task implements Serializable
 {
@@ -10,23 +11,23 @@ public class Task implements Serializable
   private double estimatedTime;
   private double timeUsed;
   private MyDate deadline;
+  private Employee responsibleEmployee;
   private EmployeeList assignedToTask;
 
-  //responsible team member is the first one in the arraylist of assignedToTask - index 0
-  public Task(int taskID, String description, double estimatedTime,
-      MyDate deadline, Employee responsibleEmployee)
+  public Task(int taskID, String description, boolean status, double timeUsed, double estimatedTime,
+      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     this.taskID = taskID;
     this.description = description;
-    this.timeUsed = 0;
+    isDone = status;
+    this.timeUsed = timeUsed;
     this.deadline = deadline;
     this.estimatedTime = estimatedTime;
-    isDone = false;
-    assignedToTask = new EmployeeList();
-    assignedToTask.addEmployee(responsibleEmployee);
+    addTeamMembers(employees);
+    this.responsibleEmployee = responsibleEmployee;
   }
 
-  //constructor for copy method
+  //TODO change as constructor constructor for copy method
   public Task(int taskID, String description, double estimatedTime,
       MyDate deadline, double timeUsed, EmployeeList assignedToTask,
       boolean isDone)
@@ -40,15 +41,16 @@ public class Task implements Serializable
     this.assignedToTask = assignedToTask;
   }
 
-  //TODO add also responsible employee
-  public void set(String description, double estimatedTime, MyDate deadline,
-      double timeUsed, boolean isDone)
+  public void set(String description, boolean status, double timeUsed, double estimatedTime, MyDate deadline,
+     EmployeeList employees, Employee responsibleEmployee)
   {
     this.description = description;
+    isDone = status;
     this.timeUsed = timeUsed;
     this.deadline = deadline;
     this.estimatedTime = estimatedTime;
-    this.isDone = isDone;
+    this.responsibleEmployee = responsibleEmployee;
+    addTeamMembers(employees);
   }
 
   public int getTaskID()
@@ -71,6 +73,16 @@ public class Task implements Serializable
     return estimatedTime;
   }
 
+  public String getDescription()
+  {
+    return description;
+  }
+
+  public MyDate getDeadline()
+  {
+    return deadline;
+  }
+
   public void taskIsDone()
   {
     isDone = true;
@@ -81,9 +93,25 @@ public class Task implements Serializable
     return isDone;
   }
 
-  public void addTeamMember(Employee employee)
+  public void addTeamMembers(EmployeeList employees)
   {
-    assignedToTask.addEmployee(employee);
+    this.assignedToTask = new EmployeeList();
+    this.assignedToTask = employees;
+  }
+
+  public void setResponsibleEmployee(Employee responsibleEmployee)
+  {
+    this.responsibleEmployee = responsibleEmployee;
+  }
+
+  public Employee getResponsibleEmployee()
+  {
+    return responsibleEmployee;
+  }
+
+  public EmployeeList getAssignedToTask()
+  {
+    return assignedToTask;
   }
 
   public int getID()
@@ -97,6 +125,22 @@ public class Task implements Serializable
     return "ID: " + taskID;
 
   }
+
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof Task))
+      return false;
+
+    Task other = (Task) obj;
+    return taskID == other.taskID && isDone == other.isDone
+        && Double.compare(other.estimatedTime, estimatedTime) == 0
+        && Double.compare(other.timeUsed, timeUsed) == 0
+        && description.equals(other.description)
+        && deadline.equals(other.deadline)
+        && responsibleEmployee.equals(other.responsibleEmployee)
+        && assignedToTask.equals(other.assignedToTask);
+  }
+
 
   public Task copy()
   {

@@ -55,9 +55,9 @@ public class TaskList implements Serializable
 
   public void addTask(Task task)
   {
-    for (Task taskk : tasks)
+    for (Task tsk : tasks)
     {
-      if (taskk.getID() == task.getID())
+      if (tsk.getID() == task.getID())
       {
         return;
       }

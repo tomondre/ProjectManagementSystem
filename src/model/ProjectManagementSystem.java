@@ -92,14 +92,14 @@ public class ProjectManagementSystem implements Serializable
   }
 
   //TODO change based on constructor of the Task
-  public void setTask(String projectName, String requirementID, int taskID,
-      String description, double estimatedTime, MyDate deadline,
-      double timeUsed, boolean isDone)
+  public void setTask(String projectName, String requirementID, int taskID, String description, boolean status, double timeUsed, double estimatedTime, MyDate deadline,
+      EmployeeList employees, Employee responsibleEmployee)
   {
     if (getTaskByID(projectName, requirementID, taskID) != null)
     {
       getTaskByID(projectName, requirementID, taskID)
-          .set(description, estimatedTime, deadline, timeUsed, isDone);
+          .set(description, status, timeUsed, estimatedTime, deadline,
+              employees, responsibleEmployee);
     }
   }
 
@@ -175,8 +175,8 @@ public class ProjectManagementSystem implements Serializable
       getEmployee(employeeID).set(firstName, lastName);
     }
   }
-
-  public void addTeamMemberToTask(String projectName, String requirementID,
+  //TODO maybe not needed
+  /*public void addTeamMemberToTask(String projectName, String requirementID,
       int taskID, int employeeID)
   {
     if (getProjectByName(projectName) != null)
@@ -185,7 +185,7 @@ public class ProjectManagementSystem implements Serializable
       getProjectByName(projectName)
           .addTeamMemberToTask(requirementID, taskID, employeeID);
     }
-  }
+  }*/
 
   public EmployeeList getNotAssignedEmployees()
   {

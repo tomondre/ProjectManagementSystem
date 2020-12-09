@@ -194,29 +194,29 @@
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="200.0">
                            <children>
                               <Label text="Tasks:" />
-                              <ListView fx:id="tasksListView" prefHeight="381.0" prefWidth="173.0" />
+                              <ListView fx:id="tasksListView" onMouseClicked="#fillTaskFields" prefHeight="381.0" prefWidth="173.0" />
                            </children>
                         </VBox>
-                        <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="266.0">
+                        <VBox maxHeight="350.0" maxWidth="222.0" minHeight="330.0" prefHeight="339.0" prefWidth="219.0">
                            <children>
                               <Label text="Project selected:" />
-                              <ComboBox fx:id="projectSelectedOnTasksComboBox" onAction="#handleActions" prefHeight="25.0" prefWidth="367.0" />
+                              <ComboBox fx:id="projectSelectedOnTasksComboBox" onAction="#handleActions" prefHeight="25.0" prefWidth="222.0" />
                               <Label text="Requirement selected:">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox fx:id="requirementSelectedComboBox" onAction="#handleActions" prefHeight="25.0" prefWidth="367.0" />
-                              <FlowPane hgap="10.0" prefHeight="139.0" prefWidth="293.0" vgap="10.0">
+                              <ComboBox fx:id="requirementSelectedComboBox" onAction="#handleActions" prefHeight="25.0" prefWidth="222.0" />
+                              <FlowPane hgap="10.0" maxWidth="222.0" prefHeight="139.0" prefWidth="222.0" vgap="10.0">
                                  <children>
                                     <Label text="Task ID:" />
-                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="89.0" promptText="11213321" />
-                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="141.0" promptText="Done" />
-                                    <TextField fx:id="taskDescriptionTextArea" alignment="TOP_LEFT" editable="false" prefHeight="63.0" prefWidth="293.0" promptText="Task description" />
-                                    <Label layoutX="10.0" layoutY="14.0" text="Time estimate:" />
-                                    <TextField fx:id="taskEstimateTextField" alignment="TOP_CENTER" editable="false" layoutX="60.0" layoutY="10.0" prefHeight="25.0" prefWidth="50.0" promptText="hours" />
-                                    <Label layoutX="160.0" layoutY="157.0" text="Time used:" />
-                                    <TextField fx:id="taskTimeUsedTextField" alignment="TOP_CENTER" editable="false" layoutX="220.0" layoutY="153.0" prefHeight="25.0" prefWidth="50.0" promptText="23" />
+                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="11213321" />
+                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="80.0" promptText="Done" />
+                                    <TextField fx:id="taskDescriptionTextArea" alignment="TOP_LEFT" editable="false" prefHeight="63.0" prefWidth="222.0" promptText="Task description" />
+                                    <Label layoutX="10.0" layoutY="14.0" text="Estimate:" />
+                                    <TextField fx:id="taskEstimateTextField" alignment="TOP_CENTER" editable="false" layoutX="60.0" layoutY="10.0" prefHeight="25.0" prefWidth="45.0" promptText="time" />
+                                    <Label layoutX="160.0" layoutY="157.0" text="Used:" />
+                                    <TextField fx:id="taskTimeUsedTextField" alignment="TOP_CENTER" editable="false" layoutX="220.0" layoutY="153.0" prefHeight="25.0" prefWidth="45.0" promptText="time" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -224,6 +224,8 @@
                               </FlowPane>
                               <Label text="Deadline:" />
                               <TextField fx:id="taskDeadline" editable="false" prefHeight="25.0" prefWidth="107.0" promptText="12-12-2020" />
+                              <Label text="Responsible employee:" />
+                              <ComboBox fx:id="taskResponsibleEmployeeComboBox" prefHeight="25.0" prefWidth="367.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
@@ -232,18 +234,18 @@
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="147.0">
                            <children>
                               <Label text="Team members:" />
-                              <ListView fx:id="taskTeamMembersListView" prefHeight="146.0" prefWidth="120.0" />
+                              <ListView fx:id="taskTeamMembersListView" prefHeight="146.0" prefWidth="163.0" />
                               <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Add task">
                                  <VBox.margin>
-                                    <Insets left="3.0" top="20.0" />
+                                    <Insets left="18.5" top="20.0" />
                                  </VBox.margin></Button>
                               <Button fx:id="editTaskButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Edit task">
                                  <VBox.margin>
-                                    <Insets left="3.0" top="10.0" />
+                                    <Insets left="18.5" top="10.0" />
                                  </VBox.margin></Button>
                               <Button fx:id="saveTaskButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Save">
                                  <VBox.margin>
-                                    <Insets left="3.0" top="10.0" />
+                                    <Insets left="18.5" top="10.0" />
                                  </VBox.margin></Button>
                            </children>
                         </VBox>

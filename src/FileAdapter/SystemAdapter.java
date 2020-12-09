@@ -17,7 +17,8 @@ public class SystemAdapter
   }
 
   //*******************************************Projects********************************
-  public void addProject(String name, String status) throws IllegalArgumentException
+  public void addProject(String name, String status)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     Project toAdd = new Project(name, status);
@@ -25,7 +26,8 @@ public class SystemAdapter
     save(system);
   }
 
-  public void editProject(String newName, String oldName, String status) throws IllegalArgumentException
+  public void editProject(String newName, String oldName, String status)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     try
@@ -39,26 +41,32 @@ public class SystemAdapter
   }
 
   //************************************Requirements*********************************
-  public void addRequirement(String projectName, String requirementId, int priorityNumber, String description,
-      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  public void addRequirement(String projectName, String requirementId,
+      int priorityNumber, String description, double estimateTime,
+      String status, String requirementType, MyDate deadline,
+      Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system.addRequirement(projectName,
         new Requirement(requirementId, priorityNumber, description,
-            estimateTime,status, requirementType, deadline,
+            estimateTime, status, requirementType, deadline,
             responsibleEmployee));
     save(system);
   }
 
-  public void setRequirement(String projectName, String requirementId, int priorityNumber, String description,
-      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  public void setRequirement(String projectName, String requirementId,
+      int priorityNumber, String description, double estimateTime,
+      String status, String requirementType, MyDate deadline,
+      Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system
         .setRequirement(projectName, requirementId, priorityNumber, description,
-estimateTime, status, requirementType, deadline, responsibleEmployee);
+            estimateTime, status, requirementType, deadline,
+            responsibleEmployee);
     save(system);
   }
+
   //TODO remove requirement
   public void removeRequirement(String projectName, String requirementID)
   {
@@ -69,26 +77,25 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
 
   //******************************************Tasks******************************************
   public void addTask(String projectName, String requirementID, int taskID,
-      String description, double estimatedTime, int day, int month, int year,
-      int responsibleEmployeeID)
+      String description, boolean status, double timeUsed, double estimatedTime,
+      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system.addTask(projectName, requirementID,
-        new Task(taskID, description, estimatedTime,
-            new MyDate(day, month, year),
-            system.getEmployee(responsibleEmployeeID)));
+        new Task(taskID, description, status, timeUsed, estimatedTime, deadline,
+            employees, responsibleEmployee));
     save(system);
   }
 
-  //TODO change based on constructor
+
   public void setTask(String projectName, String requirementID, int taskID,
-      String description, double estimatedTime, double timeUsed, boolean isDone,
-      int day, int month, int year)
+      String description, boolean status, double timeUsed, double estimatedTime,
+      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system
-        .setTask(projectName, requirementID, taskID, description, estimatedTime,
-            new MyDate(day, month, year), timeUsed, isDone);
+        .setTask(projectName, requirementID, taskID, description, status, timeUsed, estimatedTime, deadline,
+            employees, responsibleEmployee);
     save(system);
   }
 
@@ -145,7 +152,8 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
     }
   }
 
-  public void editEmployee(Employee employee, Employee oldEmployee) throws IllegalArgumentException
+  public void editEmployee(Employee employee, Employee oldEmployee)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     try
