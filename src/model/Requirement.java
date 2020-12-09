@@ -178,7 +178,7 @@ public class Requirement implements Serializable
         && this.estimateTime == other.estimateTime
         && this.priorityNumber == other.priorityNumber && this.deadline.equals(other.deadline)
         && this.responsibleEmployee.equals(other.responsibleEmployee) && this.requirementType.equals(
-        other.requirementType);                             //edit this based on constructor
+        other.requirementType);
   }
   public String toString()
   {

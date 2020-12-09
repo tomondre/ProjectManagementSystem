@@ -82,26 +82,25 @@ public class SystemAdapter
 
   //******************************************Tasks******************************************
   public void addTask(String projectName, String requirementID, int taskID,
-      String description, double estimatedTime, int day, int month, int year,
-      int responsibleEmployeeID)
+      String description, boolean status, double timeUsed, double estimatedTime,
+      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system.addTask(projectName, requirementID,
-        new Task(taskID, description, estimatedTime,
-            new MyDate(day, month, year),
-            system.getEmployee(responsibleEmployeeID)));
+        new Task(taskID, description, status, timeUsed, estimatedTime, deadline,
+            employees, responsibleEmployee));
     save(system);
   }
 
-  //TODO change based on constructor
+
   public void setTask(String projectName, String requirementID, int taskID,
-      String description, double estimatedTime, double timeUsed, boolean isDone,
-      int day, int month, int year)
+      String description, boolean status, double timeUsed, double estimatedTime,
+      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system
-        .setTask(projectName, requirementID, taskID, description, estimatedTime,
-            new MyDate(day, month, year), timeUsed, isDone);
+        .setTask(projectName, requirementID, taskID, description, status, timeUsed, estimatedTime, deadline,
+            employees, responsibleEmployee);
     save(system);
   }
 

@@ -70,17 +70,16 @@ public class Project implements Serializable
   {
     projectTeam.deleteRoles();
   }
-
-  public void addTeamMemberToTask(String requirementID, int taskID, int employeeID)
+  //TODO maybe not needed
+  /*public void addTeamMemberToTask(String requirementID, int taskID, int employeeID)
   {
     if (getTaskById(requirementID, taskID) != null
         && getTeamMember(employeeID) != null)
     {
-      getTaskById(requirementID, taskID)
-          .addTeamMember(getTeamMember(employeeID));
+      getTaskById(requirementID, taskID).addTeamMembers(getTeamMember(employeeID));
       //      getTeamMember(employeeID).addTask(getTaskById(requirementID, taskID));
     }
-  }
+  }*/
 
   public EmployeeList getAllTeamMembers()
   {
