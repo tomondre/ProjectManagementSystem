@@ -1,6 +1,9 @@
 package FileAdapter;
+
 import com.google.gson.Gson;
 import model.*;
+import org.json.JSONObject;
+import org.json.XML;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +22,8 @@ public class SystemAdapter
   }
 
   //*******************************************Projects********************************
-  public void addProject(String name, String status) throws IllegalArgumentException
+  public void addProject(String name, String status)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     Project toAdd = new Project(name, status);
@@ -27,7 +31,8 @@ public class SystemAdapter
     save(system);
   }
 
-  public void editProject(String newName, String oldName, String status) throws IllegalArgumentException
+  public void editProject(String newName, String oldName, String status)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     try
@@ -41,26 +46,32 @@ public class SystemAdapter
   }
 
   //************************************Requirements*********************************
-  public void addRequirement(String projectName, String requirementId, int priorityNumber, String description,
-      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  public void addRequirement(String projectName, String requirementId,
+      int priorityNumber, String description, double estimateTime,
+      String status, String requirementType, MyDate deadline,
+      Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system.addRequirement(projectName,
         new Requirement(requirementId, priorityNumber, description,
-            estimateTime,status, requirementType, deadline,
+            estimateTime, status, requirementType, deadline,
             responsibleEmployee));
     save(system);
   }
 
-  public void setRequirement(String projectName, String requirementId, int priorityNumber, String description,
-      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  public void setRequirement(String projectName, String requirementId,
+      int priorityNumber, String description, double estimateTime,
+      String status, String requirementType, MyDate deadline,
+      Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
     system
         .setRequirement(projectName, requirementId, priorityNumber, description,
-estimateTime, status, requirementType, deadline, responsibleEmployee);
+            estimateTime, status, requirementType, deadline,
+            responsibleEmployee);
     save(system);
   }
+
   //TODO remove requirement
   public void removeRequirement(String projectName, String requirementID)
   {
@@ -147,7 +158,8 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
     }
   }
 
-  public void editEmployee(Employee employee, Employee oldEmployee) throws IllegalArgumentException
+  public void editEmployee(Employee employee, Employee oldEmployee)
+      throws IllegalArgumentException
   {
     ProjectManagementSystem system = getSystem();
     try
@@ -175,24 +187,32 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
       System.out.println("IO Error writing to file");
     }
   }
-  public void exportJson()
-  {
-    ProjectList temp = getSystem().getAllProjectsOngoing();
-        Gson json = new Gson();
 
+  public void exportXML()
+  {
+    Gson json = new Gson();
     try
     {
-      mtxtfio.writeToFile("JSON.json", json.toJson(temp));
+      mtxtfio.writeToFile("export.xml", XML.toString(
+          new JSONObject(json.toJson(getSystem().getAllProjectsOngoing()))));
     }
     catch (FileNotFoundException e)
     {
       System.out.println("File not found");
     }
-      }
-////Testing Json parser. Output is file .json which we can actually use in javascript. Ecerything works so far
-//  public static void main(String[] args)
-//  {
-//    SystemAdapter temp = new SystemAdapter("colourIT.bin");
-//    temp.exportJson();
-//  }
+  }
+
+  //Testing Json parser. Output is file .json which we can actually use in javascript. Ecerything works so far
+  public static void main(String[] args)
+  {
+    SystemAdapter systemAdapter = new SystemAdapter("colourIT.bin");
+    JSONObject temp = new JSONObject(
+        systemAdapter.getSystem().getAllProjectsOngoing());
+    String t = temp.toString();
+    System.out.println(t);
+    System.out.println(systemAdapter.getSystem().getAllProjectsOngoing());
+    System.out.println(temp.toString());
+    System.out.println(XML.toString(temp));
+    systemAdapter.exportXML();
+  }
 }
