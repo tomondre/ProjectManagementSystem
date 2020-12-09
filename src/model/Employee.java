@@ -50,9 +50,19 @@ public class Employee implements Serializable
     return lastName;
   }
 
+  public TaskList getTasks()
+  {
+    return tasks;
+  }
+
   public void addTask(Task task)
   {
     tasks.addTask(task);
+  }
+
+  public void removeTask(Task task)
+  {
+    tasks.removeTask(task.getTaskID());
   }
 
   public void resetTasks()

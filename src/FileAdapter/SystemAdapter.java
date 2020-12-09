@@ -108,14 +108,6 @@ public class SystemAdapter
     save(system);
   }
 
-  public void addUsedHoursToTask(String projectName, String requirementID,
-      int taskID, double hours)
-  {
-    ProjectManagementSystem system = getSystem();
-    system.addUsedHourToTask(projectName, requirementID, taskID, hours);
-    save(system);
-  }
-
   //**************************************File*****************************************
   public ProjectManagementSystem getSystem()
   {
@@ -168,6 +160,19 @@ public class SystemAdapter
     }
   }
 
+  public void addTaskToEmployee(Employee employee, Task task)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.getEmployee(employee.getId()).addTask(task);
+    save(system);
+  }
+
+  public void removeTaskFromEmployee(Employee employee, Task task)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.getEmployee(employee.getId()).removeTask(task);
+    save(system);
+  }
   public void save(ProjectManagementSystem system)
   {
     try

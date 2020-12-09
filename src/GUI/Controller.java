@@ -1,5 +1,5 @@
 package GUI;
-
+//TODO when you remove a requirement or task the save buttons validator brakes on task at least.
 import FileAdapter.SystemAdapter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,8 +7,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.*;
-
-import java.util.ArrayList;
 
 public class Controller
 {
@@ -71,6 +69,8 @@ public class Controller
 
   @FXML private Button editRequirementButton;
 
+  @FXML private Button removeRequirementButton;
+
   @FXML private Button saveRequirementButton;
 
   @FXML private Tab tasksTab;
@@ -101,6 +101,8 @@ public class Controller
 
   @FXML private Button editTaskButton;
 
+  @FXML private Button removeTaskButton;
+
   @FXML private Button saveTaskButton;
 
   @FXML private Tab employeesTab;
@@ -115,7 +117,7 @@ public class Controller
 
   @FXML private ComboBox<String> employeeRoleComboBox;
 
-  @FXML private TextArea employeeTaskTextArea;
+  @FXML private ListView<Task> employeeTaskListView;
 
   @FXML private Button addEmployeeButton;
 
@@ -138,16 +140,15 @@ public class Controller
   {
     if (e.getSource() == addProjectButton)
     {
-      Command = "add";
+      Command = "addProject";
       projectNameTextField.setEditable(true);
       projectStatusComboBox.setDisable(false);
       getProjectFieldsCleared();
 
     }
-
     else if (e.getSource() == editProjectButton)
     {
-      Command = "edit";
+      Command = "editProject";
       if (projectsListView.getSelectionModel().getSelectedIndex() < 0)
       {
         alertPopUp("Choose project to edit.");
@@ -157,10 +158,9 @@ public class Controller
         projectFieldsAreEditable(true);
       }
     }
-
     else if (e.getSource() == assignEmployeeButton)
     {
-      Command = "assign";
+      Command = "assignEmployee";
       teamMembersFieldsAreEditable(true);
 
       getTeamMembersFieldsCleared();
@@ -175,7 +175,7 @@ public class Controller
     //TODO think if we really need to remove employee from a project. If we have time. Khaled
     else if (e.getSource() == removeEmployeeButton)
     {
-      Command = "remove";
+      Command = "removeEmployee";
       availableEmployeeComboBox.setDisable(true);
       employeeRoleComboBox.setDisable(true);
     }
@@ -192,7 +192,7 @@ public class Controller
           .getSelectedItem();
       switch (Command)
       {
-        case "add":
+        case "addProject":
           try
           {
             adapter.addProject(newName, status);
@@ -202,7 +202,7 @@ public class Controller
             alertPopUp(event.getMessage());
           }
           break;
-        case "assign":
+        case "assignEmployee":
           Employee chosenEmployee = availableEmployeeComboBox
               .getSelectionModel().getSelectedItem();
 
@@ -217,10 +217,10 @@ public class Controller
               chosenEmployee.getId(), role);
           adapter.save(system);
           break;
-        case "remove":
+        case "removeEmployee":
           //TODO if we have time we can look at this as well.
           break;
-        default:
+        case "editProject":
           try
           {
             String oldName = adapter.getSystem().getProjectList().get(index)
@@ -236,12 +236,11 @@ public class Controller
       updateProjects();
       updateTeamMembers();
 
-      Command = "";
-
       projectFieldsAreEditable(false);
       teamMembersFieldsAreEditable(false);
       getProjectFieldsCleared();
       getTeamMembersFieldsCleared();
+      Command = "";
     }
     else if (e.getSource() == addRequirementButton)
     {
@@ -251,6 +250,7 @@ public class Controller
       }
       else
       {
+        Command = "addRequirement";
         requirementsFieldsAreEditable(true);
         getRequirementFieldsCleared();
 
@@ -276,9 +276,21 @@ public class Controller
       }
       else
       {
+        Command = "editRequirement";
         requirementsFieldsAreEditable(true);
         requirementIDTextField.setEditable(false);
         fillRequirementsFields();
+      }
+    }
+    else if (e.getSource() == removeRequirementButton)
+    {
+      if (requirementsListView.getSelectionModel().getSelectedIndex() == -1)
+      {
+        alertPopUp("Choose requirement to remove.");
+      }
+      else
+      {
+        Command = "removeRequirement";
       }
     }
     else if (e.getSource() == saveRequirementButton)
@@ -308,24 +320,29 @@ public class Controller
       Employee responsibleEmployee = responsibleTeamMemberComboBox
           .getSelectionModel().getSelectedItem();
 
-      if (requirementsListView.getSelectionModel().getSelectedIndex() < 0)
-      {
-        adapter.addRequirement(selectedProject.getName(), requirementID,
-            priorityNumber, requirementDescription, timeEstimate, status,
-            requirementType, deadline, responsibleEmployee);
-      }
-      else
-      {
-        Requirement toEdit = requirementsListView.getSelectionModel()
-            .getSelectedItem();
-        adapter.setRequirement(selectedProject.getName(), requirementID,
-            priorityNumber, requirementDescription, timeEstimate, status,
-            requirementType, deadline, responsibleEmployee);
+      Requirement selectedRequirement = requirementsListView.getSelectionModel()
+          .getSelectedItem();
 
+      switch (Command)
+      {
+        case "addRequirement":
+          adapter.addRequirement(selectedProject.getName(), requirementID,
+              priorityNumber, requirementDescription, timeEstimate, status,
+              requirementType, deadline, responsibleEmployee);
+          break;
+        case "editRequirement":
+          adapter.setRequirement(selectedProject.getName(), requirementID,
+              priorityNumber, requirementDescription, timeEstimate, status,
+              requirementType, deadline, responsibleEmployee);
+          break;
+        case "removeRequirement":
+          adapter.removeRequirement(selectedProject.getName(), selectedRequirement.getID());
+          break;
       }
       requirementsFieldsAreEditable(false);
       getRequirementFieldsCleared();
       updateRequirements();
+      Command = "";
     }
     else if (e.getSource() == addTaskButton)
     {
@@ -338,6 +355,7 @@ public class Controller
       }
       else
       {
+        Command = "addTask";
         getTaskFieldsCleared();
         taskFieldsAreEditable(true);
         //TODO refactor a bit
@@ -346,7 +364,7 @@ public class Controller
         for (int i = 0; i < employeeList.size(); i++)
         {
           taskResponsibleEmployeeComboBox.getItems().add(employeeList.get(i));
-          teamMembersListView.getItems().add(employeeList.get(i));
+          taskTeamMembersListView.getItems().add(employeeList.get(i));
         }
       }
     }
@@ -358,8 +376,21 @@ public class Controller
       }
       else
       {
+        Command = "editTask";
         taskFieldsAreEditable(true);
         taskIDTextField.setEditable(false);
+
+      }
+    }
+    else if (e.getSource() == removeTaskButton)
+    {
+      if (tasksListView.getSelectionModel().getSelectedIndex() == -1)
+      {
+        alertPopUp("Choose task to remove.");
+      }
+      else
+      {
+        Command = "removeTask";
       }
     }
     else if (e.getSource() == saveTaskButton)
@@ -367,15 +398,15 @@ public class Controller
       if (taskFieldsValidation())
       {
         alertPopUp("Fill in all the fields.");
+        getTaskFieldsCleared();
       }
 
-      String projectSelectedName = projectSelectedOnTasksComboBox
+      String selectedProjectName = projectSelectedOnTasksComboBox
           .getSelectionModel().getSelectedItem().getName();
-      String selectedRequirementName = requirementSelectedComboBox
+      String selectedRequirementID = requirementSelectedComboBox
           .getSelectionModel().getSelectedItem().getID();
 
       int taskID = Integer.parseInt(taskIDTextField.getText());
-      //TODO check if correct status is parsed.
       boolean status =
           taskStatusComboBox.getSelectionModel().getSelectedIndex() != 0;
       String description = taskDescriptionTextArea.getText();
@@ -386,7 +417,6 @@ public class Controller
           Integer.parseInt(time[1]), Integer.parseInt(time[2]));
       Employee responsibleEmployee = taskResponsibleEmployeeComboBox
           .getSelectionModel().getSelectedItem();
-      //TODO Check the cast
       ObservableList<Employee> employeesChosen = taskTeamMembersListView
           .getSelectionModel().getSelectedItems();
       EmployeeList employeesToAssign = new EmployeeList();
@@ -394,25 +424,44 @@ public class Controller
       {
         employeesToAssign.addEmployee(empl);
       }
-      if (tasksListView.getSelectionModel().getSelectedIndex() < 0)
+      switch (Command)
       {
-        adapter.addTask(projectSelectedName, selectedRequirementName, taskID,
-            description, status, timeUsed, timeEstimate, deadline,
-            employeesToAssign, responsibleEmployee);
-      }
-      else
-      {
-        int oldTaskID = tasksListView.getSelectionModel().getSelectedItem()
-            .getTaskID();
-        adapter.setTask(projectSelectedName, selectedRequirementName, oldTaskID,
-            description, status, timeUsed, timeEstimate, deadline,
-            employeesToAssign, responsibleEmployee);
+        case "addTask":
+          adapter.addTask(selectedProjectName, selectedRequirementID, taskID,
+              description, status, timeUsed, timeEstimate, deadline,
+              employeesToAssign, responsibleEmployee);
+          for (int i = 0; i < employeesToAssign.size(); i++)
+          {
+            //TODO refactor
+            adapter.addTaskToEmployee(employeesToAssign.get(i), new Task(taskID,
+                description, status, timeUsed, timeEstimate, deadline,
+                employeesToAssign, responsibleEmployee));
+          }
+          break;
+        case "editTask":
+          Task selectedTask = tasksListView.getSelectionModel().getSelectedItem();
+          adapter
+              .setTask(selectedProjectName, selectedRequirementID, selectedTask.getTaskID(),
+                  description, status, timeUsed, timeEstimate, deadline,
+                  employeesToAssign, responsibleEmployee);
+          break;
+        case "removeTask":
+          selectedTask = tasksListView.getSelectionModel().getSelectedItem();
+          adapter.removeTask(selectedProjectName, selectedRequirementID, selectedTask.getTaskID());
+          EmployeeList employeesAssigned = adapter.getSystem().getTaskByID(selectedProjectName, selectedRequirementID, selectedTask.getTaskID()).getAssignedToTask();
+          for (int i = 0; i < employeesAssigned.size(); i++)
+          {
+            adapter.removeTaskFromEmployee(employeesAssigned.get(i), selectedTask);
+          }
+          break;
       }
       taskFieldsAreEditable(false);
       getTaskFieldsCleared();
+      Command = "";
     }
     else if (e.getSource() == addEmployeeButton)
     {
+      Command = "addEmployee";
       getEmployeeFieldsCleared();
       employeeFieldsAreEditable(true);
     }
@@ -424,6 +473,7 @@ public class Controller
       }
       else
       {
+        Command = "editEmployee";
         employeeFieldsAreEditable(true);
       }
     }
@@ -439,36 +489,38 @@ public class Controller
       String firstName = employeeFirstName.getText();
       String lastName = employeeLastName.getText();
 
-      if (employeesListView.getSelectionModel().getSelectedIndex() < 0)
+      switch (Command)
       {
-        Employee toAdd = new Employee(employeeID, firstName, lastName);
-        try
-        {
-          adapter.addEmployee(toAdd);
-        }
-        catch (IllegalArgumentException empE)
-        {
-          alertPopUp(empE.getMessage());
-        }
-      }
-      else
-      {
-        try
-        {
-          Employee oldEmployee = employeesListView.getSelectionModel()
-              .getSelectedItem();
-          Employee toEdit = new Employee(employeeID, firstName, lastName);
+        case "addEmployee":
+          Employee toAdd = new Employee(employeeID, firstName, lastName);
+          try
+          {
+            adapter.addEmployee(toAdd);
+          }
+          catch (IllegalArgumentException empE)
+          {
+            alertPopUp(empE.getMessage());
+          }
+          break;
+        case "editEmployee":
+          try
+          {
+            Employee oldEmployee = employeesListView.getSelectionModel()
+                .getSelectedItem();
+            Employee toEdit = new Employee(employeeID, firstName, lastName);
 
-          adapter.editEmployee(toEdit, oldEmployee);
-        }
-        catch (IllegalArgumentException error)
-        {
-          alertPopUp(error.getMessage());
-        }
+            adapter.editEmployee(toEdit, oldEmployee);
+          }
+          catch (IllegalArgumentException error)
+          {
+            alertPopUp(error.getMessage());
+          }
+          break;
       }
       updateEmployees();
       employeeFieldsAreEditable(false);
       getEmployeeFieldsCleared();
+      Command = "";
     }
     else if (e.getSource() == exitMenuItem)
     {
@@ -712,7 +764,6 @@ public class Controller
     taskEstimateTextField.setEditable(areEditable);
     taskTimeUsedTextField.setEditable(areEditable);
     taskDeadline.setEditable(areEditable);
-    taskTeamMembersListView.setDisable(!areEditable);
   }
 
   public void teamMembersFieldsAreEditable(boolean areEditable)
@@ -843,6 +894,7 @@ public class Controller
 
   public void fillTaskFields()
   {
+    taskTeamMembersListView.getItems().clear();
     Task selectedTask = tasksListView.getSelectionModel().getSelectedItem();
     if (selectedTask != null)
     {
@@ -860,7 +912,7 @@ public class Controller
       EmployeeList teamMembers = selectedTask.getAssignedToTask();
       for (int i = 0; i < teamMembers.size(); i++)
       {
-        teamMembersListView.getItems().add(teamMembers.get(i));
+        taskTeamMembersListView.getItems().add(teamMembers.get(i));
       }
     }
   }
@@ -872,6 +924,12 @@ public class Controller
     employeeIDTextField.setText(String.valueOf(toEdit.getId()));
     employeeFirstName.setText(toEdit.getFirstName());
     employeeLastName.setText(toEdit.getLastName());
+    employeeTaskListView.getItems().clear();
+    TaskList employeeTasks = adapter.getSystem().getEmployeeTaskList(toEdit.getId());
+    for (int i = 0; i < employeeTasks.size(); i++)
+    {
+      employeeTaskListView.getItems().add(employeeTasks.get(i));
+    }
   }
 
   public boolean requirementsFieldsValidator()

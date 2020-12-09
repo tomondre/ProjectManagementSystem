@@ -29,14 +29,6 @@ public class EmployeeList implements Serializable
     employees.add(employee);
   }
 
-  public void addEmployees(EmployeeList employees)
-  {
-    this.employees = new ArrayList<>();
-    for (int i = 0; i < employees.size(); i++)
-    {
-      this.employees.add(employees.get(i));
-    }
-  }
   public void editEmployee(Employee employee, Employee oldEmployee)
   {
     Employee temp = getEmployeeByID(oldEmployee.getId());
@@ -86,11 +78,6 @@ public class EmployeeList implements Serializable
       e.setRole("");
       e.resetTasks();
     }
-  }
-
-  public Employee getResponsibleEmployee()
-  {
-    return employees.get(0);
   }
 
   public Employee get(int index)
