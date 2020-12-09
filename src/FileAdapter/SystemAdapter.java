@@ -1,5 +1,5 @@
 package FileAdapter;
-
+import com.google.gson.Gson;
 import model.*;
 
 import java.io.FileNotFoundException;
@@ -9,11 +9,13 @@ public class SystemAdapter
 {
   private MyFileIO mfio;
   private String fileName;
+  private MyTextFileIO mtxtfio;
 
   public SystemAdapter(String fileName)
   {
     mfio = new MyFileIO();
     this.fileName = fileName;
+    this.mtxtfio = new MyTextFileIO();
   }
 
   //*******************************************Projects********************************
@@ -173,4 +175,24 @@ estimateTime, status, requirementType, deadline, responsibleEmployee);
       System.out.println("IO Error writing to file");
     }
   }
+  public void exportJson()
+  {
+    ProjectList temp = getSystem().getAllProjectsOngoing();
+        Gson json = new Gson();
+
+    try
+    {
+      mtxtfio.writeToFile("JSON.json", json.toJson(temp));
+    }
+    catch (FileNotFoundException e)
+    {
+      System.out.println("File not found");
+    }
+      }
+////Testing Json parser. Output is file .json which we can actually use in javascript. Ecerything works so far
+//  public static void main(String[] args)
+//  {
+//    SystemAdapter temp = new SystemAdapter("colourIT.bin");
+//    temp.exportJson();
+//  }
 }
