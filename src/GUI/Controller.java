@@ -500,14 +500,15 @@ public class Controller
     else if (e.getSource() == projectSelectedComboBox)
     {
       requirementsListView.getItems().clear();
-      Project project = projectSelectedComboBox.getSelectionModel()
-          .getSelectedItem();
-      RequirementList requirements = adapter.getSystem()
-          .getRequirementList(project.getName());
-
-      for (int i = 0; i < requirements.size(); i++)
+      if (projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1)
       {
-        requirementsListView.getItems().addAll(requirements.get(i));
+        Project project = projectSelectedComboBox.getSelectionModel().getSelectedItem();
+        RequirementList requirements = adapter.getSystem().getRequirementList(project.getName());
+
+        for (int i = 0; i < requirements.size(); i++)
+        {
+          requirementsListView.getItems().addAll(requirements.get(i));
+        }
       }
     }
     else if (e.getSource() == projectSelectedOnTasksComboBox)
@@ -522,22 +523,31 @@ public class Controller
 
   public void tabChange(Event event)
   {
-    if (projectsTab.isSelected())
+    if (adapter != null)
     {
-      updateProjects();
-    }
-    else if (requirementsTab.isSelected())
-    {
-      updateProjectsToSelect(projectSelectedComboBox);
-    }
-    else if (tasksTab.isSelected())
-    {
-      updateProjectsToSelect(projectSelectedOnTasksComboBox);
-      updateRequirementToSelect();
-    }
-    else if (employeesTab.isSelected())
-    {
-      updateEmployees();
+      getProjectFieldsCleared();
+      getRequirementFieldsCleared();
+      getTaskFieldsCleared();
+      getEmployeeFieldsCleared();
+      getTeamMembersFieldsCleared();
+
+      if (projectsTab.isSelected())
+      {
+        updateProjects();
+      }
+      else if (requirementsTab.isSelected())
+      {
+        updateProjectsToSelect(projectSelectedComboBox);
+      }
+      else if (tasksTab.isSelected())
+      {
+        updateProjectsToSelect(projectSelectedOnTasksComboBox);
+        updateRequirementToSelect();
+      }
+      else if (employeesTab.isSelected())
+      {
+        updateEmployees();
+      }
     }
   }
 
@@ -632,25 +642,25 @@ public class Controller
     if (requirementSelectedComboBox.getSelectionModel().getSelectedIndex() != -1
         && projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex()
         != -1)
+    {
       tasksListView.getItems().clear();
-    taskTeamMembersListView.getItems().clear();
-    Requirement selectedRequirement = requirementSelectedComboBox
-        .getSelectionModel().getSelectedItem();
-    TaskList taskList = selectedRequirement.getTaskList();
-    EmployeeList employees = projectSelectedOnTasksComboBox.getSelectionModel()
-        .getSelectedItem().getAllTeamMembers();
-    if (taskList.size() > 0)
-    {
-      for (int i = 0; i < taskList.size(); i++)
+      taskTeamMembersListView.getItems().clear();
+      Requirement selectedRequirement = requirementSelectedComboBox.getSelectionModel().getSelectedItem();
+      TaskList taskList = selectedRequirement.getTaskList();
+      EmployeeList employees = projectSelectedOnTasksComboBox.getSelectionModel().getSelectedItem().getAllTeamMembers();
+      if (taskList.size() > 0)
       {
-        tasksListView.getItems().add(taskList.get(i));
+        for (int i = 0; i < taskList.size(); i++)
+        {
+          tasksListView.getItems().add(taskList.get(i));
+        }
       }
-    }
-    if (employees.size() > 0)
-    {
-      for (int i = 0; i < employees.size(); i++)
+      if (employees.size() > 0)
       {
-        taskTeamMembersListView.getItems().add(employees.get(i));
+        for (int i = 0; i < employees.size(); i++)
+        {
+          taskTeamMembersListView.getItems().add(employees.get(i));
+        }
       }
     }
   }
@@ -753,14 +763,23 @@ public class Controller
 
   public void getTaskFieldsCleared()
   {
+    tasksListView.getItems().clear();
     taskIDTextField.clear();
     taskStatusComboBox.getSelectionModel().select(0);
     taskDescriptionTextArea.clear();
     taskEstimateTextField.clear();
     taskTimeUsedTextField.clear();
     taskDeadline.clear();
-    teamMembersListView.getItems().clear();
+    taskTeamMembersListView.getItems().clear();
     taskResponsibleEmployeeComboBox.getItems().clear();
+  }
+
+  public void getEmployeeFieldsCleared()
+  {
+    employeeIDTextField.clear();
+    employeeFirstName.clear();
+    employeeLastName.clear();
+    employeeRoleComboBox.getSelectionModel().select(0);
   }
 
   public boolean taskFieldsValidation()
@@ -776,14 +795,6 @@ public class Controller
   {
     return employeeIDTextField.getText().isEmpty() || employeeFirstName
         .getText().isEmpty() || employeeLastName.getText().isEmpty();
-  }
-
-  public void getEmployeeFieldsCleared()
-  {
-    employeeIDTextField.clear();
-    employeeFirstName.clear();
-    employeeLastName.clear();
-    employeeRoleComboBox.getSelectionModel().select(0);
   }
 
   public void fillFieldsInProjectTab()
