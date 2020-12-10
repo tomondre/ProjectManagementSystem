@@ -176,6 +176,7 @@ public class SystemAdapter
     ProjectManagementSystem system = getSystem();
     system.getAllProjectsOngoing().getProjectByName(projectName)
         .addTeamMember(employee, role);
+    system.getAllEmployees().getEmployeeByID(employee.getId()).setRole(role);
     save(system);
   }
 

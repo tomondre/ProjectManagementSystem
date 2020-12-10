@@ -21,8 +21,9 @@ public class Requirement implements Serializable
   private Employee responsibleEmployee;
   private String requirementType;
 
-  public Requirement(String requirementId, int priorityNumber, String description,
-      double estimateTime, String status, String requirementType, MyDate deadline, Employee responsibleEmployee)
+  public Requirement(String requirementId, int priorityNumber,
+      String description, double estimateTime, String status,
+      String requirementType, MyDate deadline, Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
     this.responsibleEmployee = responsibleEmployee;
@@ -33,26 +34,29 @@ public class Requirement implements Serializable
     this.deadline = deadline;
     setRequirementType(requirementType);
     setStatus(status);
-    this.deadline = deadline;
   }
 
   //Constructor for copy method
-  public Requirement(String requirementId, int priorityNumber, String description,
-      double estimateTime, MyDate deadline, Employee responsibleEmployee,
-      TaskList taskList, String status)
+  public Requirement(String requirementId, int priorityNumber,
+      String description, double estimateTime, String status,
+      String requirementType, MyDate deadline, Employee responsibleEmployee,
+      TaskList tasks)
   {
     this.priorityNumber = priorityNumber;
-    this.taskList = taskList;
+    taskList = tasks;
     this.requirementId = requirementId;
     this.description = description;
     this.estimateTime = estimateTime;
     this.deadline = deadline;
     this.status = status;
     this.responsibleEmployee = responsibleEmployee;
+    this.requirementType = requirementType;
   }
 
   //******************************SETTERS*****************************************
-  public void set(int priorityNumber, String description, double estimateTime, MyDate deadline, String status, String requirementType, Employee responsibleEmployee)
+  public void set(int priorityNumber, String description, double estimateTime,
+      MyDate deadline, String status, String requirementType,
+      Employee responsibleEmployee)
   {
     this.priorityNumber = priorityNumber;
     this.description = description;
@@ -176,21 +180,25 @@ public class Requirement implements Serializable
       return false;
     }
     Requirement other = (Requirement) obj;
-    return this.requirementId.equals(other.requirementId) && this.description.equals(other.description)
-        && this.status.equals(other.status)
+    return this.requirementId.equals(other.requirementId) && this.description
+        .equals(other.description) && this.status.equals(other.status)
         && this.estimateTime == other.estimateTime
-        && this.priorityNumber == other.priorityNumber && this.deadline.equals(other.deadline)
-        && this.responsibleEmployee.equals(other.responsibleEmployee) && this.requirementType.equals(
-        other.requirementType);
+        && this.priorityNumber == other.priorityNumber && this.deadline
+        .equals(other.deadline) && this.responsibleEmployee
+        .equals(other.responsibleEmployee) && this.requirementType
+        .equals(other.requirementType);
   }
+
   public String toString()
   {
     //checkStatus();
     return "ID: " + requirementId + " -  Pr: " + priorityNumber;
   }
+
   public Requirement copy()
   {
     return new Requirement(requirementId, priorityNumber, description,
-        estimateTime, deadline, responsibleEmployee, taskList.copy(), status);
+        estimateTime, status, requirementType, deadline, responsibleEmployee.copy(),
+        taskList.copy());
   }
 }

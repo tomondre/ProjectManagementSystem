@@ -8,8 +8,6 @@ public class ProjectManagementSystem implements Serializable
   private ProjectList ongoingProjectList;
   private ProjectList archivedProjects;
 
-  //TODO we dont have to copy every single object in project, we just have to copy the employee list which has references to employees;
-  //We have decided to use following path to get specific projectList/requirements/tasks: String projectName / int requirementID / int taskID
   public ProjectManagementSystem()
   {
     employees = new EmployeeList();
@@ -31,16 +29,27 @@ public class ProjectManagementSystem implements Serializable
   //******************************Requirement***********************************
   public RequirementList getAllRequirements(String projectName)
   {
-    return getAllProjectsOngoing().getProjectByName(projectName)
-        .getAllRequirements();
-
+    if (getAllProjectsOngoing().getProjectByName(projectName) != null)
+    {
+      return getAllProjectsOngoing().getProjectByName(projectName).getAllRequirements();
+    }
+    else
+    {
+      return getAllArchivedProjects().getProjectByName(projectName).getAllRequirements();
+    }
   }
 
   public Requirement getRequirementByID(String projectName,
       String requirementID)
   {
-    return getAllProjectsOngoing().getProjectByName(projectName)
-        .getRequirementByID(requirementID);
+    if (getAllProjectsOngoing().getProjectByName(projectName) != null)
+    {
+      return getAllProjectsOngoing().getProjectByName(projectName).getRequirementByID(requirementID);
+    }
+    else
+    {
+      return getAllArchivedProjects().getProjectByName(projectName).getRequirementByID(requirementID);
+    }
   }
 
   //**********************************Tasks*************************************
@@ -55,6 +64,20 @@ public class ProjectManagementSystem implements Serializable
     return employees;
   }
 
+  public void employeesDeleteRoles(EmployeeList employees)
+  {
+    for (int i = 0; i < this.employees.size(); i++)
+    {
+      for (int j = 0; j < employees.size(); j++)
+      {
+        if (this.employees.get(i).getId() == employees.get(j).getId())
+        {
+          this.employees.get(i).setRole("");
+        }
+      }
+    }
+  }
+
   //*****************************Archive****************************************
   public void moveToArchive(String projectName)
   {
@@ -62,7 +85,8 @@ public class ProjectManagementSystem implements Serializable
     {
       Project temp = getAllProjectsOngoing().getProjectByName(projectName);
       archivedProjects.addProject(temp.copy());
-      temp.deleteTeamRoles();
+      EmployeeList empl = temp.getAllTeamMembers();
+      employeesDeleteRoles(empl);
       ongoingProjectList.remove(temp);
     }
   }

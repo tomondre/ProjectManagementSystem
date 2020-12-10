@@ -14,7 +14,6 @@ public class Employee implements Serializable
   private String role;
   private TaskList tasks;
 
-  //TODO when deleting project we have to also delete project in employee.
   public Employee(int employeeID, String firstName, String lastName)
   {
     this.employeeID = employeeID;
@@ -34,11 +33,6 @@ public class Employee implements Serializable
     this.tasks = tasks;
   }
 
-  public void set(String firstName, String lastName)
-  {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
   public void setEmployeeID(int employeeID)
   {
     this.employeeID = employeeID;

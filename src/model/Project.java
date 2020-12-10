@@ -20,11 +20,13 @@ public class Project implements Serializable
     setStatus(status);
   }
 
-  public Project(String projectName,
-      RequirementList requirementList)             //TODO this one is for copy method. Also if there will be responsible person we have to add him into conctructor
+  public Project(String projectName, String status,
+      RequirementList requirementList, EmployeeList projectTeam)
   {
     this.projectName = projectName;
+    setStatus(status);
     this.requirementList = requirementList;
+    this.projectTeam = projectTeam;
   }
 
   public void setProjectName(String name)
@@ -64,7 +66,6 @@ public class Project implements Serializable
     return projectTeam;
   }
 
-  //TODO delete projectTeam after making a copy to archive so they wont have roles and can be assigned to new projects
   public void deleteTeamRoles()
   {
     projectTeam.deleteRoles();
@@ -85,10 +86,9 @@ public class Project implements Serializable
     return requirementList;
   }
 
-  //TODO change this so it will match constructor
   public Project copy()
   {
-    return new Project(projectName, requirementList.copy());
+    return new Project(projectName, status, requirementList.copy(), projectTeam.copy());
   }
 
   public String toString()

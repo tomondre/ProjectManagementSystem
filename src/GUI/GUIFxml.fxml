@@ -26,14 +26,14 @@
               <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#handleActions" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Mode">
                <items>
-                  <RadioMenuItem fx:id="ongoingProjects" mnemonicParsing="false" onAction="#menuItemsRadioButtons" selected="true" text="Current">
+                  <RadioMenuItem fx:id="ongoingProjects" mnemonicParsing="false" onAction="#menuItemsRadioButtons" selected="true" text="Ongoing projects">
                      <toggleGroup>
                         <ToggleGroup fx:id="projects" />
                      </toggleGroup>
                   </RadioMenuItem>
-                  <RadioMenuItem fx:id="archivedProjects" mnemonicParsing="false" onAction="#menuItemsRadioButtons" text="Archived" toggleGroup="$projects" />
+                  <RadioMenuItem fx:id="archivedProjects" mnemonicParsing="false" onAction="#menuItemsRadioButtons" text="Archived projects" toggleGroup="$projects" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">

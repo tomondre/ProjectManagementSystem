@@ -27,10 +27,9 @@ public class Task implements Serializable
     this.responsibleEmployee = responsibleEmployee;
   }
 
-  //TODO change as constructor constructor for copy method. And remove it.
   public Task(int taskID, String description, double estimatedTime,
       MyDate deadline, double timeUsed, EmployeeList assignedToTask,
-      boolean status)
+      boolean status, Employee responsibleEmployee)
   {
     this.taskID = taskID;
     this.description = description;
@@ -39,6 +38,7 @@ public class Task implements Serializable
     this.estimatedTime = estimatedTime;
     isDone = status;
     this.assignedToTask = assignedToTask;
+    this.responsibleEmployee = responsibleEmployee;
   }
 
   public void set(String description, boolean status, double timeUsed, double estimatedTime, MyDate deadline,
@@ -135,6 +135,6 @@ public class Task implements Serializable
   public Task copy()
   {
     return new Task(taskID, description, estimatedTime, deadline, timeUsed,
-        assignedToTask.copy(), isDone);
+        assignedToTask.copy(), isDone, responsibleEmployee.copy());
   }
 }

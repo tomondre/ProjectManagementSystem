@@ -297,9 +297,17 @@ public class Controller
         String projectName = projectSelectedComboBox.getSelectionModel()
             .getSelectedItem().getName();
 
-        EmployeeList teamMembers = adapter.getSystem().getAllProjectsOngoing()
-            .getProjectByName(projectName).getAllTeamMembers();
-
+        EmployeeList teamMembers;
+        if (ongoingProjects.isSelected())
+        {
+          teamMembers = adapter.getSystem().getAllProjectsOngoing()
+              .getProjectByName(projectName).getAllTeamMembers();
+        }
+        else
+        {
+          teamMembers = adapter.getSystem().getAllArchivedProjects()
+              .getProjectByName(projectName).getAllTeamMembers();
+        }
         for (int i = 0; i < teamMembers.size(); i++)
         {
           responsibleTeamMemberComboBox.getItems().add(teamMembers.get(i));
@@ -670,6 +678,7 @@ public class Controller
       {
         updateProjectsToSelect(projectSelectedOnTasksComboBox);
         updateRequirementToSelect();
+        tasksListView.getItems().clear();
       }
       else if (employeesTab.isSelected())
       {
@@ -685,13 +694,13 @@ public class Controller
       projectsListView.getItems().clear();
       projectStatusComboBox.getItems().clear();
 
-      ProjectList temp = new ProjectList();
+      ProjectList temp;
 
       if (ongoingProjects.isSelected())
       {
         temp = adapter.getSystem().getAllProjectsOngoing();
       }
-      else if (archivedProjects.isSelected())
+      else
       {
         temp = adapter.getSystem().getAllArchivedProjects();
       }
@@ -713,8 +722,15 @@ public class Controller
       Project selectedProject = projectsListView.getSelectionModel()
           .getSelectedItem();
 
-      EmployeeList teamMembers = adapter.getSystem().getAllProjectsOngoing()
-          .getProjectByName(selectedProject.getName()).getAllTeamMembers();
+      EmployeeList teamMembers;
+      if (ongoingProjects.isSelected())
+      {
+        teamMembers = adapter.getSystem().getAllProjectsOngoing().getProjectByName(selectedProject.getName()).getAllTeamMembers();
+      }
+      else
+      {
+        teamMembers = adapter.getSystem().getAllArchivedProjects().getProjectByName(selectedProject.getName()).getAllTeamMembers();
+      }
 
       if (teamMembers != null)
       {
@@ -749,7 +765,15 @@ public class Controller
   public void updateProjectsToSelect(ComboBox<Project> comboBox)
   {
     comboBox.getItems().clear();
-    ProjectList projectList = adapter.getSystem().getAllProjectsOngoing();
+    ProjectList projectList;
+    if (ongoingProjects.isSelected())
+    {
+      projectList = adapter.getSystem().getAllProjectsOngoing();
+    }
+    else
+    {
+      projectList = adapter.getSystem().getAllArchivedProjects();
+    }
     for (int i = 0; i < projectList.size(); i++)
     {
       comboBox.getItems().add(projectList.get(i));
@@ -968,11 +992,17 @@ public class Controller
       timeUsedTextField
           .setText(String.valueOf(selectedRequirement.getTotalTimeUsed()));
       responsibleTeamMemberComboBox.getItems().clear();
-      EmployeeList employeeList = projectSelectedComboBox.getSelectionModel()
-          .getSelectedItem().getAllTeamMembers();
-      for (int i = 0; i < employeeList.size(); i++)
+      if (ongoingProjects.isSelected())
       {
-        responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
+        EmployeeList employeeList = projectSelectedComboBox.getSelectionModel().getSelectedItem().getAllTeamMembers();
+        for (int i = 0; i < employeeList.size(); i++)
+        {
+          responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
+        }
+      }
+      else
+      {
+        responsibleTeamMemberComboBox.getItems().add(selectedRequirement.getResponsibleEmployee());
       }
       responsibleTeamMemberComboBox.getSelectionModel()
           .select(selectedRequirement.getResponsibleEmployee());
@@ -1012,7 +1042,6 @@ public class Controller
     employeeFirstName.setText(toEdit.getFirstName());
     employeeLastName.setText(toEdit.getLastName());
     employeeTaskListView.getItems().clear();
-    //TODO do we need to go through the adapter?
     TaskList employeeTasks = adapter.getSystem().getAllEmployees()
         .getEmployeeByID(toEdit.getId()).getWorkingOnTasks();
     for (int i = 0; i < employeeTasks.size(); i++)
@@ -1051,6 +1080,7 @@ public class Controller
     addEmployeeButton.setDisable(areDisabled);
     editEmployeeButton.setDisable(areDisabled);
     saveEmployeeButton.setDisable(areDisabled);
+    employeesTab.setDisable(areDisabled);
   }
 
   public void alertPopUp(String e)
