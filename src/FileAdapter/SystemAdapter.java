@@ -27,7 +27,7 @@ public class SystemAdapter
   {
     ProjectManagementSystem system = getSystem();
     Project toAdd = new Project(name, status);
-    system.getProjectList().addProject(toAdd);
+    system.getAllProjectsOngoing().addProject(toAdd);
     save(system);
   }
 
@@ -37,7 +37,7 @@ public class SystemAdapter
     ProjectManagementSystem system = getSystem();
     try
     {
-      system.getProjectList().editProject(newName, oldName, status);
+      system.getAllProjectsOngoing().editProject(newName, oldName, status);
     }
     finally
     {
@@ -52,7 +52,7 @@ public class SystemAdapter
       Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
-    system.addRequirement(projectName,
+    system.getAllProjectsOngoing().getProjectByName(projectName).addRequirement(
         new Requirement(requirementId, priorityNumber, description,
             estimateTime, status, requirementType, deadline,
             responsibleEmployee));
@@ -65,10 +65,9 @@ public class SystemAdapter
       Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
-    system
-        .setRequirement(projectName, requirementId, priorityNumber, description,
-            estimateTime, status, requirementType, deadline,
-            responsibleEmployee);
+    system.getRequirementByID(projectName, requirementId)
+        .set(priorityNumber, description, estimateTime, deadline, status,
+            requirementType, responsibleEmployee);
     save(system);
   }
 
@@ -76,30 +75,25 @@ public class SystemAdapter
   public void removeRequirement(String projectName, String requirementID)
   {
     ProjectManagementSystem system = getSystem();
-    system.removeRequirement(projectName, requirementID);
+    system.getAllProjectsOngoing().getProjectByName(projectName).removeRequirement(requirementID);
     save(system);
   }
 
   //******************************************Tasks******************************************
-  public void addTask(String projectName, String requirementID, int taskID,
-      String description, boolean status, double timeUsed, double estimatedTime,
-      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
+  public void addTask(String projectName, String requirementID, Task task)
   {
     ProjectManagementSystem system = getSystem();
-    system.addTask(projectName, requirementID,
-        new Task(taskID, description, status, timeUsed, estimatedTime, deadline,
-            employees, responsibleEmployee));
+    system.getRequirementByID(projectName, requirementID).addTask(task);
     save(system);
   }
-
 
   public void setTask(String projectName, String requirementID, int taskID,
       String description, boolean status, double timeUsed, double estimatedTime,
       MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
   {
     ProjectManagementSystem system = getSystem();
-    system
-        .setTask(projectName, requirementID, taskID, description, status, timeUsed, estimatedTime, deadline,
+    system.getAllTasks(projectName, requirementID).getTaskById(taskID)
+        .set(description, status, timeUsed, estimatedTime, deadline,
             employees, responsibleEmployee);
     save(system);
   }
@@ -107,7 +101,7 @@ public class SystemAdapter
   public void removeTask(String projectName, String requirementID, int taskID)
   {
     ProjectManagementSystem system = getSystem();
-    system.removeTask(projectName, requirementID, taskID);
+    system.getRequirementByID(projectName, requirementID).removeTask(taskID);
     save(system);
   }
 
@@ -141,7 +135,7 @@ public class SystemAdapter
     ProjectManagementSystem system = getSystem();
     try
     {
-      system.getEmployees().addEmployee(employee);
+      system.getAllEmployees().addEmployee(employee);
     }
     finally
     {
@@ -155,7 +149,7 @@ public class SystemAdapter
     ProjectManagementSystem system = getSystem();
     try
     {
-      system.getEmployees().editEmployee(employee, oldEmployee);
+      system.getAllEmployees().editEmployee(employee, oldEmployee);
     }
     finally
     {
@@ -163,19 +157,28 @@ public class SystemAdapter
     }
   }
 
+  public void addEmployeeToProject(String projectName, Employee employee,
+      String role)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.getAllProjectsOngoing().getProjectByName(projectName).addTeamMember(employee,role);
+    save(system);
+  }
+
   public void addTaskToEmployee(Employee employee, Task task)
   {
     ProjectManagementSystem system = getSystem();
-    system.getEmployee(employee.getId()).addTask(task);
+    system.getAllEmployees().getEmployeeByID(employee.getId()).addTask(task);
     save(system);
   }
 
   public void removeTaskFromEmployee(Employee employee, Task task)
   {
     ProjectManagementSystem system = getSystem();
-    system.getEmployee(employee.getId()).removeTask(task);
+    system.getAllEmployees().getEmployeeByID(employee.getId()).removeTask(task);
     save(system);
   }
+
   public void save(ProjectManagementSystem system)
   {
     try

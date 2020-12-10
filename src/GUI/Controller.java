@@ -1,6 +1,5 @@
 package GUI;
-//TODO when you remove a requirement or task the save buttons validator brakes on task at least.
-//TODO when pressing on add task the tasks added to the project disappear. Change the clearing method.
+//TODO check if all the tasks from requirement are done. If so then change the status of the requirement to Ended and put it in the other listView.
 import FileAdapter.SystemAdapter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -166,7 +165,7 @@ public class Controller
 
       getTeamMembersFieldsCleared();
 
-      EmployeeList availableEmployees = adapter.getSystem()
+      EmployeeList availableEmployees = adapter.getSystem().getAllEmployees()
           .getNotAssignedEmployees();
       for (int i = 0; i < availableEmployees.size(); i++)
       {
@@ -210,13 +209,10 @@ public class Controller
           String role = employeeRoleComboBox.getSelectionModel()
               .getSelectedItem();
 
-          Project assignEmployee = projectsListView.getSelectionModel()
+          Project assignEmployeeProject = projectsListView.getSelectionModel()
               .getSelectedItem();
-          //TODO make a method in the systemAdapter for assigning employee to a project
-          ProjectManagementSystem system = adapter.getSystem();
-          system.addEmployeeToAProject(assignEmployee.getName(),
-              chosenEmployee.getId(), role);
-          adapter.save(system);
+          adapter.addEmployeeToProject(assignEmployeeProject.getName(),
+              chosenEmployee, role);
           break;
         case "removeEmployee":
           //TODO Maybe we change it to edit role.
@@ -224,8 +220,8 @@ public class Controller
         case "editProject":
           try
           {
-            String oldName = adapter.getSystem().getProjectList().get(index)
-                .getName();
+            String oldName = adapter.getSystem().getAllProjectsOngoing()
+                .get(index).getName();
             adapter.editProject(newName, oldName, status);
           }
           catch (IllegalArgumentException er)
@@ -258,8 +254,8 @@ public class Controller
         String projectName = projectSelectedComboBox.getSelectionModel()
             .getSelectedItem().getName();
 
-        EmployeeList teamMembers = adapter.getSystem()
-            .getAllEmployeesAssignedToProject(projectName);
+        EmployeeList teamMembers = adapter.getSystem().getAllProjectsOngoing()
+            .getProjectByName(projectName).getAllTeamMembers();
 
         for (int i = 0; i < teamMembers.size(); i++)
         {
@@ -337,7 +333,8 @@ public class Controller
               requirementType, deadline, responsibleEmployee);
           break;
         case "removeRequirement":
-          adapter.removeRequirement(selectedProject.getName(), selectedRequirement.getID());
+          adapter.removeRequirement(selectedProject.getName(),
+              selectedRequirement.getID());
           break;
       }
       requirementsFieldsAreEditable(false);
@@ -396,77 +393,87 @@ public class Controller
     }
     else if (e.getSource() == saveTaskButton)
     {
-      if (taskFieldsValidation())
+      if (taskFieldsValidation() && !Command.equals("removeTask"))
       {
         alertPopUp("Fill in all the fields.");
         getTaskFieldsCleared();
       }
-
-      String selectedProjectName = projectSelectedOnTasksComboBox
-          .getSelectionModel().getSelectedItem().getName();
-      String selectedRequirementID = requirementSelectedComboBox
-          .getSelectionModel().getSelectedItem().getID();
-
-      int taskID = Integer.parseInt(taskIDTextField.getText());
-      boolean status =
-          taskStatusComboBox.getSelectionModel().getSelectedIndex() != 0;
-      String description = taskDescriptionTextArea.getText();
-      double timeEstimate = Double.parseDouble(taskEstimateTextField.getText());
-      double timeUsed = Double.parseDouble(taskTimeUsedTextField.getText());
-      String[] time = taskDeadline.getText().split("[./\\-]");
-      MyDate deadline = new MyDate(Integer.parseInt(time[0]),
-          Integer.parseInt(time[1]), Integer.parseInt(time[2]));
-      Employee responsibleEmployee = taskResponsibleEmployeeComboBox
-          .getSelectionModel().getSelectedItem();
-      ObservableList<Employee> employeesChosen = taskTeamMembersListView
-          .getSelectionModel().getSelectedItems();
-      EmployeeList employeesToAssign = new EmployeeList();
-      for (Employee empl : employeesChosen)
+      else
       {
-        employeesToAssign.addEmployee(empl);
+        String selectedProjectName = projectSelectedOnTasksComboBox
+            .getSelectionModel().getSelectedItem().getName();
+        String selectedRequirementID = requirementSelectedComboBox
+            .getSelectionModel().getSelectedItem().getID();
+
+        int taskID = Integer.parseInt(taskIDTextField.getText());
+        boolean status =
+            taskStatusComboBox.getSelectionModel().getSelectedIndex() != 0;
+        String description = taskDescriptionTextArea.getText();
+        double timeEstimate = Double
+            .parseDouble(taskEstimateTextField.getText());
+        double timeUsed = Double.parseDouble(taskTimeUsedTextField.getText());
+        String[] time = taskDeadline.getText().split("[./\\-]");
+        MyDate deadline = new MyDate(Integer.parseInt(time[0]),
+            Integer.parseInt(time[1]), Integer.parseInt(time[2]));
+        Employee responsibleEmployee = taskResponsibleEmployeeComboBox
+            .getSelectionModel().getSelectedItem();
+        ObservableList<Employee> employeesChosen = taskTeamMembersListView
+            .getSelectionModel().getSelectedItems();
+        EmployeeList employeesToAssign = new EmployeeList();
+
+        Task toAdd = new Task(taskID, description, status, timeUsed,
+            timeEstimate, deadline, employeesToAssign, responsibleEmployee);
+        for (Employee empl : employeesChosen)
+        {
+          employeesToAssign.addEmployee(empl);
+        }
+        switch (Command)
+        {
+          case "addTask":
+            adapter.addTask(selectedProjectName, selectedRequirementID, toAdd);
+            for (int i = 0; i < employeesToAssign.size(); i++)
+            {
+              //TODO refactor
+              adapter.addTaskToEmployee(employeesToAssign.get(i),
+                  new Task(taskID, description, status, timeUsed, timeEstimate,
+                      deadline, employeesToAssign, responsibleEmployee));
+            }
+            break;
+          case "editTask":
+            Task selectedTask = tasksListView.getSelectionModel()
+                .getSelectedItem();
+            adapter.setTask(selectedProjectName, selectedRequirementID,
+                selectedTask.getTaskID(), description, status, timeUsed,
+                timeEstimate, deadline, employeesToAssign, responsibleEmployee);
+            break;
+          case "removeTask":
+            selectedTask = tasksListView.getSelectionModel().getSelectedItem();
+            EmployeeList employeesAssigned = adapter.getSystem()
+                .getAllTasks(selectedProjectName, selectedRequirementID)
+                .getTaskById(selectedTask.getTaskID()).getAssignedToTask();
+            for (int i = 0; i < employeesAssigned.size(); i++)
+            {
+              adapter.removeTaskFromEmployee(employeesAssigned.get(i),
+                  selectedTask);
+            }
+            adapter.removeTask(selectedProjectName, selectedRequirementID,
+                selectedTask.getTaskID());
+            break;
+        }
+        int projectIndex = projectSelectedOnTasksComboBox.getSelectionModel()
+            .getSelectedIndex();
+        int requirementIndex = requirementSelectedComboBox.getSelectionModel()
+            .getSelectedIndex();
+        taskFieldsAreEditable(false);
+        getTaskFieldsCleared();
+        tasksListView.getItems().clear();
+        updateProjectsToSelect(projectSelectedOnTasksComboBox);
+        projectSelectedOnTasksComboBox.getSelectionModel().select(projectIndex);
+        updateRequirementToSelect();
+        requirementSelectedComboBox.getSelectionModel()
+            .select(requirementIndex);
+        updateTasks();
       }
-      switch (Command)
-      {
-        case "addTask":
-          adapter.addTask(selectedProjectName, selectedRequirementID, taskID,
-              description, status, timeUsed, timeEstimate, deadline,
-              employeesToAssign, responsibleEmployee);
-          for (int i = 0; i < employeesToAssign.size(); i++)
-          {
-            //TODO refactor
-            adapter.addTaskToEmployee(employeesToAssign.get(i), new Task(taskID,
-                description, status, timeUsed, timeEstimate, deadline,
-                employeesToAssign, responsibleEmployee));
-          }
-          break;
-        case "editTask":
-          Task selectedTask = tasksListView.getSelectionModel().getSelectedItem();
-          adapter
-              .setTask(selectedProjectName, selectedRequirementID, selectedTask.getTaskID(),
-                  description, status, timeUsed, timeEstimate, deadline,
-                  employeesToAssign, responsibleEmployee);
-          break;
-        case "removeTask":
-          selectedTask = tasksListView.getSelectionModel().getSelectedItem();
-          adapter.removeTask(selectedProjectName, selectedRequirementID, selectedTask.getTaskID());
-          EmployeeList employeesAssigned = adapter.getSystem().getTaskByID(selectedProjectName, selectedRequirementID, selectedTask.getTaskID()).getAssignedToTask();
-          for (int i = 0; i < employeesAssigned.size(); i++)
-          {
-            adapter.removeTaskFromEmployee(employeesAssigned.get(i), selectedTask);
-          }
-          break;
-      }
-      int projectIndex = projectSelectedOnTasksComboBox
-          .getSelectionModel().getSelectedIndex();
-      int requirementIndex = requirementSelectedComboBox
-          .getSelectionModel().getSelectedIndex();
-      taskFieldsAreEditable(false);
-      getTaskFieldsCleared();
-      updateProjectsToSelect(projectSelectedOnTasksComboBox);
-      projectSelectedOnTasksComboBox.getSelectionModel().select(projectIndex);
-      updateRequirementToSelect();
-      requirementSelectedComboBox.getSelectionModel().select(requirementIndex);
-      updateTasks();
       Command = "";
     }
     else if (e.getSource() == addEmployeeButton)
@@ -564,8 +571,11 @@ public class Controller
       requirementsListView.getItems().clear();
       if (projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1)
       {
-        Project project = projectSelectedComboBox.getSelectionModel().getSelectedItem();
-        RequirementList requirements = adapter.getSystem().getRequirementList(project.getName());
+        Project project = projectSelectedComboBox.getSelectionModel()
+            .getSelectedItem();
+        RequirementList requirements = adapter.getSystem()
+            .getAllRequirements(project.getName())
+            .getAllNotApprovedRequirements();
 
         for (int i = 0; i < requirements.size(); i++)
         {
@@ -640,7 +650,7 @@ public class Controller
       Project selectedProject = projectsListView.getSelectionModel()
           .getSelectedItem();
 
-      EmployeeList teamMembers = adapter.getSystem().getProjectList()
+      EmployeeList teamMembers = adapter.getSystem().getAllProjectsOngoing()
           .getProjectByName(selectedProject.getName()).getAllTeamMembers();
 
       if (teamMembers != null)
@@ -662,7 +672,8 @@ public class Controller
       String projectSelectedName = projectSelectedComboBox.getSelectionModel()
           .getSelectedItem().getName();
       RequirementList requirementList = adapter.getSystem()
-          .getRequirementList(projectSelectedName);
+          .getAllRequirements(projectSelectedName)
+          .getAllNotApprovedRequirements();
 
       for (int i = 0; i < requirementList.size(); i++)
       {
@@ -674,7 +685,7 @@ public class Controller
   public void updateProjectsToSelect(ComboBox<Project> comboBox)
   {
     comboBox.getItems().clear();
-    ProjectList projectList = adapter.getSystem().getProjectList();
+    ProjectList projectList = adapter.getSystem().getAllProjectsOngoing();
     for (int i = 0; i < projectList.size(); i++)
     {
       comboBox.getItems().add(projectList.get(i));
@@ -691,7 +702,7 @@ public class Controller
       Project selectedProject = projectSelectedOnTasksComboBox
           .getSelectionModel().getSelectedItem();
       RequirementList requirementList = adapter.getSystem()
-          .getRequirementList(selectedProject.getName());
+          .getAllRequirements(selectedProject.getName());
       for (int i = 0; i < requirementList.size(); i++)
       {
         requirementSelectedComboBox.getItems().add(requirementList.get(i));
@@ -707,9 +718,11 @@ public class Controller
     {
       tasksListView.getItems().clear();
       taskTeamMembersListView.getItems().clear();
-      Requirement selectedRequirement = requirementSelectedComboBox.getSelectionModel().getSelectedItem();
+      Requirement selectedRequirement = requirementSelectedComboBox
+          .getSelectionModel().getSelectedItem();
       TaskList taskList = selectedRequirement.getTaskList();
-      EmployeeList employees = projectSelectedOnTasksComboBox.getSelectionModel().getSelectedItem().getAllTeamMembers();
+      EmployeeList employees = projectSelectedOnTasksComboBox
+          .getSelectionModel().getSelectedItem().getAllTeamMembers();
       if (taskList.size() > 0)
       {
         for (int i = 0; i < taskList.size(); i++)
@@ -731,7 +744,7 @@ public class Controller
   {
     employeesListView.getItems().clear();
 
-    EmployeeList employees = adapter.getSystem().getEmployees();
+    EmployeeList employees = adapter.getSystem().getAllEmployees();
 
     for (int i = 0; i < employees.size(); i++)
     {
@@ -770,6 +783,7 @@ public class Controller
     taskIDTextField.setEditable(areEditable);
     taskStatusComboBox.setDisable(!areEditable);
     taskStatusComboBox.getItems().addAll("Ongoing", "Done");
+    taskStatusComboBox.getSelectionModel().select(0);
     taskDescriptionTextArea.setEditable(areEditable);
     taskEstimateTextField.setEditable(areEditable);
     taskTimeUsedTextField.setEditable(areEditable);
@@ -790,9 +804,6 @@ public class Controller
 
   public void getTeamMembersFieldsCleared()
   {
-    availableEmployeeComboBox.getSelectionModel().select(0);
-    employeeRoleComboBox.getSelectionModel().select(0);
-
     availableEmployeeComboBox.getItems().clear();
     employeeRoleComboBox.getItems().clear();
 
@@ -800,6 +811,7 @@ public class Controller
         .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER,
             Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
 
+    employeeRoleComboBox.getSelectionModel().select(0);
   }
 
   public void getRequirementFieldsCleared()
@@ -824,7 +836,6 @@ public class Controller
 
   public void getTaskFieldsCleared()
   {
-    tasksListView.getItems().clear();
     taskIDTextField.clear();
     taskStatusComboBox.getSelectionModel().select(0);
     taskDescriptionTextArea.clear();
@@ -892,7 +903,7 @@ public class Controller
       deadlineTextField.setText(selectedRequirement.getDeadline().toString());
       responsibleTeamMemberComboBox.getItems().clear();
       EmployeeList employeeList = projectSelectedComboBox.getSelectionModel()
-          .getSelectedItem().getProjectTeam();
+          .getSelectedItem().getAllTeamMembers();
       for (int i = 0; i < employeeList.size(); i++)
       {
         responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
@@ -927,7 +938,7 @@ public class Controller
     }
   }
 
-  public void fillFieldsEmployeeTab()
+  public void fillEmployeeTab()
   {
     Employee toEdit = employeesListView.getSelectionModel().getSelectedItem();
     //TODO maybe change employee ID to String if we have time.
@@ -935,7 +946,9 @@ public class Controller
     employeeFirstName.setText(toEdit.getFirstName());
     employeeLastName.setText(toEdit.getLastName());
     employeeTaskListView.getItems().clear();
-    TaskList employeeTasks = adapter.getSystem().getEmployeeTaskList(toEdit.getId());
+    //TODO do we need to go through the adapter?
+    TaskList employeeTasks = adapter.getSystem().getAllEmployees()
+        .getEmployeeByID(toEdit.getId()).getWorkingOnTasks();
     for (int i = 0; i < employeeTasks.size(); i++)
     {
       employeeTaskListView.getItems().add(employeeTasks.get(i));

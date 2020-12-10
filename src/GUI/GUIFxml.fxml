@@ -210,8 +210,8 @@
                               <FlowPane hgap="10.0" maxWidth="222.0" prefHeight="139.0" prefWidth="222.0" vgap="10.0">
                                  <children>
                                     <Label text="Task ID:" />
-                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="11213321" />
-                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="80.0" promptText="Done" />
+                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="59.0" promptText="11213321" />
+                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="99.0" promptText="Done" />
                                     <TextField fx:id="taskDescriptionTextArea" alignment="TOP_LEFT" editable="false" prefHeight="63.0" prefWidth="222.0" promptText="Task description" />
                                     <Label layoutX="10.0" layoutY="14.0" text="Estimate:" />
                                     <TextField fx:id="taskEstimateTextField" alignment="TOP_CENTER" editable="false" layoutX="60.0" layoutY="10.0" prefHeight="25.0" prefWidth="45.0" promptText="time" />
@@ -271,7 +271,7 @@
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="200.0">
                            <children>
                               <Label text="Employees:" />
-                              <ListView fx:id="employeesListView" onMouseClicked="#fillFieldsEmployeeTab" prefHeight="315.0" prefWidth="179.0" />
+                              <ListView fx:id="employeesListView" onMouseClicked="#fillEmployeeTab" prefHeight="315.0" prefWidth="179.0" />
                            </children>
                         </VBox>
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="300.0">
@@ -299,7 +299,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="employeeTaskListView" onMouseClicked="#fillFieldsEmployeeTab" prefHeight="171.0" prefWidth="279.0" />
+                              <ListView fx:id="employeeTaskListView" onMouseClicked="#fillEmployeeTab" prefHeight="171.0" prefWidth="279.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="5.0" />

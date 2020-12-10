@@ -14,7 +14,7 @@ public class Employee implements Serializable
   private String role;
   private TaskList tasks;
 
-  //TODO when deleting project we have to also delete project in employee,
+  //TODO when deleting project we have to also delete project in employee.
   public Employee(int employeeID, String firstName, String lastName)
   {
     this.employeeID = employeeID;
@@ -39,6 +39,25 @@ public class Employee implements Serializable
     this.firstName = firstName;
     this.lastName = lastName;
   }
+  public void setEmployeeID(int employeeID)
+  {
+    this.employeeID = employeeID;
+  }
+
+  public void setFirstName(String firstName)
+  {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName)
+  {
+    this.lastName = lastName;
+  }
+
+  public void setRole(String role)
+  {
+    this.role = role;
+  }
 
   public String getFirstName()
   {
@@ -50,9 +69,14 @@ public class Employee implements Serializable
     return lastName;
   }
 
-  public TaskList getTasks()
+  public int getId()
   {
-    return tasks;
+    return employeeID;
+  }
+
+  public String getRole()
+  {
+    return role;
   }
 
   public void addTask(Task task)
@@ -75,36 +99,6 @@ public class Employee implements Serializable
     return tasks;
   }
 
-  public void setEmployeeID(int employeeID)
-  {
-    this.employeeID = employeeID;
-  }
-
-  public void setFirstName(String firstName)
-  {
-    this.firstName = firstName;
-  }
-
-  public void setLastName(String lastName)
-  {
-    this.lastName = lastName;
-  }
-
-  public String getRole()
-  {
-    return role;
-  }
-
-  public void setRole(String role)
-  {
-    this.role = role;
-  }
-
-  public void setTasks(TaskList tasks)
-  {
-    this.tasks = tasks;
-  }
-
   public boolean equals(Object obj)
   {
     if (!(obj instanceof Employee))
@@ -119,11 +113,6 @@ public class Employee implements Serializable
   public Employee copy()
   {
     return new Employee(employeeID, firstName, lastName, role, tasks.copy());
-  }
-
-  public int getId()
-  {
-    return employeeID;
   }
 
   public String toString()
