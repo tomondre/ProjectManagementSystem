@@ -46,7 +46,7 @@ public class Task implements Serializable
   {
     this.description = description;
     isDone = status;
-    this.timeUsed = timeUsed;
+    this.timeUsed += timeUsed;
     this.deadline = deadline;
     this.estimatedTime = estimatedTime;
     this.responsibleEmployee = responsibleEmployee;
@@ -56,11 +56,6 @@ public class Task implements Serializable
   public int getTaskID()
   {
     return taskID;
-  }
-
-  public void addTimeUsed(double timeUsed)
-  {
-    this.timeUsed += timeUsed;
   }
 
   public double getTimeUsed()

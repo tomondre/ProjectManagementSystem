@@ -60,11 +60,6 @@ public class ProjectList implements Serializable
     return projects.size();
   }
 
-  public EmployeeList getTeamMembers(Project project)
-  {
-    return project.getAllTeamMembers();
-  }
-
   public void remove(Project project)
   {
     projects.remove(project);
@@ -77,12 +72,11 @@ public class ProjectList implements Serializable
 
   public String toString()
   {
-    String temp ="";
+    String temp = "";
     for (Project p : projects)
     {
       temp += p + "\n";
     }
     return temp;
   }
-
 }

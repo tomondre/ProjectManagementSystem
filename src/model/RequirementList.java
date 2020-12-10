@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,52 +15,56 @@ public class RequirementList implements Serializable
 
   public RequirementList getAllNotApprovedRequirements()
   {
-    RequirementList temp = new RequirementList();
+    ArrayList<Requirement> temp = new ArrayList<>();
     for (Requirement r : requirements)
     {
-      if (!r.isApproved())
+      if (!r.toBeApproved() && !r.getStatus().equals(Requirement.APPROVED))
       {
-        temp.addRequirement(r);
+        temp.add(r);
       }
     }
-    return temp;
+    return sortRequirementsByPriorities(temp);
+  }
+
+  public RequirementList getAllToBeApprovedRequirements()
+  {
+    ArrayList<Requirement> temp = new ArrayList<>();
+    for (Requirement r : requirements)
+    {
+      if (r.toBeApproved())
+      {
+        temp.add(r);
+      }
+    }
+    return sortRequirementsByPriorities(temp);
   }
 
   public void addRequirement(Requirement r)
   {
     for (Requirement req : requirements)                  //checking if the requirement is already in the list
     {
-      if (req.getID() == r.getID())
+      if (req.getID().equals(r.getID()))
       {
         return;
       }
     }
     requirements.add(r);
   }
+
   //TODO fix the sorting
-  /*public void sortRequirementsByPriorities()
+  public RequirementList sortRequirementsByPriorities(
+      ArrayList<Requirement> toSort)
   {
-
-    Requirement temp;
-    boolean working = true;
-
-    while (working)
+    toSort.sort((x, y) -> Integer.compare(x.getPriority(), y.getPriority()));
+    /*toSort.sort(
+        (x, y) -> String.CASE_INSENSITIVE_ORDER.compare(x.getID(), y.getID()));*/
+    RequirementList sorted = new RequirementList();
+    for (Requirement req : toSort)
     {
-      working = false;
-      for (int i = 0; i < requirements.size() - 1; i++)
-      {
-        if (requirements.get(i).getID() > requirements.get(i
-            + 1)                             //change this to sort by priorities not id!
-            .getID() && i < requirements.size() - 1)
-        {
-          temp = requirements.get(i);
-          requirements.set(i, requirements.get(i + 1));
-          requirements.set(i + 1, temp);
-          working = true;
-        }
-      }
+      sorted.addRequirement(req);
     }
-  }*/
+    return sorted;
+  }
 
   public Requirement getRequirementByID(String requirementID)
   {

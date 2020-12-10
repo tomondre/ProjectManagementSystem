@@ -11,7 +11,6 @@
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.FlowPane?>
@@ -175,8 +174,9 @@
                         </VBox>
                         <VBox alignment="CENTER" maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="147.0" spacing="15.0">
                            <children>
-                              <Button fx:id="addRequirementButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Add requirement" />
-                              <Button fx:id="editRequirementButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Edit requirement" />
+                              <Button fx:id="addRequirementButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Add" />
+                              <Button fx:id="editRequirementButton" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Edit" />
+                              <Button fx:id="removeRequirementButton" layoutX="15.0" layoutY="167.0" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Remove" />
                               <Button fx:id="saveRequirementButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Save" />
                            </children>
                         </VBox>
@@ -210,8 +210,8 @@
                               <FlowPane hgap="10.0" maxWidth="222.0" prefHeight="139.0" prefWidth="222.0" vgap="10.0">
                                  <children>
                                     <Label text="Task ID:" />
-                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="11213321" />
-                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="80.0" promptText="Done" />
+                                    <TextField fx:id="taskIDTextField" editable="false" prefHeight="25.0" prefWidth="59.0" promptText="11213321" />
+                                    <ComboBox fx:id="taskStatusComboBox" disable="true" prefHeight="25.0" prefWidth="99.0" promptText="Done" />
                                     <TextField fx:id="taskDescriptionTextArea" alignment="TOP_LEFT" editable="false" prefHeight="63.0" prefWidth="222.0" promptText="Task description" />
                                     <Label layoutX="10.0" layoutY="14.0" text="Estimate:" />
                                     <TextField fx:id="taskEstimateTextField" alignment="TOP_CENTER" editable="false" layoutX="60.0" layoutY="10.0" prefHeight="25.0" prefWidth="45.0" promptText="time" />
@@ -243,11 +243,19 @@
                                  <VBox.margin>
                                     <Insets left="18.5" top="10.0" />
                                  </VBox.margin></Button>
+                              <Button fx:id="removeTaskButton" layoutX="29.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Remove task">
+                                 <VBox.margin>
+                                    <Insets left="18.5" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
                               <Button fx:id="saveTaskButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleActions" prefWidth="110.0" text="Save">
                                  <VBox.margin>
                                     <Insets left="18.5" top="10.0" />
                                  </VBox.margin></Button>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </VBox>
                      </children>
                      <padding>
@@ -263,7 +271,7 @@
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="200.0">
                            <children>
                               <Label text="Employees:" />
-                              <ListView fx:id="employeesListView" onMouseClicked="#fillFieldsEmployeeTab" prefHeight="315.0" prefWidth="179.0" />
+                              <ListView fx:id="employeesListView" onMouseClicked="#fillEmployeeTab" prefHeight="315.0" prefWidth="179.0" />
                            </children>
                         </VBox>
                         <VBox maxHeight="350.0" minHeight="330.0" prefHeight="330.0" prefWidth="300.0">
@@ -291,7 +299,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextArea fx:id="employeeTaskTextArea" editable="false" prefHeight="173.0" prefWidth="280.0" />
+                              <ListView fx:id="employeeTaskListView" onMouseClicked="#fillEmployeeTab" prefHeight="171.0" prefWidth="279.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="5.0" />

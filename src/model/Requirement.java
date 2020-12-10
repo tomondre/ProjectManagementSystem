@@ -114,9 +114,9 @@ public class Requirement implements Serializable
     return responsibleEmployee;
   }
 
-  public boolean isApproved()
+  public boolean toBeApproved()
   {
-    return status.equals(APPROVED);
+    return status.equals(ENDED);
   }
 
   public double totalTimeUsed()
@@ -183,14 +183,8 @@ public class Requirement implements Serializable
   public String toString()
   {
     //checkStatus();
-    return "ID: " + requirementId;
+    return "ID: " + requirementId + " -  Pr: " + priorityNumber;
   }
-
-  //  public String toString()
-  //  {
-  //    return "ID: " + requirementId + " status: " + status + taskList;
-  //  }
-
   public Requirement copy()
   {
     return new Requirement(requirementId, priorityNumber, description,

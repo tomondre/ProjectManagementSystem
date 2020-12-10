@@ -14,7 +14,7 @@ public class Employee implements Serializable
   private String role;
   private TaskList tasks;
 
-  //TODO when deleting project we have to also delete project in employee,
+  //TODO when deleting project we have to also delete project in employee.
   public Employee(int employeeID, String firstName, String lastName)
   {
     this.employeeID = employeeID;
@@ -39,32 +39,6 @@ public class Employee implements Serializable
     this.firstName = firstName;
     this.lastName = lastName;
   }
-
-  public String getFirstName()
-  {
-    return firstName;
-  }
-
-  public String getLastName()
-  {
-    return lastName;
-  }
-
-  public void addTask(Task task)
-  {
-    tasks.addTask(task);
-  }
-
-  public void resetTasks()
-  {
-    tasks.clear();
-  }
-
-  public TaskList getWorkingOnTasks()
-  {
-    return tasks;
-  }
-
   public void setEmployeeID(int employeeID)
   {
     this.employeeID = employeeID;
@@ -80,19 +54,49 @@ public class Employee implements Serializable
     this.lastName = lastName;
   }
 
-  public String getRole()
-  {
-    return role;
-  }
-
   public void setRole(String role)
   {
     this.role = role;
   }
 
-  public void setTasks(TaskList tasks)
+  public String getFirstName()
   {
-    this.tasks = tasks;
+    return firstName;
+  }
+
+  public String getLastName()
+  {
+    return lastName;
+  }
+
+  public int getId()
+  {
+    return employeeID;
+  }
+
+  public String getRole()
+  {
+    return role;
+  }
+
+  public void addTask(Task task)
+  {
+    tasks.addTask(task);
+  }
+
+  public void removeTask(Task task)
+  {
+    tasks.removeTask(task.getTaskID());
+  }
+
+  public void resetTasks()
+  {
+    tasks.clear();
+  }
+
+  public TaskList getWorkingOnTasks()
+  {
+    return tasks;
   }
 
   public boolean equals(Object obj)
@@ -111,18 +115,9 @@ public class Employee implements Serializable
     return new Employee(employeeID, firstName, lastName, role, tasks.copy());
   }
 
-  public int getId()
-  {
-    return employeeID;
-  }
-
   public String toString()
   {
-    return "(" + employeeID +")" + firstName + " " + lastName;
-  }
-
-  public String toStringTeamMember()
-  {
-    return firstName + " " + lastName + "(" + role + ")";
+    String toAppend = role.equals("") ? "": "(" + role + ")";
+    return firstName + " " + lastName + " " + toAppend;
   }
 }
