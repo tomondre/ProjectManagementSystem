@@ -1,5 +1,5 @@
 package GUI;
-//TODO check if all the tasks from requirement are done. If so then change the status of the requirement to Ended and put it in the other listView.
+//TODO test the archived files.
 import FileAdapter.SystemAdapter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,11 +33,13 @@ public class Controller
 
   @FXML private Button editProjectButton;
 
+  @FXML private Button archiveProjectButton;
+
   @FXML private ComboBox<Employee> availableEmployeeComboBox;
 
   @FXML private Button assignEmployeeButton;
 
-  @FXML private Button removeEmployeeButton;
+  @FXML private Button editRoleButton;
 
   @FXML private Button saveProjectButton;
 
@@ -46,6 +48,8 @@ public class Controller
   @FXML private Tab requirementsTab;
 
   @FXML private ListView<Requirement> requirementsListView;
+
+  @FXML private ListView<Requirement> requirementsForTestingListView;
 
   @FXML private ComboBox<Project> projectSelectedComboBox;
 
@@ -62,6 +66,8 @@ public class Controller
   @FXML private TextField priorityNumberTextField;
 
   @FXML private TextField deadlineTextField;
+
+  @FXML private TextField timeUsedTextField;
 
   @FXML private ComboBox<Employee> responsibleTeamMemberComboBox;
 
@@ -132,6 +138,7 @@ public class Controller
     adapter = new SystemAdapter("colourIT.bin");
     taskTeamMembersListView.getSelectionModel()
         .setSelectionMode(SelectionMode.MULTIPLE);
+    menuItemsRadioButtons();
     updateProjects();
     updateEmployees();
   }
@@ -158,6 +165,17 @@ public class Controller
         projectFieldsAreEditable(true);
       }
     }
+    else if (e.getSource() == archiveProjectButton)
+    {
+      if (projectsListView.getSelectionModel().getSelectedIndex() == -1)
+      {
+        alertPopUp("Select project to archive.");
+      }
+      else
+      {
+        Command = "archiveProject";
+      }
+    }
     else if (e.getSource() == assignEmployeeButton)
     {
       Command = "assignEmployee";
@@ -172,12 +190,22 @@ public class Controller
         availableEmployeeComboBox.getItems().addAll(availableEmployees.get(i));
       }
     }
-    //TODO think if we really need to remove employee from a project. If we have time. Khaled
-    else if (e.getSource() == removeEmployeeButton)
+    else if (e.getSource() == editRoleButton)
     {
-      Command = "removeEmployee";
-      availableEmployeeComboBox.setDisable(true);
-      employeeRoleComboBox.setDisable(true);
+      if (teamMembersListView.getSelectionModel().getSelectedIndex() == -1)
+      {
+        alertPopUp("Select team member to edit.");
+      }
+      else
+      {
+        Command = "editRole";
+        availableEmployeeComboBox.setDisable(true);
+        employeeRoleComboBox.setDisable(false);
+
+        employeeRoleComboBox.getItems().clear();
+        employeeRoleComboBox.getItems()
+            .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER, Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
+      }
     }
     else if (e.getSource() == saveProjectButton)
     {
@@ -186,7 +214,7 @@ public class Controller
         alertPopUp("Fill in all the fields.");
         return;
       }
-      int index = projectsListView.getSelectionModel().getSelectedIndex();
+      Project selectedProject;
       String newName = projectNameTextField.getText();
       String status = projectStatusComboBox.getSelectionModel()
           .getSelectedItem();
@@ -209,25 +237,40 @@ public class Controller
           String role = employeeRoleComboBox.getSelectionModel()
               .getSelectedItem();
 
-          Project assignEmployeeProject = projectsListView.getSelectionModel()
+          selectedProject = projectsListView.getSelectionModel()
               .getSelectedItem();
-          adapter.addEmployeeToProject(assignEmployeeProject.getName(),
-              chosenEmployee, role);
+          adapter
+              .addEmployeeToProject(selectedProject.getName(), chosenEmployee,
+                  role);
           break;
-        case "removeEmployee":
-          //TODO Maybe we change it to edit role.
+        case "editRole":
+          selectedProject = projectsListView.getSelectionModel()
+              .getSelectedItem();
+          Employee employee = teamMembersListView.getSelectionModel()
+              .getSelectedItem();
+          role = employeeRoleComboBox.getSelectionModel().getSelectedItem();
+
+          adapter.changeRoleEmployee(selectedProject.getName(), employee, role);
           break;
         case "editProject":
           try
           {
-            String oldName = adapter.getSystem().getAllProjectsOngoing()
-                .get(index).getName();
-            adapter.editProject(newName, oldName, status);
+            selectedProject = projectsListView.getSelectionModel()
+                .getSelectedItem();
+
+            adapter.editProject(newName, selectedProject.getName(), status);
           }
           catch (IllegalArgumentException er)
           {
             alertPopUp(er.getMessage());
           }
+          break;
+        case "archiveProject":
+          selectedProject = projectsListView.getSelectionModel()
+              .getSelectedItem();
+
+          adapter.editProject(selectedProject.getName(), selectedProject.getName(), Project.ARCHIVED);
+          adapter.moveProjectToArchive(selectedProject.getName());
           break;
       }
       updateProjects();
@@ -377,7 +420,6 @@ public class Controller
         Command = "editTask";
         taskFieldsAreEditable(true);
         taskIDTextField.setEditable(false);
-
       }
     }
     else if (e.getSource() == removeTaskButton)
@@ -554,33 +596,30 @@ public class Controller
         System.exit(0);
       }
     }
-    else if (e.getSource() == ongoingProjects)
-    {
-      projectNameTextField.setText("current projects");
-    }
-    else if (e.getSource() == archivedProjects)
-    {
-      projectNameTextField.setText("archived projects");
-    }
     else if (e.getSource() == aboutMenuItem)
     {
-      alertPopUp("Choose appropriate text");
+      alertPopUp(
+          "Project management system, " + "designed for the company ColourIT. "
+              + "It helps them keep track of their projects.\n\nVersion: 1.0"
+              + "\nRealise date: 18/12/2020"
+              + "\nReporting problems to: Group 8 - IT-1X-A20"
+              + "\n\nAll rights reserved to ColourIT.");
     }
     else if (e.getSource() == projectSelectedComboBox)
     {
       requirementsListView.getItems().clear();
+      requirementsForTestingListView.getItems().clear();
       if (projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1)
       {
-        Project project = projectSelectedComboBox.getSelectionModel()
-            .getSelectedItem();
-        RequirementList requirements = adapter.getSystem()
-            .getAllRequirements(project.getName())
-            .getAllNotApprovedRequirements();
-
-        for (int i = 0; i < requirements.size(); i++)
-        {
-          requirementsListView.getItems().addAll(requirements.get(i));
-        }
+        String projectName = projectSelectedComboBox.getSelectionModel()
+            .getSelectedItem().getName();
+        adapter.checkRequirementsStatus(projectName);
+        requirementsListView.getItems().addAll(
+            adapter.getSystem().getAllRequirements(projectName)
+                .getAllNotApprovedRequirements());
+        requirementsForTestingListView.getItems().addAll(
+            adapter.getSystem().getAllRequirements(projectName)
+                .getAllToBeApprovedRequirements());
       }
     }
     else if (e.getSource() == projectSelectedOnTasksComboBox)
@@ -593,7 +632,23 @@ public class Controller
     }
   }
 
-  public void tabChange(Event event)
+  public void menuItemsRadioButtons()
+  {
+    if (ongoingProjects.isSelected())
+    {
+      projectNameTextField.setPromptText("Ongoing projects");
+      setButtonsDisabled(false);
+      updateProjects();
+    }
+    else if (archivedProjects.isSelected())
+    {
+      projectNameTextField.setPromptText("Archived projects");
+      setButtonsDisabled(true);
+      updateProjects();
+    }
+  }
+
+  public void tabChange(Event event)//TODO Ask Allan about this event property
   {
     if (adapter != null)
     {
@@ -630,8 +685,16 @@ public class Controller
       projectsListView.getItems().clear();
       projectStatusComboBox.getItems().clear();
 
-      ProjectList temp = adapter.getSystem().getAllProjectsOngoing();
+      ProjectList temp = new ProjectList();
 
+      if (ongoingProjects.isSelected())
+      {
+        temp = adapter.getSystem().getAllProjectsOngoing();
+      }
+      else if (archivedProjects.isSelected())
+      {
+        temp = adapter.getSystem().getAllArchivedProjects();
+      }
       for (int i = 0; i < temp.size(); i++)
       {
         projectsListView.getItems().add(temp.get(i));
@@ -669,16 +732,17 @@ public class Controller
         && projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1)
     {
       requirementsListView.getItems().clear();
+      requirementsForTestingListView.getItems().clear();
       String projectSelectedName = projectSelectedComboBox.getSelectionModel()
           .getSelectedItem().getName();
-      RequirementList requirementList = adapter.getSystem()
-          .getAllRequirements(projectSelectedName)
-          .getAllNotApprovedRequirements();
+      adapter.checkRequirementsStatus(projectSelectedName);
 
-      for (int i = 0; i < requirementList.size(); i++)
-      {
-        requirementsListView.getItems().add(requirementList.get(i));
-      }
+      requirementsListView.getItems().addAll(
+          adapter.getSystem().getAllRequirements(projectSelectedName)
+              .getAllNotApprovedRequirements());
+      requirementsForTestingListView.getItems().addAll(
+          adapter.getSystem().getAllRequirements(projectSelectedName)
+              .getAllToBeApprovedRequirements());
     }
   }
 
@@ -782,8 +846,8 @@ public class Controller
   {
     taskIDTextField.setEditable(areEditable);
     taskStatusComboBox.setDisable(!areEditable);
+    taskStatusComboBox.getItems().clear();
     taskStatusComboBox.getItems().addAll("Ongoing", "Done");
-    taskStatusComboBox.getSelectionModel().select(0);
     taskDescriptionTextArea.setEditable(areEditable);
     taskEstimateTextField.setEditable(areEditable);
     taskTimeUsedTextField.setEditable(areEditable);
@@ -901,6 +965,8 @@ public class Controller
       priorityNumberTextField
           .setText(String.valueOf(selectedRequirement.getPriority()));
       deadlineTextField.setText(selectedRequirement.getDeadline().toString());
+      timeUsedTextField
+          .setText(String.valueOf(selectedRequirement.getTotalTimeUsed()));
       responsibleTeamMemberComboBox.getItems().clear();
       EmployeeList employeeList = projectSelectedComboBox.getSelectionModel()
           .getSelectedItem().getAllTeamMembers();
@@ -921,7 +987,7 @@ public class Controller
     {
       taskIDTextField.setText(String.valueOf(selectedTask.getID()));
       taskStatusComboBox.getSelectionModel()
-          .select(selectedTask.isDone() ? 0 : 1);
+          .select(selectedTask.isDone() ? 1 : 0);
       taskDescriptionTextArea.setText(selectedTask.getDescription());
       taskEstimateTextField
           .setText(String.valueOf(selectedTask.getEstimateTime()));
@@ -966,11 +1032,33 @@ public class Controller
         == -1;
   }
 
+  public void setButtonsDisabled(boolean areDisabled)
+  {
+    addProjectButton.setDisable(areDisabled);
+    editProjectButton.setDisable(areDisabled);
+    archiveProjectButton.setDisable(areDisabled);
+    assignEmployeeButton.setDisable(areDisabled);
+    editRoleButton.setDisable(areDisabled);
+    saveProjectButton.setDisable(areDisabled);
+    addRequirementButton.setDisable(areDisabled);
+    editRequirementButton.setDisable(areDisabled);
+    removeRequirementButton.setDisable(areDisabled);
+    saveRequirementButton.setDisable(areDisabled);
+    addTaskButton.setDisable(areDisabled);
+    editTaskButton.setDisable(areDisabled);
+    removeTaskButton.setDisable(areDisabled);
+    saveTaskButton.setDisable(areDisabled);
+    addEmployeeButton.setDisable(areDisabled);
+    editEmployeeButton.setDisable(areDisabled);
+    saveEmployeeButton.setDisable(areDisabled);
+  }
+
   public void alertPopUp(String e)
   {
     Alert alert = new Alert(Alert.AlertType.INFORMATION, e, ButtonType.OK);
     alert.setTitle("Error");
     alert.setHeaderText(null);
+    alert.setResizable(true);
 
     alert.showAndWait();
   }

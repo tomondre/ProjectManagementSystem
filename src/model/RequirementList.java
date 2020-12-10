@@ -13,32 +13,6 @@ public class RequirementList implements Serializable
     requirements = new ArrayList<Requirement>();
   }
 
-  public RequirementList getAllNotApprovedRequirements()
-  {
-    ArrayList<Requirement> temp = new ArrayList<>();
-    for (Requirement r : requirements)
-    {
-      if (!r.toBeApproved() && !r.getStatus().equals(Requirement.APPROVED))
-      {
-        temp.add(r);
-      }
-    }
-    return sortRequirementsByPriorities(temp);
-  }
-
-  public RequirementList getAllToBeApprovedRequirements()
-  {
-    ArrayList<Requirement> temp = new ArrayList<>();
-    for (Requirement r : requirements)
-    {
-      if (r.toBeApproved())
-      {
-        temp.add(r);
-      }
-    }
-    return sortRequirementsByPriorities(temp);
-  }
-
   public void addRequirement(Requirement r)
   {
     for (Requirement req : requirements)                  //checking if the requirement is already in the list
@@ -49,21 +23,38 @@ public class RequirementList implements Serializable
       }
     }
     requirements.add(r);
+    sortRequirementsByPriorities();
   }
 
-  //TODO fix the sorting
-  public RequirementList sortRequirementsByPriorities(
-      ArrayList<Requirement> toSort)
+  public ArrayList<Requirement> getAllNotApprovedRequirements()
   {
-    toSort.sort((x, y) -> Integer.compare(x.getPriority(), y.getPriority()));
-    /*toSort.sort(
-        (x, y) -> String.CASE_INSENSITIVE_ORDER.compare(x.getID(), y.getID()));*/
-    RequirementList sorted = new RequirementList();
-    for (Requirement req : toSort)
+    ArrayList<Requirement> temp = new ArrayList<>();
+    for (Requirement r : requirements)
     {
-      sorted.addRequirement(req);
+      if (!r.toBeApproved() && !r.getStatus().equals(Requirement.APPROVED))
+      {
+        temp.add(r);
+      }
     }
-    return sorted;
+    return temp;
+  }
+
+  public ArrayList<Requirement> getAllToBeApprovedRequirements()
+  {
+    ArrayList<Requirement> temp = new ArrayList<>();
+    for (Requirement r : requirements)
+    {
+      if (r.toBeApproved())
+      {
+        temp.add(r);
+      }
+    }
+    return temp;
+  }
+
+  public void sortRequirementsByPriorities()
+  {
+    requirements.sort((x, y) -> Integer.compare(x.getPriority(), y.getPriority()));
   }
 
   public Requirement getRequirementByID(String requirementID)
@@ -93,16 +84,14 @@ public class RequirementList implements Serializable
     return requirements.size();
   }
 
-  public Task getTaskById(String requirementID, int taskID)
+
+  public void checkStatus()
   {
-    if (getRequirementByID(requirementID) != null)
+    for (Requirement req : requirements)
     {
-      return getRequirementByID(requirementID).getTaskById(taskID);
-
+      req.checkStatus();
     }
-    return null;
   }
-
   public RequirementList copy()
   {
 

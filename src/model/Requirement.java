@@ -104,11 +104,6 @@ public class Requirement implements Serializable
     return requirementType;
   }
 
-  public double getLeftEstimate()
-  {
-    return estimateTime - taskList.totalTimeUsed();
-  }
-
   public Employee getResponsibleEmployee()
   {
     return responsibleEmployee;
@@ -119,7 +114,7 @@ public class Requirement implements Serializable
     return status.equals(ENDED);
   }
 
-  public double totalTimeUsed()
+  public double getTotalTimeUsed()
   {
     return taskList.totalTimeUsed();
   }
@@ -163,6 +158,14 @@ public class Requirement implements Serializable
     if (isDone() && !(status.equals(APPROVED) || status.equals(REJECTED)))
     {
       status = ENDED;
+    }
+    else if (isDone() && status.equals(REJECTED))
+    {
+      status = STARTED;
+    }
+    else if (isDone() && status.equals(APPROVED))
+    {
+      status = APPROVED;
     }
   }
 

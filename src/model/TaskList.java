@@ -65,16 +65,6 @@ public class TaskList implements Serializable
     tasks.add(task);
   }
 
-  public String toString()
-  {
-    String temp = "";
-    for (Task task : tasks)
-    {
-      temp += "Task: " + task + "\n";
-    }
-    return temp;
-  }
-
   public Task getTaskById(int taskID)
   {
     for (Task task : tasks)
@@ -116,5 +106,15 @@ public class TaskList implements Serializable
   public void clear()
   {
     tasks.clear();
+  }
+
+  public String toString()
+  {
+    String temp = "";
+    for (Task task : tasks)
+    {
+      temp += "Task: " + task + "\n";
+    }
+    return temp;
   }
 }

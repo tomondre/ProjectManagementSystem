@@ -53,6 +53,12 @@ public class Project implements Serializable
     projectTeam.addEmployee(employee);
   }
 
+  public void editRoleTeamMember(Employee employee, String role)
+  {
+    Employee temp = projectTeam.getEmployeeByID(employee.getId());
+    temp.setRole(role);
+  }
+
   public EmployeeList getAllTeamMembers()
   {
     return projectTeam;
@@ -74,14 +80,9 @@ public class Project implements Serializable
     return requirementList.getRequirementByID(requirementID);
   }
 
-  public RequirementList getRequirementList()
+  public RequirementList getAllRequirements()
   {
     return requirementList;
-  }
-
-  public void removeRequirement(String requirementID)
-  {
-    requirementList.removeRequirement(requirementID);
   }
 
   //TODO change this so it will match constructor
@@ -92,6 +93,6 @@ public class Project implements Serializable
 
   public String toString()
   {
-    return projectName + "(" + status + ")";
+    return projectName + " (" + status + ")";
   }
 }

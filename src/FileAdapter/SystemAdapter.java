@@ -45,6 +45,12 @@ public class SystemAdapter
     }
   }
 
+  public void moveProjectToArchive(String projectName)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.moveToArchive(projectName);
+    save(system);
+  }
   //************************************Requirements*********************************
   public void addRequirement(String projectName, String requirementId,
       int priorityNumber, String description, double estimateTime,
@@ -71,11 +77,18 @@ public class SystemAdapter
     save(system);
   }
 
-  //TODO remove requirement
   public void removeRequirement(String projectName, String requirementID)
   {
     ProjectManagementSystem system = getSystem();
-    system.getAllProjectsOngoing().getProjectByName(projectName).removeRequirement(requirementID);
+    system.getAllProjectsOngoing().getProjectByName(projectName)
+        .getAllRequirements().removeRequirement(requirementID);
+    save(system);
+  }
+
+  public void checkRequirementsStatus(String projectName)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.getAllRequirements(projectName).checkStatus();
     save(system);
   }
 
@@ -93,8 +106,8 @@ public class SystemAdapter
   {
     ProjectManagementSystem system = getSystem();
     system.getAllTasks(projectName, requirementID).getTaskById(taskID)
-        .set(description, status, timeUsed, estimatedTime, deadline,
-            employees, responsibleEmployee);
+        .set(description, status, timeUsed, estimatedTime, deadline, employees,
+            responsibleEmployee);
     save(system);
   }
 
@@ -161,7 +174,8 @@ public class SystemAdapter
       String role)
   {
     ProjectManagementSystem system = getSystem();
-    system.getAllProjectsOngoing().getProjectByName(projectName).addTeamMember(employee,role);
+    system.getAllProjectsOngoing().getProjectByName(projectName)
+        .addTeamMember(employee, role);
     save(system);
   }
 
@@ -176,6 +190,13 @@ public class SystemAdapter
   {
     ProjectManagementSystem system = getSystem();
     system.getAllEmployees().getEmployeeByID(employee.getId()).removeTask(task);
+    save(system);
+  }
+
+  public void changeRoleEmployee(String projectName, Employee employee, String role)
+  {
+    ProjectManagementSystem system = getSystem();
+    system.getAllProjectsOngoing().getProjectByName(projectName).editRoleTeamMember(employee, role);
     save(system);
   }
 

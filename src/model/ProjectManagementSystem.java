@@ -32,7 +32,7 @@ public class ProjectManagementSystem implements Serializable
   public RequirementList getAllRequirements(String projectName)
   {
     return getAllProjectsOngoing().getProjectByName(projectName)
-        .getRequirementList();
+        .getAllRequirements();
 
   }
 
