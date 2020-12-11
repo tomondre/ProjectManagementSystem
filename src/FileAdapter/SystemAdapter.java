@@ -220,28 +220,17 @@ public class SystemAdapter
   public void exportXML()
   {
     Gson json = new Gson();
+    String temp = XML.toString(
+        new JSONObject(json.toJson(getSystem().getAllProjectsOngoing())));
+    temp= "<ongoingProjects>" + temp;
+    temp+="</ongoingProjects>";
     try
     {
-      mtxtfio.writeToFile("export.xml", XML.toString(
-          new JSONObject(json.toJson(getSystem().getAllProjectsOngoing()))));
+      mtxtfio.writeToFile("export.xml", temp);
     }
     catch (FileNotFoundException e)
     {
       System.out.println("File not found");
     }
-  }
-
-  //Testing Json parser. Output is file .json which we can actually use in javascript. Ecerything works so far
-  public static void main(String[] args)
-  {
-    SystemAdapter systemAdapter = new SystemAdapter("colourIT.bin");
-    JSONObject temp = new JSONObject(
-        systemAdapter.getSystem().getAllProjectsOngoing());
-    String t = temp.toString();
-    System.out.println(t);
-    System.out.println(systemAdapter.getSystem().getAllProjectsOngoing());
-    System.out.println(temp.toString());
-    System.out.println(XML.toString(temp));
-    systemAdapter.exportXML();
   }
 }
