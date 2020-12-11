@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -23,6 +24,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem fx:id="exportProjectsToXML" mnemonicParsing="false" onAction="#handleActions" text="Export to website" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#handleActions" text="Exit" />
             </items>
           </Menu>

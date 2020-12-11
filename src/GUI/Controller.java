@@ -1,5 +1,5 @@
 package GUI;
-//TODO test the archived files.
+//TODO make the alerts take as parameter the title of the alert.
 import FileAdapter.SystemAdapter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +10,8 @@ import model.*;
 
 public class Controller
 {
+
+  @FXML private MenuItem exportProjectsToXML;
 
   @FXML private MenuItem exitMenuItem;
 
@@ -145,7 +147,11 @@ public class Controller
 
   public void handleActions(ActionEvent e)
   {
-    if (e.getSource() == addProjectButton)
+    if (e.getSource() == exportProjectsToXML)
+    {
+      adapter.exportXML();
+    }
+    else if (e.getSource() == addProjectButton)
     {
       Command = "addProject";
       projectNameTextField.setEditable(true);
@@ -204,7 +210,8 @@ public class Controller
 
         employeeRoleComboBox.getItems().clear();
         employeeRoleComboBox.getItems()
-            .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER, Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
+            .addAll(Employee.DEVELOPER, Employee.SCRUM_MASTER,
+                Employee.PRODUCT_OWNER, Employee.PROJECT_CREATOR);
       }
     }
     else if (e.getSource() == saveProjectButton)
@@ -269,7 +276,9 @@ public class Controller
           selectedProject = projectsListView.getSelectionModel()
               .getSelectedItem();
 
-          adapter.editProject(selectedProject.getName(), selectedProject.getName(), Project.ARCHIVED);
+          adapter
+              .editProject(selectedProject.getName(), selectedProject.getName(),
+                  Project.ARCHIVED);
           adapter.moveProjectToArchive(selectedProject.getName());
           break;
       }
@@ -725,11 +734,13 @@ public class Controller
       EmployeeList teamMembers;
       if (ongoingProjects.isSelected())
       {
-        teamMembers = adapter.getSystem().getAllProjectsOngoing().getProjectByName(selectedProject.getName()).getAllTeamMembers();
+        teamMembers = adapter.getSystem().getAllProjectsOngoing()
+            .getProjectByName(selectedProject.getName()).getAllTeamMembers();
       }
       else
       {
-        teamMembers = adapter.getSystem().getAllArchivedProjects().getProjectByName(selectedProject.getName()).getAllTeamMembers();
+        teamMembers = adapter.getSystem().getAllArchivedProjects()
+            .getProjectByName(selectedProject.getName()).getAllTeamMembers();
       }
 
       if (teamMembers != null)
@@ -994,7 +1005,8 @@ public class Controller
       responsibleTeamMemberComboBox.getItems().clear();
       if (ongoingProjects.isSelected())
       {
-        EmployeeList employeeList = projectSelectedComboBox.getSelectionModel().getSelectedItem().getAllTeamMembers();
+        EmployeeList employeeList = projectSelectedComboBox.getSelectionModel()
+            .getSelectedItem().getAllTeamMembers();
         for (int i = 0; i < employeeList.size(); i++)
         {
           responsibleTeamMemberComboBox.getItems().add(employeeList.get(i));
@@ -1002,7 +1014,8 @@ public class Controller
       }
       else
       {
-        responsibleTeamMemberComboBox.getItems().add(selectedRequirement.getResponsibleEmployee());
+        responsibleTeamMemberComboBox.getItems()
+            .add(selectedRequirement.getResponsibleEmployee());
       }
       responsibleTeamMemberComboBox.getSelectionModel()
           .select(selectedRequirement.getResponsibleEmployee());
