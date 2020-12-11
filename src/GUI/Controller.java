@@ -133,7 +133,7 @@ public class Controller
 
   @FXML private Button saveEmployeeButton;
   private SystemAdapter adapter;
-  private String Command = "";
+  private String command = "";
 
   public void initialize()
   {
@@ -153,7 +153,7 @@ public class Controller
     }
     else if (e.getSource() == addProjectButton)
     {
-      Command = "addProject";
+      command = "addProject";
       projectNameTextField.setEditable(true);
       projectStatusComboBox.setDisable(false);
       getProjectFieldsCleared();
@@ -161,7 +161,7 @@ public class Controller
     }
     else if (e.getSource() == editProjectButton)
     {
-      Command = "editProject";
+      command = "editProject";
       if (projectsListView.getSelectionModel().getSelectedIndex() < 0)
       {
         alertPopUp("Choose project to edit.");
@@ -179,12 +179,12 @@ public class Controller
       }
       else
       {
-        Command = "archiveProject";
+        command = "archiveProject";
       }
     }
     else if (e.getSource() == assignEmployeeButton)
     {
-      Command = "assignEmployee";
+      command = "assignEmployee";
       teamMembersFieldsAreEditable(true);
 
       getTeamMembersFieldsCleared();
@@ -204,7 +204,7 @@ public class Controller
       }
       else
       {
-        Command = "editRole";
+        command = "editRole";
         availableEmployeeComboBox.setDisable(true);
         employeeRoleComboBox.setDisable(false);
 
@@ -225,7 +225,7 @@ public class Controller
       String newName = projectNameTextField.getText();
       String status = projectStatusComboBox.getSelectionModel()
           .getSelectedItem();
-      switch (Command)
+      switch (command)
       {
         case "addProject":
           try
@@ -289,7 +289,7 @@ public class Controller
       teamMembersFieldsAreEditable(false);
       getProjectFieldsCleared();
       getTeamMembersFieldsCleared();
-      Command = "";
+      command = "";
     }
     else if (e.getSource() == addRequirementButton)
     {
@@ -299,7 +299,7 @@ public class Controller
       }
       else
       {
-        Command = "addRequirement";
+        command = "addRequirement";
         requirementsFieldsAreEditable(true);
         getRequirementFieldsCleared();
 
@@ -333,7 +333,7 @@ public class Controller
       }
       else
       {
-        Command = "editRequirement";
+        command = "editRequirement";
         requirementsFieldsAreEditable(true);
         requirementIDTextField.setEditable(false);
         fillRequirementsFields();
@@ -347,7 +347,7 @@ public class Controller
       }
       else
       {
-        Command = "removeRequirement";
+        command = "removeRequirement";
       }
     }
     else if (e.getSource() == saveRequirementButton)
@@ -380,7 +380,7 @@ public class Controller
       Requirement selectedRequirement = requirementsListView.getSelectionModel()
           .getSelectedItem();
 
-      switch (Command)
+      switch (command)
       {
         case "addRequirement":
           adapter.addRequirement(selectedProject.getName(), requirementID,
@@ -400,7 +400,7 @@ public class Controller
       requirementsFieldsAreEditable(false);
       getRequirementFieldsCleared();
       updateRequirements();
-      Command = "";
+      command = "";
     }
     else if (e.getSource() == addTaskButton)
     {
@@ -413,7 +413,7 @@ public class Controller
       }
       else
       {
-        Command = "addTask";
+        command = "addTask";
         getTaskFieldsCleared();
         taskFieldsAreEditable(true);
         //TODO refactor a bit
@@ -434,7 +434,7 @@ public class Controller
       }
       else
       {
-        Command = "editTask";
+        command = "editTask";
         taskFieldsAreEditable(true);
         taskIDTextField.setEditable(false);
       }
@@ -447,12 +447,12 @@ public class Controller
       }
       else
       {
-        Command = "removeTask";
+        command = "removeTask";
       }
     }
     else if (e.getSource() == saveTaskButton)
     {
-      if (taskFieldsValidation() && !Command.equals("removeTask"))
+      if (taskFieldsValidation() && !command.equals("removeTask"))
       {
         alertPopUp("Fill in all the fields.");
         getTaskFieldsCleared();
@@ -486,7 +486,7 @@ public class Controller
         {
           employeesToAssign.addEmployee(empl);
         }
-        switch (Command)
+        switch (command)
         {
           case "addTask":
             adapter.addTask(selectedProjectName, selectedRequirementID, toAdd);
@@ -533,11 +533,11 @@ public class Controller
             .select(requirementIndex);
         updateTasks();
       }
-      Command = "";
+      command = "";
     }
     else if (e.getSource() == addEmployeeButton)
     {
-      Command = "addEmployee";
+      command = "addEmployee";
       getEmployeeFieldsCleared();
       employeeFieldsAreEditable(true);
     }
@@ -549,7 +549,7 @@ public class Controller
       }
       else
       {
-        Command = "editEmployee";
+        command = "editEmployee";
         employeeFieldsAreEditable(true);
       }
     }
@@ -565,7 +565,7 @@ public class Controller
       String firstName = employeeFirstName.getText();
       String lastName = employeeLastName.getText();
 
-      switch (Command)
+      switch (command)
       {
         case "addEmployee":
           Employee toAdd = new Employee(employeeID, firstName, lastName);
@@ -596,7 +596,7 @@ public class Controller
       updateEmployees();
       employeeFieldsAreEditable(false);
       getEmployeeFieldsCleared();
-      Command = "";
+      command = "";
     }
     else if (e.getSource() == exitMenuItem)
     {
@@ -696,7 +696,7 @@ public class Controller
     }
   }
 
-  public void updateProjects()
+  private void updateProjects()
   {
     if (adapter != null)
     {
@@ -723,7 +723,7 @@ public class Controller
     }
   }
 
-  public void updateTeamMembers()
+  private void updateTeamMembers()
   {
     if (projectsListView.getSelectionModel().getSelectedIndex() != -1)
     {
@@ -753,7 +753,7 @@ public class Controller
     }
   }
 
-  public void updateRequirements()
+  private void updateRequirements()
   {
     if (adapter != null
         && projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1)
@@ -773,7 +773,7 @@ public class Controller
     }
   }
 
-  public void updateProjectsToSelect(ComboBox<Project> comboBox)
+  private void updateProjectsToSelect(ComboBox<Project> comboBox)
   {
     comboBox.getItems().clear();
     ProjectList projectList;
@@ -791,7 +791,7 @@ public class Controller
     }
   }
 
-  public void updateRequirementToSelect()
+  private void updateRequirementToSelect()
   {
     requirementSelectedComboBox.getItems().clear();
     if (projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex()
@@ -809,7 +809,7 @@ public class Controller
     }
   }
 
-  public void updateTasks()
+  private void updateTasks()
   {
     if (requirementSelectedComboBox.getSelectionModel().getSelectedIndex() != -1
         && projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex()
@@ -839,7 +839,7 @@ public class Controller
     }
   }
 
-  public void updateEmployees()
+  private void updateEmployees()
   {
     employeesListView.getItems().clear();
 
@@ -851,13 +851,13 @@ public class Controller
     }
   }
 
-  public void projectFieldsAreEditable(boolean areEditable)
+  private void projectFieldsAreEditable(boolean areEditable)
   {
     projectNameTextField.setEditable(areEditable);
     projectStatusComboBox.setDisable(!areEditable);
   }
 
-  public void requirementsFieldsAreEditable(boolean areEditable)
+  private void requirementsFieldsAreEditable(boolean areEditable)
   {
     requirementIDTextField.setEditable(areEditable);
     requirementStatusComboBox.setDisable(!areEditable);
@@ -869,7 +869,7 @@ public class Controller
     responsibleTeamMemberComboBox.setDisable(!areEditable);
   }
 
-  public void employeeFieldsAreEditable(boolean areEditable)
+  private void employeeFieldsAreEditable(boolean areEditable)
   {
     employeeIDTextField.setEditable(areEditable);
     employeeFirstName.setEditable(areEditable);
@@ -877,7 +877,7 @@ public class Controller
     employeeRoleComboBox.setDisable(!areEditable);
   }
 
-  public void taskFieldsAreEditable(boolean areEditable)
+  private void taskFieldsAreEditable(boolean areEditable)
   {
     taskIDTextField.setEditable(areEditable);
     taskStatusComboBox.setDisable(!areEditable);
@@ -889,19 +889,19 @@ public class Controller
     taskDeadline.setEditable(areEditable);
   }
 
-  public void teamMembersFieldsAreEditable(boolean areEditable)
+  private void teamMembersFieldsAreEditable(boolean areEditable)
   {
     availableEmployeeComboBox.setDisable(!areEditable);
     employeeRoleComboBox.setDisable(!areEditable);
   }
 
-  public void getProjectFieldsCleared()
+  private void getProjectFieldsCleared()
   {
     projectNameTextField.clear();
     projectStatusComboBox.getSelectionModel().select(0);
   }
 
-  public void getTeamMembersFieldsCleared()
+  private void getTeamMembersFieldsCleared()
   {
     availableEmployeeComboBox.getItems().clear();
     employeeRoleComboBox.getItems().clear();
@@ -913,7 +913,7 @@ public class Controller
     employeeRoleComboBox.getSelectionModel().select(0);
   }
 
-  public void getRequirementFieldsCleared()
+  private void getRequirementFieldsCleared()
   {
     requirementIDTextField.clear();
     requirementStatusComboBox.getItems().clear();
@@ -933,7 +933,7 @@ public class Controller
     responsibleTeamMemberComboBox.getSelectionModel().select(0);
   }
 
-  public void getTaskFieldsCleared()
+  private void getTaskFieldsCleared()
   {
     taskIDTextField.clear();
     taskStatusComboBox.getSelectionModel().select(0);
@@ -945,7 +945,7 @@ public class Controller
     taskResponsibleEmployeeComboBox.getItems().clear();
   }
 
-  public void getEmployeeFieldsCleared()
+  private void getEmployeeFieldsCleared()
   {
     employeeIDTextField.clear();
     employeeFirstName.clear();
@@ -953,7 +953,7 @@ public class Controller
     employeeRoleComboBox.getSelectionModel().select(0);
   }
 
-  public boolean taskFieldsValidation()
+  private boolean taskFieldsValidation()
   {
     return taskIDTextField.getText().isEmpty() || taskDescriptionTextArea
         .getText().isEmpty() || taskEstimateTextField.getText().isEmpty()
@@ -962,13 +962,13 @@ public class Controller
             == 0;
   }
 
-  public boolean employeeFieldsValidator()
+  private boolean employeeFieldsValidator()
   {
     return employeeIDTextField.getText().isEmpty() || employeeFirstName
         .getText().isEmpty() || employeeLastName.getText().isEmpty();
   }
 
-  public void fillFieldsInProjectTab()
+  private void fillFieldsInProjectTab()
   {
     Project selectedProject = projectsListView.getSelectionModel()
         .getSelectedItem();
@@ -982,7 +982,7 @@ public class Controller
     }
   }
 
-  public void fillRequirementsFields()
+  private void fillRequirementsFields()
   {
     Requirement selectedRequirement = requirementsListView.getSelectionModel()
         .getSelectedItem();
@@ -1022,13 +1022,13 @@ public class Controller
     }
   }
 
-  public void fillTaskFields()
+  private void fillTaskFields()
   {
     taskTeamMembersListView.getItems().clear();
     Task selectedTask = tasksListView.getSelectionModel().getSelectedItem();
     if (selectedTask != null)
     {
-      taskIDTextField.setText(String.valueOf(selectedTask.getID()));
+      taskIDTextField.setText(String.valueOf(selectedTask.getTaskID()));
       taskStatusComboBox.getSelectionModel()
           .select(selectedTask.isDone() ? 1 : 0);
       taskDescriptionTextArea.setText(selectedTask.getDescription());
@@ -1047,7 +1047,7 @@ public class Controller
     }
   }
 
-  public void fillEmployeeTab()
+  private void fillEmployeeTab()
   {
     Employee toEdit = employeesListView.getSelectionModel().getSelectedItem();
     //TODO maybe change employee ID to String if we have time.
@@ -1063,7 +1063,7 @@ public class Controller
     }
   }
 
-  public boolean requirementsFieldsValidator()
+  private boolean requirementsFieldsValidator()
   {
     return projectSelectedComboBox.getSelectionModel().getSelectedIndex() == -1
         || requirementIDTextField.getText().isEmpty()
@@ -1074,7 +1074,7 @@ public class Controller
         == -1;
   }
 
-  public void setButtonsDisabled(boolean areDisabled)
+  private void setButtonsDisabled(boolean areDisabled)
   {
     addProjectButton.setDisable(areDisabled);
     editProjectButton.setDisable(areDisabled);
@@ -1096,7 +1096,7 @@ public class Controller
     employeesTab.setDisable(areDisabled);
   }
 
-  public void alertPopUp(String e)
+  private void alertPopUp(String e)
   {
     Alert alert = new Alert(Alert.AlertType.INFORMATION, e, ButtonType.OK);
     alert.setTitle("Error");

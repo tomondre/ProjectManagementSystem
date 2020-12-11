@@ -89,11 +89,6 @@ public class Task implements Serializable
     this.assignedToTask = employees;
   }
 
-  public void setResponsibleEmployee(Employee responsibleEmployee)
-  {
-    this.responsibleEmployee = responsibleEmployee;
-  }
-
   public Employee getResponsibleEmployee()
   {
     return responsibleEmployee;
@@ -102,11 +97,6 @@ public class Task implements Serializable
   public EmployeeList getAssignedToTask()
   {
     return assignedToTask;
-  }
-
-  public int getID()
-  {
-    return taskID;
   }
 
   public String toString()
