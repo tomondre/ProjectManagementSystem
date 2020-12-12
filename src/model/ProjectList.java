@@ -70,6 +70,12 @@ public class ProjectList implements Serializable
     return projects.get(index);
   }
 
+  public void exportingXML(){
+    for (Project project : projects){
+      project.deleteTeamRoles();
+    }
+  }
+
   public String toString()
   {
     String temp = "";

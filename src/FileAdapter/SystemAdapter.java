@@ -220,8 +220,10 @@ public class SystemAdapter
   public void exportXML()
   {
     Gson json = new Gson();
+    ProjectList tempProjects = getSystem().getAllProjectsOngoing();
+    tempProjects.exportingXML();
     String temp = XML.toString(
-        new JSONObject(json.toJson(getSystem().getAllProjectsOngoing())));
+        new JSONObject(json.toJson(tempProjects)));
     temp= "<ongoingProjects>" + temp;
     temp+="</ongoingProjects>";
     try
