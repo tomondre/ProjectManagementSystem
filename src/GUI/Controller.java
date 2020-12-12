@@ -665,7 +665,7 @@ public class Controller
     }
   }
 
-  public void tabChange(Event event)//TODO Ask Allan about this event property
+  public void tabChange(Event event)
   {
     if (adapter != null)
     {
@@ -968,7 +968,7 @@ public class Controller
         .getText().isEmpty() || employeeLastName.getText().isEmpty();
   }
 
-  private void fillFieldsInProjectTab()
+  public void fillFieldsInProjectTab()
   {
     Project selectedProject = projectsListView.getSelectionModel()
         .getSelectedItem();
@@ -982,7 +982,7 @@ public class Controller
     }
   }
 
-  private void fillRequirementsFields()
+  public void fillRequirementsFields()
   {
     Requirement selectedRequirement = requirementsListView.getSelectionModel()
         .getSelectedItem();
@@ -1022,7 +1022,7 @@ public class Controller
     }
   }
 
-  private void fillTaskFields()
+  public void fillTaskFields()
   {
     taskTeamMembersListView.getItems().clear();
     Task selectedTask = tasksListView.getSelectionModel().getSelectedItem();
@@ -1047,7 +1047,7 @@ public class Controller
     }
   }
 
-  private void fillEmployeeTab()
+  public void fillEmployeeTab()
   {
     Employee toEdit = employeesListView.getSelectionModel().getSelectedItem();
     //TODO maybe change employee ID to String if we have time.

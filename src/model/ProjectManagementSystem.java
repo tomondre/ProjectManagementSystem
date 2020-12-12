@@ -64,29 +64,15 @@ public class ProjectManagementSystem implements Serializable
     return employees;
   }
 
-  public void employeesDeleteRoles(EmployeeList employees)
-  {
-    for (int i = 0; i < this.employees.size(); i++)
-    {
-      for (int j = 0; j < employees.size(); j++)
-      {
-        if (this.employees.get(i).getId() == employees.get(j).getId())
-        {
-          this.employees.get(i).setRole("");
-        }
-      }
-    }
-  }
-
   //*****************************Archive****************************************
   public void moveToArchive(String projectName)
   {
     if (getAllProjectsOngoing().getProjectByName(projectName) != null)
     {
       Project temp = getAllProjectsOngoing().getProjectByName(projectName);
-      archivedProjects.addProject(temp.copy());
       EmployeeList empl = temp.getAllTeamMembers();
-      employeesDeleteRoles(empl);
+      archivedProjects.addProject(temp.copy());
+      getAllEmployees().employeesDeleteRoles(empl);
       ongoingProjectList.remove(temp);
     }
   }

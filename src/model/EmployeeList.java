@@ -71,6 +71,20 @@ public class EmployeeList implements Serializable
     return temp;
   }
 
+  public void employeesDeleteRoles(EmployeeList employees)
+  {
+    for (int i = 0; i < this.employees.size(); i++)
+    {
+      for (int j = 0; j < employees.size(); j++)
+      {
+        if (this.employees.get(i).getId() == employees.get(j).getId())
+        {
+          this.employees.get(i).setRole("");
+        }
+      }
+    }
+  }
+
   public void deleteRoles()
   {
     for (Employee e : employees)
