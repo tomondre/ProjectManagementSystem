@@ -114,6 +114,10 @@ public class EmployeeList implements Serializable
     return new EmployeeList(temp);
   }
 
+  /**
+   * Get a String representation of EmployeeList
+   * @return a String containing information about all Task objects in the list - each Employee object followed by a new line character
+   */
   public String toString()
   {
     String str = "";

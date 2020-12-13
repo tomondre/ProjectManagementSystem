@@ -76,6 +76,10 @@ public class ProjectList implements Serializable
     }
   }
 
+  /**
+   * Gets a String representation of the ProjectList
+   * @return a String containing information about all Task objects in the list - each Project object followed by a new line character
+   */
   public String toString()
   {
     String temp = "";
