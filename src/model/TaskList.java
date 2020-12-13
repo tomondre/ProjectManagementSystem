@@ -29,7 +29,7 @@ public class TaskList implements Serializable
 
   /**
    * Gets double representation of total hours spent on tasks
-   * @return the double information containing total hours spent on Tasks
+   * @return the double information containing total hours spent on Task objects
    */
   public double totalTimeUsed()
   {
@@ -150,7 +150,7 @@ public class TaskList implements Serializable
   //Method we are using when clearing employees working on tasks because we also have tasklist in employee
 
   /**
-   * Removes evey task inside TaskList. Used when clearing TaskLists inside Employees wheen moving to archive.
+   * Removes evey task inside TaskList. Used when clearing TaskLists inside Employees while moving Project to archive.
    */
   public void clear()
   {

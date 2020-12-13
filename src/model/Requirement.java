@@ -102,6 +102,7 @@ public class Requirement implements Serializable
 
   /**
    * Sets the status field of the Requirement.
+   *
    * @param status the status of the Requirement object
    */
   public void setStatus(String status)
@@ -111,6 +112,7 @@ public class Requirement implements Serializable
 
   /**
    * Sets the type of Requirement.
+   *
    * @param requirementType the Requirement Type of the Requirement
    */
   public void setRequirementType(String requirementType)
@@ -120,6 +122,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a boolean representation of every Task in TaskList being done.
+   *
    * @return the boolean containing information whenever TaskList is done
    */
   public boolean isDone()
@@ -131,6 +134,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a String representation of the Requirement description.
+   *
    * @return the String with the description.
    */
   public String getDescription()
@@ -140,6 +144,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a double representation of the Requirement time estimation.
+   *
    * @return the double with the time estimation
    */
   public double getEstimateTime()
@@ -149,6 +154,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a MyDate object representation of the Requirement deadline
+   *
    * @return the MyDate object with the Requirement's deadline
    */
   public MyDate getDeadline()
@@ -158,6 +164,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a String representation of the Requirement status
+   *
    * @return the String with the Requirement's status
    */
   public String getStatus()
@@ -167,6 +174,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a String representation of the Requirement type
+   *
    * @return the String containing information about Requirement ID
    */
   public String getRequirementType()
@@ -176,6 +184,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets an Employee object representation of the Requirement responsible Employee.
+   *
    * @return the Employee object with the Requirement responsible Employee
    */
   public Employee getResponsibleEmployee()
@@ -185,6 +194,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a boolean representation of the Requirement to be approved.
+   *
    * @return the boolean with information whenever Requirement is to be approved based on current Task status
    */
   public boolean toBeApproved()
@@ -194,6 +204,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a double representation of the total time spent on Requirement object.
+   *
    * @return the double with the time used on Requirement tasks
    */
   public double getTotalTimeUsed()
@@ -203,6 +214,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets an int representation of the Requirement priority.
+   *
    * @return the int with the priority of the Requirement
    */
   public int getPriority()
@@ -212,6 +224,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets an ID representation of the Requirement ID
+   *
    * @return the int with the ID of the requirement
    */
   public String getID()
@@ -221,6 +234,7 @@ public class Requirement implements Serializable
 
   /**
    * Adds Task object representation to the tasks.
+   *
    * @param task the task to be added
    */
   public void addTask(Task task)
@@ -230,6 +244,7 @@ public class Requirement implements Serializable
 
   /**
    * Removes a Task object representation with the givenID.
+   *
    * @param taskID the id of the Task to be added
    */
   public void removeTask(int taskID)
@@ -238,8 +253,10 @@ public class Requirement implements Serializable
   }
 
   //TODO
+
   /**
    * Gets a Task representation with the given ID.
+   *
    * @param taskID
    * @return
    */
@@ -250,6 +267,7 @@ public class Requirement implements Serializable
 
   /**
    * Gets a TaskList representation of the Requirement.
+   *
    * @return list of Tasks
    */
   public TaskList getTaskList()
@@ -279,9 +297,10 @@ public class Requirement implements Serializable
   }
 
   /**
+   * Gets a boolean representation of the result after comparing object to the Requirement
    *
-   * @param obj
-   * @return
+   * @param obj Object containing fields to compare
+   * @return the boolean information containing result of fields comparison
    */
   public boolean equals(Object obj)
   {
@@ -299,12 +318,21 @@ public class Requirement implements Serializable
         .equals(other.requirementType);
   }
 
+  /**
+   * Gets a String representation of the Requirement
+   *
+   * @return the String containing information about Requirement
+   */
   public String toString()
   {
     //checkStatus();
     return "ID: " + requirementId + " -  Pr: " + priorityNumber;
   }
 
+  /**
+   * Gets a copy of an existing Requirement.
+   * @return new Requirement object with copied fields
+   */
   public Requirement copy()
   {
     return new Requirement(requirementId, priorityNumber, description,

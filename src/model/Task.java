@@ -192,7 +192,7 @@ public class Task implements Serializable
   }
 
   /**
-   * Gets a boolean representation of the result after comparing object to the Task
+   * Gets a boolean representation of the result after comparing fields from object and the Task
    *
    * @param obj Object containing fields to compare
    * @return the boolean containing result of fields comparison
@@ -213,9 +213,9 @@ public class Task implements Serializable
   }
 
   /**
-   * Gets a copy of an existing Task
+   * Gets a copy of an existing Task object.
    *
-   * @return new Task object with existing fields.
+   * @return new Task object with copied fields.
    */
   public Task copy()
   {

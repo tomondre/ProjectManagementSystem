@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * A class of Employee object
+ */
 public class Employee implements Serializable
 {
   public static final String DEVELOPER = "Developer";
@@ -14,6 +17,12 @@ public class Employee implements Serializable
   private String role;
   private TaskList tasks;
 
+  /**
+   * A constructor for creating Employee
+   * @param employeeID the unique ID of the Employee object
+   * @param firstName the first name of the Employee object
+   * @param lastName the last name of the Employee object
+   */
   public Employee(int employeeID, String firstName, String lastName)
   {
     this.employeeID = employeeID;
@@ -23,6 +32,14 @@ public class Employee implements Serializable
     tasks = new TaskList();
   }
 
+  /**
+   * A constructor called when copying an Employee object
+   * @param employeeID the unique ID of the Employee object
+   * @param firstName the first name of the Employee object
+   * @param lastName the last name of the Employee object
+   * @param role the role of the Employee object
+   * @param tasks tasks the Employee is assigned to
+   */
   public Employee(int employeeID, String firstName, String lastName,
       String role, TaskList tasks)
   {
@@ -33,6 +50,10 @@ public class Employee implements Serializable
     this.tasks = tasks;
   }
 
+  /**
+   * Sets an ID of the Employee object
+   * @param employeeID the unique
+   */
   public void setEmployeeID(int employeeID)
   {
     this.employeeID = employeeID;
