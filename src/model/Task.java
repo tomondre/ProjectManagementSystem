@@ -103,7 +103,7 @@ public class Task implements Serializable
   /**
    * Gets a double representation of the time spent on a Task.
    *
-   * @return a double value with time used on a task
+   * @return the double value with time used on a task
    */
   public double getTimeUsed()
   {
@@ -113,7 +113,7 @@ public class Task implements Serializable
   /**
    * Gets a double representation of the Task time estimation.
    *
-   * @return a double value with the time estimation
+   * @return the double value with the time estimation
    */
   public double getEstimateTime()
   {
@@ -182,9 +182,9 @@ public class Task implements Serializable
   }
 
   /**
-   * Gets a String representation of the Task
+   * Gets a String representation of the Task object
    *
-   * @return the String containing information about Task ID
+   * @return the String containing information about Task object
    */
   public String toString()
   {
