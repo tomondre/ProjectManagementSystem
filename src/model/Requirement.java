@@ -21,6 +21,18 @@ public class Requirement implements Serializable
   private Employee responsibleEmployee;
   private String requirementType;
 
+  /**
+   * A constructor for creating Requirement with 8 fields.
+   *
+   * @param requirementId       the unique ID of the Requirement object
+   * @param priorityNumber      the priority of the Requirement object
+   * @param description         the description of the Requirement object
+   * @param estimateTime        the time estimation of the Requirement object
+   * @param status              the status of the Requirement object
+   * @param requirementType     the type of the Requirement object
+   * @param deadline            the MyDate object of the Requirement object
+   * @param responsibleEmployee the Employee object of the Requirement object
+   */
   public Requirement(String requirementId, int priorityNumber,
       String description, double estimateTime, String status,
       String requirementType, MyDate deadline, Employee responsibleEmployee)
@@ -36,7 +48,18 @@ public class Requirement implements Serializable
     setStatus(status);
   }
 
-  //Constructor for copy method
+  /**
+   * A constructor called when copying a Requirement object
+   *
+   * @param requirementId       the unique ID of the Requirement object
+   * @param priorityNumber      the priority of the Requirement object
+   * @param description         the description of the Requirement object
+   * @param estimateTime        the time estimation of the Requirement object
+   * @param status              the status of the Requirement object
+   * @param requirementType     the type of the Requirement object
+   * @param deadline            the MyDate object of the Requirement object
+   * @param responsibleEmployee the Employee object of the Requirement object
+   */
   public Requirement(String requirementId, int priorityNumber,
       String description, double estimateTime, String status,
       String requirementType, MyDate deadline, Employee responsibleEmployee,
@@ -53,7 +76,17 @@ public class Requirement implements Serializable
     this.requirementType = requirementType;
   }
 
-  //******************************SETTERS*****************************************
+  /**
+   * Edits fields inside the Requirement object.
+   *
+   * @param priorityNumber      the priority of the Requirement object
+   * @param description         the description of the Requirement object
+   * @param estimateTime        the time estimation of the Requirement object
+   * @param status              the status of the Requirement object
+   * @param requirementType     the type of the Requirement object
+   * @param deadline            the MyDate object of the Requirement object
+   * @param responsibleEmployee the Employee object of the Requirement object
+   */
   public void set(int priorityNumber, String description, double estimateTime,
       MyDate deadline, String status, String requirementType,
       Employee responsibleEmployee)
@@ -67,89 +100,158 @@ public class Requirement implements Serializable
     this.responsibleEmployee = responsibleEmployee;
   }
 
+  /**
+   * Sets the status field of the Requirement.
+   * @param status the status of the Requirement object
+   */
   public void setStatus(String status)
   {
     this.status = status;
   }
 
+  /**
+   * Sets the type of Requirement.
+   * @param requirementType the Requirement Type of the Requirement
+   */
   public void setRequirementType(String requirementType)
   {
     this.requirementType = requirementType;
   }
 
+  /**
+   * Gets a boolean representation of every Task in TaskList being done.
+   * @return the boolean containing information whenever TaskList is done
+   */
   public boolean isDone()
   {
     return taskList.isDone();
   }
 
   //***********************************GETTERS**********************************
+
+  /**
+   * Gets a String representation of the Requirement description.
+   * @return the String with the description.
+   */
   public String getDescription()
   {
     return description;
   }
 
+  /**
+   * Gets a double representation of the Requirement time estimation.
+   * @return the double with the time estimation
+   */
   public double getEstimateTime()
   {
     return estimateTime;
   }
 
+  /**
+   * Gets a MyDate object representation of the Requirement deadline
+   * @return the MyDate object with the Requirement's deadline
+   */
   public MyDate getDeadline()
   {
     return deadline;
   }
 
+  /**
+   * Gets a String representation of the Requirement status
+   * @return the String with the Requirement's status
+   */
   public String getStatus()
   {
     return status;
   }
 
+  /**
+   * Gets a String representation of the Requirement type
+   * @return the String containing information about Requirement ID
+   */
   public String getRequirementType()
   {
     return requirementType;
   }
 
+  /**
+   * Gets an Employee object representation of the Requirement responsible Employee.
+   * @return the Employee object with the Requirement responsible Employee
+   */
   public Employee getResponsibleEmployee()
   {
     return responsibleEmployee;
   }
 
+  /**
+   * Gets a boolean representation of the Requirement to be approved.
+   * @return the boolean with information whenever Requirement is to be approved based on current Task status
+   */
   public boolean toBeApproved()
   {
     return status.equals(ENDED);
   }
 
+  /**
+   * Gets a double representation of the total time spent on Requirement object.
+   * @return the double with the time used on Requirement tasks
+   */
   public double getTotalTimeUsed()
   {
     return taskList.totalTimeUsed();
   }
 
+  /**
+   * Gets an int representation of the Requirement priority.
+   * @return the int with the priority of the Requirement
+   */
   public int getPriority()
   {
     return priorityNumber;
   }
 
+  /**
+   * Gets an ID representation of the Requirement ID
+   * @return the int with the ID of the requirement
+   */
   public String getID()
   {
     return requirementId;
   }
 
-  //********************************taskList************************************
+  /**
+   * Adds Task object representation to the tasks.
+   * @param task the task to be added
+   */
   public void addTask(Task task)
   {
     taskList.addTask(task);
   }
 
+  /**
+   * Removes a Task object representation with the givenID.
+   * @param taskID the id of the Task to be added
+   */
   public void removeTask(int taskID)
   {
-
     taskList.removeTask(taskID);
   }
 
+  //TODO
+  /**
+   * Gets a Task representation with the given ID.
+   * @param taskID
+   * @return
+   */
   public Task getTaskById(int taskID)
   {
     return taskList.getTaskById(taskID);
   }
 
+  /**
+   * Gets a TaskList representation of the Requirement.
+   * @return list of Tasks
+   */
   public TaskList getTaskList()
   {
     return taskList;
@@ -157,6 +259,9 @@ public class Requirement implements Serializable
 
   //****************************************************************************
 
+  /**
+   * Check the status of the Requirement.
+   */
   public void checkStatus()
   {
     if (isDone() && !(status.equals(APPROVED) || status.equals(REJECTED)))
@@ -173,6 +278,11 @@ public class Requirement implements Serializable
     }
   }
 
+  /**
+   *
+   * @param obj
+   * @return
+   */
   public boolean equals(Object obj)
   {
     if (!(obj instanceof Requirement))
@@ -198,7 +308,7 @@ public class Requirement implements Serializable
   public Requirement copy()
   {
     return new Requirement(requirementId, priorityNumber, description,
-        estimateTime, status, requirementType, deadline, responsibleEmployee.copy(),
-        taskList.copy());
+        estimateTime, status, requirementType, deadline,
+        responsibleEmployee.copy(), taskList.copy());
   }
 }

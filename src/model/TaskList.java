@@ -29,7 +29,7 @@ public class TaskList implements Serializable
 
   /**
    * Gets double representation of total hours spent on tasks
-   * @return a double containing total hours spent on Tasks
+   * @return the double information containing total hours spent on Tasks
    */
   public double totalTimeUsed()
   {
@@ -42,8 +42,8 @@ public class TaskList implements Serializable
   }
 
   /**
-   * Gets a boolean representation of
-   * @return boolean containing information after comparing every Task's done field inside List
+   * Gets a boolean representation of every Task being done
+   * @return the boolean containing information after comparing every Task's isDone field inside List
    */
   public boolean isDone()
   {
@@ -61,6 +61,7 @@ public class TaskList implements Serializable
     return true;
   }
 
+  //TODO
   public double totalEstimate()
   {
     double temp = 0;
@@ -73,7 +74,7 @@ public class TaskList implements Serializable
 
   /**
    * Adds a Task to the list if there is no other existing Task with the same ID inside List.
-   * @param task Task to be added
+   * @param task the task to be added
    */
   public void addTask(Task task)
   {
@@ -90,7 +91,7 @@ public class TaskList implements Serializable
   /**
    * Gets a Task object with the given ID.
    * @param taskID the id of the Task object to be returned
-   * @return Task object with the given ID
+   * @return the Task object with the given ID
    */
   public Task getTaskById(int taskID)
   {
@@ -139,7 +140,7 @@ public class TaskList implements Serializable
   /**
    * Gets a Task object with the given index.
    * @param index the number with the index of the Task
-   * @return Task with the given index
+   * @return the Task with the given index
    */
   public Task get(int index)
   {
@@ -149,7 +150,7 @@ public class TaskList implements Serializable
   //Method we are using when clearing employees working on tasks because we also have tasklist in employee
 
   /**
-   * Removes evey task inside TaskList
+   * Removes evey task inside TaskList. Used when clearing TaskLists inside Employees wheen moving to archive.
    */
   public void clear()
   {
@@ -158,7 +159,7 @@ public class TaskList implements Serializable
 
   /**
    * Gets a String representation of the TaskList
-   * @return a String containing information about all Task objects in the list - each Task object followed by a new line character
+   * @return the String containing information about all Task objects in the list - each Task object followed by a new line character
    */
   public String toString()
   {

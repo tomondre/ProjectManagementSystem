@@ -18,17 +18,18 @@ public class Task implements Serializable
 
   /**
    * A constructor for creating Task with 8 fields.
-   * @param taskID the unique ID of the Task object
-   * @param description the description of Task object
-   * @param estimatedTime the time estimation of the Task object
-   * @param deadline the deadline object of the Task object
-   * @param timeUsed the used time og the Task object
-   * @param status the status of the Task object
+   * @param taskID              the unique ID of the Task object
+   * @param description         the description of Task object
+   * @param estimatedTime       the time estimation of the Task object
+   * @param deadline            the MyDate object of the Task object
+   * @param timeUsed            the used time og the Task object
+   * @param status              the status of the Task object
    * @param responsibleEmployee the Employee object of the Task object
    * @author Junjie Chen
-    */
-  public Task(int taskID, String description, boolean status, double timeUsed, double estimatedTime,
-      MyDate deadline, EmployeeList employees, Employee responsibleEmployee)
+   */
+  public Task(int taskID, String description, boolean status, double timeUsed,
+      double estimatedTime, MyDate deadline, EmployeeList employees,
+      Employee responsibleEmployee)
   {
     this.taskID = taskID;
     this.description = description;
@@ -42,13 +43,14 @@ public class Task implements Serializable
 
   /**
    * Constructor called when copying a Task object.
-   * @param taskID the unique ID of the Task object
-   * @param description the description of Task object
-   * @param estimatedTime the time estimation of the Task object
-   * @param deadline the deadline object of the Task object
-   * @param timeUsed the used time og the Task object
-   * @param assignedToTask the list of Employees assigned to the Task object
-   * @param status the status of the Task object
+   *
+   * @param taskID              the unique ID of the Task object
+   * @param description         the description of Task object
+   * @param estimatedTime       the time estimation of the Task object
+   * @param deadline            the deadline object of the Task object
+   * @param timeUsed            the used time og the Task object
+   * @param assignedToTask      the list of Employees assigned to the Task object
+   * @param status              the status of the Task object
    * @param responsibleEmployee the Employee object of the Task object
    */
   public Task(int taskID, String description, double estimatedTime,
@@ -66,16 +68,18 @@ public class Task implements Serializable
   }
 
   /**
-   * Method for editing fields inside the Task object.
-   * @param description the description of Task object
-   * @param estimatedTime the time estimation of the Task object
-   * @param deadline the deadline object of the Task object
-   * @param timeUsed the used time og the Task object
-   * @param status the status of the Task object
-   * @param responsibleEmployee the Employee object of the Task object
+   * Edits fields inside the Task object.
+   *
+   * @param description         the description of Task object
+   * @param estimatedTime       the time estimation of the Task object
+   * @param deadline            the deadline of the Task object
+   * @param timeUsed            the used time og the Task object
+   * @param status              the status of the Task object
+   * @param responsibleEmployee the responsible Employee of the Task object
    */
-  public void set(String description, boolean status, double timeUsed, double estimatedTime, MyDate deadline,
-     EmployeeList employees, Employee responsibleEmployee)
+  public void set(String description, boolean status, double timeUsed,
+      double estimatedTime, MyDate deadline, EmployeeList employees,
+      Employee responsibleEmployee)
   {
     this.description = description;
     isDone = status;
@@ -88,6 +92,7 @@ public class Task implements Serializable
 
   /**
    * Gets a unique number of the Task object.
+   *
    * @return the int with the task number
    */
   public int getTaskID()
@@ -96,7 +101,8 @@ public class Task implements Serializable
   }
 
   /**
-   *  Gets a double representation of the time spent on a Task.
+   * Gets a double representation of the time spent on a Task.
+   *
    * @return a double value with time used on a task
    */
   public double getTimeUsed()
@@ -105,7 +111,8 @@ public class Task implements Serializable
   }
 
   /**
-   * Gets a double representation of the task time estimation.
+   * Gets a double representation of the Task time estimation.
+   *
    * @return a double value with the time estimation
    */
   public double getEstimateTime()
@@ -115,6 +122,7 @@ public class Task implements Serializable
 
   /**
    * Gets a String representation of the Task description
+   *
    * @return the String with the description
    */
   public String getDescription()
@@ -124,7 +132,8 @@ public class Task implements Serializable
 
   /**
    * Gets a MyDate object representation of the Task deadline
-   * @return the MyDate object with the deadline
+   *
+   * @return the MyDate object with the Task deadline
    */
   public MyDate getDeadline()
   {
@@ -133,6 +142,7 @@ public class Task implements Serializable
 
   /**
    * Gets a boolean representation of the Task status.
+   *
    * @return the boolean with the task status
    */
   public boolean isDone()
@@ -142,6 +152,7 @@ public class Task implements Serializable
 
   /**
    * Adds an employees to the Task.
+   *
    * @param employees the EmployeeList object containing Employees
    */
   public void addTeamMembers(EmployeeList employees)
@@ -152,7 +163,8 @@ public class Task implements Serializable
 
   /**
    * Gets an Employee object representation of the Task responsible Employee.
-   * @return the Employee object with the responsible Employee
+   *
+   * @return the Employee object with the Task responsible Employee
    */
   public Employee getResponsibleEmployee()
   {
@@ -161,6 +173,7 @@ public class Task implements Serializable
 
   /**
    * Gets a List of Employees representation to the Task object
+   *
    * @return the EmployeeList object with the employees assigned
    */
   public EmployeeList getAssignedToTask()
@@ -170,6 +183,7 @@ public class Task implements Serializable
 
   /**
    * Gets a String representation of the Task
+   *
    * @return the String containing information about Task ID
    */
   public String toString()
@@ -179,6 +193,7 @@ public class Task implements Serializable
 
   /**
    * Gets a boolean representation of the result after comparing object to the Task
+   *
    * @param obj Object containing fields to compare
    * @return the boolean containing result of fields comparison
    */
@@ -188,18 +203,18 @@ public class Task implements Serializable
     {
       return false;
     }
-      Task other = (Task) obj;
+    Task other = (Task) obj;
     return taskID == other.taskID && isDone == other.isDone
         && Double.compare(other.estimatedTime, estimatedTime) == 0
-        && Double.compare(other.timeUsed, timeUsed) == 0
-        && description.equals(other.description)
-        && deadline.equals(other.deadline)
+        && Double.compare(other.timeUsed, timeUsed) == 0 && description
+        .equals(other.description) && deadline.equals(other.deadline)
         && responsibleEmployee.equals(other.responsibleEmployee)
         && assignedToTask.equals(other.assignedToTask);
   }
 
   /**
    * Gets a copy of an existing Task
+   *
    * @return new Task object with existing fields.
    */
   public Task copy()
