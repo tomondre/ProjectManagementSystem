@@ -19,7 +19,7 @@ public class ProjectList implements Serializable
   }
 
   /**
-   * Add a Project object to the list if there is no other existing Project with the same unique name
+   * Adds a Project object to the list if there is no other existing Project with the same unique name
    * @param project the Project to be added
    */
   public void addProject(Project project)
