@@ -25,6 +25,7 @@ public class ProjectManagementSystem implements Serializable
 
   /**
    * Gets a ProjectList of ongoing Project objects
+   *
    * @return the ongoing ProjectList object
    */
   public ProjectList getAllProjectsOngoing()
@@ -34,6 +35,7 @@ public class ProjectManagementSystem implements Serializable
 
   /**
    * Gets a ProjectList of archived files object
+   *
    * @return the archived ProjectList object
    */
   public ProjectList getAllArchivedProjects()
@@ -45,6 +47,7 @@ public class ProjectManagementSystem implements Serializable
 
   /**
    * Gets RequirementList of the Project object with the given name
+   *
    * @param projectName the name of the project
    * @return the RequirmentList of the given Project object
    */
@@ -52,17 +55,20 @@ public class ProjectManagementSystem implements Serializable
   {
     if (getAllProjectsOngoing().getProjectByName(projectName) != null)
     {
-      return getAllProjectsOngoing().getProjectByName(projectName).getAllRequirements();
+      return getAllProjectsOngoing().getProjectByName(projectName)
+          .getAllRequirements();
     }
     else
     {
-      return getAllArchivedProjects().getProjectByName(projectName).getAllRequirements();
+      return getAllArchivedProjects().getProjectByName(projectName)
+          .getAllRequirements();
     }
   }
 
   /**
-   * Gets a Requirement object from the given Project and Requirement ID
-   * @param projectName the name of the Project object where the Requirement is located
+   * Gets a Requirement object with the given Project and Requirement ID path
+   *
+   * @param projectName   the name of the Project object where the Requirement is located
    * @param requirementID the ID of the Requirement object
    * @return the Requirement with the given project name and requirement id path
    */
@@ -71,27 +77,50 @@ public class ProjectManagementSystem implements Serializable
   {
     if (getAllProjectsOngoing().getProjectByName(projectName) != null)
     {
-      return getAllProjectsOngoing().getProjectByName(projectName).getRequirementByID(requirementID);
+      return getAllProjectsOngoing().getProjectByName(projectName)
+          .getRequirementByID(requirementID);
     }
     else
     {
-      return getAllArchivedProjects().getProjectByName(projectName).getRequirementByID(requirementID);
+      return getAllArchivedProjects().getProjectByName(projectName)
+          .getRequirementByID(requirementID);
     }
   }
 
   //**********************************Tasks*************************************
+
+  /**
+   * Gets TaskList object of the Requirement with the given project name and requirement id path
+   *
+   * @param projectName   the name of the Project where the TaskList object is located
+   * @param requirementId the ID of the Requirement where the TaskList object is locate
+   * @return the TaskList with the given Project name and Requirement id path
+   */
   public TaskList getAllTasks(String projectName, String requirementId)
   {
-    return getAllRequirements(projectName).getRequirementByID(requirementId).getTaskList();
+    return getAllRequirements(projectName).getRequirementByID(requirementId)
+        .getTaskList();
   }
 
   //**********************************Employee**********************************
+
+  /**
+   * Gets EmployeeList containing all Employee objects made in the System
+   *
+   * @return the EmployeeList with Employee objects
+   */
   public EmployeeList getAllEmployees()
   {
     return employees;
   }
 
   //*****************************Archive****************************************
+
+  /**
+   * Moves a Project object with the given name to archivedProject ProjectList
+   *
+   * @param projectName the name of the Project to be moved to archived
+   */
   public void moveToArchive(String projectName)
   {
     if (getAllProjectsOngoing().getProjectByName(projectName) != null)
@@ -104,6 +133,11 @@ public class ProjectManagementSystem implements Serializable
     }
   }
 
+  /**
+   * Gets a String representation of the ProjectManagementSystem object
+   *
+   * @return the String containing information about ProjectManagementSystem
+   */
   public String toString()
   {
     return ongoingProjectList.toString();
