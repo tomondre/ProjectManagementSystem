@@ -99,7 +99,7 @@ public class RequirementList implements Serializable
   /**
    * Gets a Requirement object with the given index.
    * @param index the index of Requirement object in the list
-   * @return the Requirement object with the given index in the list
+   * @return the Requirement object with the given index from the list
    */
   public Requirement get(int index)
   {
