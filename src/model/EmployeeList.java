@@ -99,8 +99,8 @@ public class EmployeeList implements Serializable
   }
 
   /**
-   * Deletes roles of the Employee objects inside the listi
-   * @param employees
+   * Deletes roles of the Employee objects inside the list
+   * @param employees the EmployeeList with Employee objects with roles to be removed
    */
   public void employeesDeleteRoles(EmployeeList employees)
   {
@@ -116,6 +116,9 @@ public class EmployeeList implements Serializable
     }
   }
 
+  /**
+   *  Deletes the role of every Employee object inside the EmployeeList
+   */
   public void deleteRoles()
   {
     for (Employee e : employees)
@@ -125,16 +128,29 @@ public class EmployeeList implements Serializable
     }
   }
 
+  /**
+   * Gets an Employee object on the given index in a list
+   * @param index the position of the Employee object in a list to be returned
+   * @return the Employee object on a given position
+   */
   public Employee get(int index)
   {
     return employees.get(index);
   }
 
+  /**
+   * Gets a number of Employee objects inside EmployeeList
+   * @return the number of Employee objects inside EmployeeList
+   */
   public int size()
   {
     return employees.size();
   }
 
+  /**
+   * Gets a copy of an existing EmployeeList
+   * @return the new EmployeeList with copied Employee objects
+   */
   public EmployeeList copy()
   {
     ArrayList<Employee> temp = new ArrayList<Employee>();

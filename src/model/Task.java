@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 /**
- * A class of Task object
+ * A class of a Task object
  */
 public class Task implements Serializable
 {

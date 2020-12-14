@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5f871333-e7ab-4d64-bf8d-77d22a01ce8b" name="Default Changelist" comment="Backup for adding JavaDoc informations">
+      <change beforePath="$PROJECT_DIR$/src/model/EmployeeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EmployeeList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Task.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1lYsh3C46IFxbk6UYFhp8eAbXER" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/json-20201115.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Launcher" />
+      <module name="ProjectManegmentSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\PC1\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5f871333-e7ab-4d64-bf8d-77d22a01ce8b" name="Default Changelist" comment="" />
+      <created>1607785477037</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607785477037</updated>
+      <workItem from="1607948690014" duration="39000" />
+      <workItem from="1607959793036" duration="383000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added a method in projectList when exprting xml because it was fucking up the xml readings when employees have tasks.">
+      <created>1607793812632</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607793812632</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Backup for adding JavaDoc informations">
+      <created>1607881506152</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607881506152</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Backup for adding JavaDoc informations">
+      <created>1607885798640</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607885798640</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Backup for adding JavaDoc informations">
+      <created>1607898903854</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607898903854</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Backup for adding JavaDoc informations">
+      <created>1607903145644</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607903145644</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Backup for adding JavaDoc informations">
+      <created>1607948512709</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607948512709</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Backup for adding JavaDoc informations">
+      <created>1607951506317</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607951506317</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Backup for adding JavaDoc informations">
+      <created>1607956120524</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607956120524</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Backup for adding JavaDoc informations">
+      <created>1607957548016</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607957548016</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added a method in projectList when exprting xml because it was fucking up the xml readings when employees have tasks." />
+    <MESSAGE value="Backup for adding JavaDoc informations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backup for adding JavaDoc informations" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1607960327433">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1607960327433" />
+    <state x="526" y="151" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607948579659">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="526" y="151" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.834@0.0.1536.834" timestamp="1607948579659" />
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog" timestamp="1607854908452">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1607854908452" />
+    <state x="548" y="171" key="FileChooserDialogImpl" timestamp="1607960322739">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="548" y="171" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1607960322739" />
+    <state width="361" height="97" key="GridCell.Tab.0.bottom" timestamp="1607951060916">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="361" height="97" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1607951060916" />
+    <state width="361" height="97" key="GridCell.Tab.0.center" timestamp="1607951060915">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="361" height="97" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1607951060915" />
+    <state width="361" height="97" key="GridCell.Tab.0.left" timestamp="1607951060915">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="361" height="97" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1607951060915" />
+    <state width="361" height="97" key="GridCell.Tab.0.right" timestamp="1607951060916">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="361" height="97" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1607951060916" />
+    <state x="361" y="150" key="Vcs.Push.Dialog.v2" timestamp="1607956113165">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="361" y="150" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1607956113165" />
+    <state x="586" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607854019745">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="586" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.834@0.0.1536.834" timestamp="1607854019745" />
+    <state x="236" y="42" width="587" height="819" key="dock-window-1" timestamp="1607960292767">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="236" y="42" width="587" height="819" key="dock-window-1/0.0.1536.834@0.0.1536.834" timestamp="1607960292767" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1607956105625">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1607956105625" />
+    <state x="599" y="208" key="svn.repositoryBrowser" timestamp="1607960111945">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="599" y="208" key="svn.repositoryBrowser/0.0.1536.834@0.0.1536.834" timestamp="1607960111945" />
+  </component>
+</project>
