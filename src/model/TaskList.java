@@ -19,8 +19,8 @@ public class TaskList implements Serializable
   }
 
   /**
-   * Constructor used with copy method.
-   * @param tasks List of Task objects
+   * Constructor used in copy method.
+   * @param tasks the list of Task objects
    */
   public TaskList(ArrayList<Task> tasks)
   {
@@ -59,17 +59,6 @@ public class TaskList implements Serializable
       }
     }
     return true;
-  }
-
-  //TODO
-  public double totalEstimate()
-  {
-    double temp = 0;
-    for (Task task : tasks)
-    {
-      temp += task.getEstimateTime();
-    }
-    return temp;
   }
 
   /**

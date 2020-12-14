@@ -3,20 +3,34 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * A class of containing list of Employee objects
+ */
 public class EmployeeList implements Serializable
 {
   private ArrayList<Employee> employees;
 
+  /**
+   * No-argument constructor initializing the EmployeeList
+   */
   public EmployeeList()
   {
     employees = new ArrayList<Employee>();
   }
 
+  /**
+   * Constructor used in copy method
+   * @param employees the list of Employee objects
+   */
   public EmployeeList(ArrayList<Employee> employees)
   {
     this.employees = employees;
   }
 
+  /**
+   * Adds an Employee object to the list if there is no other existing Employee with the same ID
+   * @param employee
+   */
   public void addEmployee(Employee employee)
   {
     for (Employee e : employees)
@@ -29,6 +43,11 @@ public class EmployeeList implements Serializable
     employees.add(employee);
   }
 
+  /**
+   * Edits a fields inside Employee object
+   * @param employee the Employee object to be edited
+   * @param oldEmployee the Employee with the new field informations
+   */
   public void editEmployee(Employee employee, Employee oldEmployee)
   {
     Employee temp = getEmployeeByID(oldEmployee.getId());
@@ -43,9 +62,13 @@ public class EmployeeList implements Serializable
      temp.setEmployeeID(newID);
      temp.setFirstName(employee.getFirstName());
      temp.setLastName(employee.getLastName());
-
   }
 
+  /**
+   * Gets an Employee object with the given ID
+   * @param employeeID the ID of the Employee object to be returned
+   * @return the Employee object with the given ID
+   */
   public Employee getEmployeeByID(int employeeID)
   {
     for (Employee e : employees)
@@ -58,6 +81,10 @@ public class EmployeeList implements Serializable
     return null;
   }
 
+  /**
+   * Gets a EmployeeList object with not assigned Employee objects to Project
+   * @return the list of not assigned  Employee objects
+   */
   public EmployeeList getNotAssignedEmployees()
   {
     EmployeeList temp = new EmployeeList();
@@ -71,6 +98,10 @@ public class EmployeeList implements Serializable
     return temp;
   }
 
+  /**
+   * Deletes roles of the Employee objects inside the listi
+   * @param employees
+   */
   public void employeesDeleteRoles(EmployeeList employees)
   {
     for (int i = 0; i < this.employees.size(); i++)
