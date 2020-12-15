@@ -16,7 +16,7 @@ public class Project implements Serializable
   public static final String IN_PROCESS = "In process";
 
   /**
-   * A constructor fo creating Project.
+   * A constructor for creating Project.
    *
    * @param projectName the name of the Project object
    * @param status      the status of the Project object
