@@ -16,19 +16,11 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </select>
+    <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f871333-e7ab-4d64-bf8d-77d22a01ce8b" name="Default Changelist" comment="Backup for adding JavaDoc informations">
-      <change beforePath="$PROJECT_DIR$/src/model/EmployeeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EmployeeList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Task.java" afterDir="false" />
+    <list default="true" id="68734e70-16ab-48d1-bad7-9f3e71f11a36" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,16 +39,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/json-20201115.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/GUI/GUIFxml.fxml" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Launcher" />
-      <module name="ProjectManegmentSystem" />
+      <module name="ProjectManagementSystem" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GUI.*" />
@@ -190,6 +183,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="249" y="0" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1607960327433" />
+    <state x="499" y="167" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1608042337280">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="167" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042337280" />
     <state x="526" y="151" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607948579659">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -198,26 +195,41 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1607854908452" />
-    <state x="548" y="171" key="FileChooserDialogImpl" timestamp="1607960322739">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state x="685" y="-867" key="FileChooserDialogImpl" timestamp="1608043974502">
+      <screen x="0" y="-1080" width="1920" height="1040" />
     </state>
+    <state x="685" y="-867" key="FileChooserDialogImpl/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1608043974502" />
+    <state x="548" y="169" key="FileChooserDialogImpl/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042320626" />
     <state x="548" y="171" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1607960322739" />
-    <state width="361" height="97" key="GridCell.Tab.0.bottom" timestamp="1607951060916">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1608042531343">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042531343" />
     <state width="361" height="97" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1607951060916" />
-    <state width="361" height="97" key="GridCell.Tab.0.center" timestamp="1607951060915">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1608042531343">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042531343" />
     <state width="361" height="97" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1607951060915" />
-    <state width="361" height="97" key="GridCell.Tab.0.left" timestamp="1607951060915">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1608042531342">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042531342" />
     <state width="361" height="97" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1607951060915" />
-    <state width="361" height="97" key="GridCell.Tab.0.right" timestamp="1607951060916">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1608042531343">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042531343" />
     <state width="361" height="97" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1607951060916" />
+    <state x="439" y="117" key="NewModule_or_Project.wizard" timestamp="1608042301086">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="439" y="117" key="NewModule_or_Project.wizard/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042301086" />
+    <state x="311" y="-1080" key="SettingsEditor" timestamp="1608043975492">
+      <screen x="0" y="-1080" width="1920" height="1040" />
+    </state>
+    <state x="311" y="-1080" key="SettingsEditor/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1608043975492" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824/0.-1080.1920.1040@0.0.1536.824" timestamp="1608042338590" />
     <state x="361" y="150" key="Vcs.Push.Dialog.v2" timestamp="1607956113165">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

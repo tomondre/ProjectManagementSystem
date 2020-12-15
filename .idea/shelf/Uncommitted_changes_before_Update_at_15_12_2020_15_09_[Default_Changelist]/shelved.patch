@@ -1,0 +1,24 @@
+Index: ProjectManegmentSystem.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"JavaFX\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"json-20201115\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"XmlJsonParser-1.4\" level=\"application\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ProjectManegmentSystem.iml	(revision 65631aa9d59615f8e770ec1d08be4cdbb8d396cc)
++++ ProjectManegmentSystem.iml	(date 1607621635167)
+@@ -5,10 +5,10 @@
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="JavaFX" level="application" />
++    <orderEntry type="library" name="JavaFx" level="application" />
+     <orderEntry type="library" name="json-20201115" level="application" />
+-    <orderEntry type="library" name="XmlJsonParser-1.4" level="application" />
++    <orderEntry type="library" name="gson-2.8.6" level="application" />
+   </component>
+ </module>
+\ No newline at end of file
