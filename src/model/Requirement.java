@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * A class of Requirement object
+ */
 public class Requirement implements Serializable
 {
   public static final String APPROVED = "Approved";                           //we have to decide which system of comparing Strings (roles and statuses) we want to use
