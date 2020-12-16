@@ -199,7 +199,7 @@ public class Controller {
     private String command = "";
 
     /**
-     * Initializing the Controller class
+     * Initializing the Controller class acting as a constructor
      */
     public void initialize() {
         adapter = new SystemAdapter("colourIT.bin");
@@ -611,7 +611,7 @@ public class Controller {
     }
 
     /**
-     *
+     * Handler for the radio buttons in the menu bar
      */
     public void menuItemsRadioButtons() {
         if (ongoingProjects.isSelected()) {
@@ -627,10 +627,8 @@ public class Controller {
 
     /**
      * Clears and refreshes fields everytime when tab is switched
-     *
-     * @param event
      */
-    public void tabChange(Event event) {
+    public void tabChange() {
         if (adapter != null) {
             getProjectFieldsCleared();
             getRequirementFieldsCleared();
@@ -652,9 +650,9 @@ public class Controller {
         }
     }
 
-  /**
-   *
-   */
+    /**
+     * Updates the projects ListView in the project tab depending on the radio button. Adds the items for the project status
+     */
     private void updateProjects() {
         if (adapter != null) {
             projectsListView.getItems().clear();
@@ -676,9 +674,9 @@ public class Controller {
         }
     }
 
-  /**
-   *
-   */
+    /**
+     * Updates the team members ListView in the project tab depending on the radio button
+     */
     private void updateTeamMembers() {
         if (projectsListView.getSelectionModel().getSelectedIndex() != -1) {
             teamMembersListView.getItems().clear();
@@ -702,9 +700,9 @@ public class Controller {
         }
     }
 
-  /**
-   *
-   */
+    /**
+     * Updates the requirements tab depending on the project selected
+     */
     private void updateRequirements() {
         if (adapter != null
                 && projectSelectedComboBox.getSelectionModel().getSelectedIndex() != -1) {
@@ -723,10 +721,11 @@ public class Controller {
         }
     }
 
-  /**
-   *
-   * @param comboBox
-   */
+    /**
+     * Updates the ComboBoxes in the requirements and tasks tabs with the existing projects
+     *
+     * @param comboBox the box that needs to be updated
+     */
     private void updateProjectsToSelect(ComboBox<Project> comboBox) {
         comboBox.getItems().clear();
         ProjectList projectList;
@@ -740,9 +739,9 @@ public class Controller {
         }
     }
 
-  /**
-   *
-   */
+    /**
+     * Updates the ComboBox for the requirements in the tasks tab with the requirements available in the selected project
+     */
     private void updateRequirementToSelect() {
         requirementSelectedComboBox.getItems().clear();
         if (projectSelectedOnTasksComboBox.getSelectionModel().getSelectedIndex()
@@ -759,7 +758,7 @@ public class Controller {
     }
 
     /**
-     * Updates Task List
+     * Updates the tasks ListView in the  tasks tab using the selected project and selected requirement
      */
     private void updateTasks() {
         if (requirementSelectedComboBox.getSelectionModel().getSelectedIndex() != -1
@@ -786,7 +785,7 @@ public class Controller {
     }
 
     /**
-     * Updates list of Employee objects
+     * Updates the employees ListView in the employees tab
      */
     private void updateEmployees() {
         employeesListView.getItems().clear();
@@ -799,20 +798,21 @@ public class Controller {
     }
 
     /**
-
-     * Makes Project fields editable or not editable
-     * @param areEditable th boolean stating if the fields should be editable or not
+     * Makes the fields related to the project in the projects tab editable when true
+     *
+     * @param areEditable the boolean stating if the fields should be editable or not
      */
     private void projectFieldsAreEditable(boolean areEditable) {
         projectNameTextField.setEditable(areEditable);
         projectStatusComboBox.setDisable(!areEditable);
     }
 
-  /**
-   * Makes Requirement fields editable or not editable
-   * @param areEditable the boolean stating if the fields should be editable or not
-   */
-  private void requirementsFieldsAreEditable(boolean areEditable) {
+    /**
+     * Makes the fields related to the requirements in the requirements tab editable when true
+     *
+     * @param areEditable the boolean stating if the fields should be editable or not
+     */
+    private void requirementsFieldsAreEditable(boolean areEditable) {
         requirementIDTextField.setEditable(areEditable);
         requirementStatusComboBox.setDisable(!areEditable);
         requirementTypeComboBox.setDisable(!areEditable);
@@ -824,7 +824,7 @@ public class Controller {
     }
 
     /**
-     * Makes Employee fields editable or not editable
+     * Makes the fields related to the employees in the employees tab editable when true
      *
      * @param areEditable the boolean stating if the fields should be editable or not
      */
@@ -836,7 +836,7 @@ public class Controller {
     }
 
     /**
-     * Makes Task fields editable or not editable
+     * Makes the fields related to the tasks in the tasks tab editable when true
      *
      * @param areEditable the boolean stating if the fields should be editable or not
      */
@@ -851,25 +851,26 @@ public class Controller {
         taskDeadline.setEditable(areEditable);
     }
 
-  /**
-   *
-   * @param areEditable
-   */
-  private void teamMembersFieldsAreEditable(boolean areEditable) {
+    /**
+     * Makes the fields related to the team members in the projects tab editable when true
+     *
+     * @param areEditable the boolean stating if the fields should be editable or not
+     */
+    private void teamMembersFieldsAreEditable(boolean areEditable) {
         availableEmployeeComboBox.setDisable(!areEditable);
         employeeRoleComboBox.setDisable(!areEditable);
     }
 
-  /**
-   *
-   */
+    /**
+     * Clears all Project fields in the projects tab
+     */
     private void getProjectFieldsCleared() {
         projectNameTextField.clear();
         projectStatusComboBox.getSelectionModel().select(0);
     }
 
     /**
-     * Clears all team member fields
+     * Clears all team member fields in the projects tab and fills the roles ComboBox
      */
     private void getTeamMembersFieldsCleared() {
         availableEmployeeComboBox.getItems().clear();
@@ -883,7 +884,7 @@ public class Controller {
     }
 
     /**
-     * Clears all Requirement fields in Requirement tab
+     * Clears all Requirement fields in the requirements tab and fills the ComboBoxes
      */
     private void getRequirementFieldsCleared() {
         requirementIDTextField.clear();
@@ -905,7 +906,7 @@ public class Controller {
     }
 
     /**
-     * Clears all Task fields in Task tab
+     * Clears all Task fields in the tasks tab
      */
     private void getTaskFieldsCleared() {
         taskIDTextField.clear();
@@ -918,6 +919,9 @@ public class Controller {
         taskResponsibleEmployeeComboBox.getItems().clear();
     }
 
+    /**
+     * Clears all Employee fields in the employees tab
+     */
     private void getEmployeeFieldsCleared() {
         employeeIDTextField.clear();
         employeeFirstName.clear();
@@ -925,6 +929,26 @@ public class Controller {
         employeeRoleComboBox.getSelectionModel().select(0);
     }
 
+    /**
+     * Validates if any of the necessary fields for adding or editing a Requirement are empty
+     *
+     * @return returns a boolean value in the save button for the requirements
+     */
+    private boolean requirementsFieldsValidator() {
+        return projectSelectedComboBox.getSelectionModel().getSelectedIndex() == -1
+                || requirementIDTextField.getText().isEmpty()
+                || requirementDescriptionTextField.getText().isEmpty()
+                || estimateHoursTextField.getText().isEmpty() || priorityNumberTextField
+                .getText().isEmpty() || deadlineTextField.getText().isEmpty()
+                || responsibleTeamMemberComboBox.getSelectionModel().getSelectedIndex()
+                == -1;
+    }
+
+    /**
+     * Validates if any of the necessary fields for adding or editing a Task are empty
+     *
+     * @return returns a boolean value in the save button for the tasks
+     */
     private boolean taskFieldsValidation() {
         return taskIDTextField.getText().isEmpty() || taskDescriptionTextArea
                 .getText().isEmpty() || taskEstimateTextField.getText().isEmpty()
@@ -932,10 +956,11 @@ public class Controller {
                 taskTeamMembersListView.getSelectionModel().getSelectedIndices().size()
                         == 0;
     }
-//TODO
 
     /**
-     * @return
+     * Validates if any of the necessary fields for adding or editing a Employee are empty
+     *
+     * @return returns a boolean value in the save button for the employees
      */
     private boolean employeeFieldsValidator() {
         return employeeIDTextField.getText().isEmpty() || employeeFirstName
@@ -943,7 +968,7 @@ public class Controller {
     }
 
     /**
-     * Fills text fields in Project tab with the fields of the selected Project
+     * Fills text fields in the projects tab from the selected Project
      */
     public void fillFieldsInProjectTab() {
         Project selectedProject = projectsListView.getSelectionModel()
@@ -958,7 +983,7 @@ public class Controller {
     }
 
     /**
-     * Fills text fields in Requirement tab with the fields of the selected Requirement
+     * Fills text fields in the requirements tab from the selected Requirement
      */
     public void fillRequirementsFields() {
         Requirement selectedRequirement = requirementsListView.getSelectionModel()
@@ -995,7 +1020,7 @@ public class Controller {
     }
 
     /**
-     * Fills text fields in Task tab with the fields of the seleected Task
+     * Fills text fields in Task tab from the selected Task
      */
     public void fillTaskFields() {
         taskTeamMembersListView.getItems().clear();
@@ -1020,11 +1045,10 @@ public class Controller {
     }
 
     /**
-     * Fills text fields in Employee with the Employee fields
+     * Fills text fields in the employees tab from the selected Employee
      */
     public void fillEmployeeTab() {
         Employee toEdit = employeesListView.getSelectionModel().getSelectedItem();
-        //TODO maybe change employee ID to String if we have time.
         employeeIDTextField.setText(String.valueOf(toEdit.getId()));
         employeeFirstName.setText(toEdit.getFirstName());
         employeeLastName.setText(toEdit.getLastName());
@@ -1036,18 +1060,8 @@ public class Controller {
         }
     }
 
-    private boolean requirementsFieldsValidator() {
-        return projectSelectedComboBox.getSelectionModel().getSelectedIndex() == -1
-                || requirementIDTextField.getText().isEmpty()
-                || requirementDescriptionTextField.getText().isEmpty()
-                || estimateHoursTextField.getText().isEmpty() || priorityNumberTextField
-                .getText().isEmpty() || deadlineTextField.getText().isEmpty()
-                || responsibleTeamMemberComboBox.getSelectionModel().getSelectedIndex()
-                == -1;
-    }
-
     /**
-     * Makes buttons clickable or not clickable
+     * Makes buttons clickable or not clickable depending on the Mode selected
      *
      * @param areDisabled the boolean stating if the Button objects should be clickable or not
      */
