@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Class controling the system, saving the system to binary file and eporting XML file
+ * Class controlling the system, saving the system to binary file and exporting XML file
  */
 public class SystemAdapter {
     private MyFileIO mfio;
@@ -82,7 +82,7 @@ public class SystemAdapter {
      * @param status              the status of the Requirement object to be added
      * @param requirementType     the type of the Requirement object to be added
      * @param deadline            the deadline og the Requirement object to be added
-     * @param responsibleEmployee the responsibe Employee of the Requirement object
+     * @param responsibleEmployee the responsible Employee of the Requirement object
      */
     public void addRequirement(String projectName, String requirementId,
                                int priorityNumber, String description, double estimateTime,
@@ -100,14 +100,14 @@ public class SystemAdapter {
      * Edits a Requirement in the given path
      *
      * @param projectName         the name of the project where the Requirement is stored
-     * @param requirementId       the id of the Requriement to edited
+     * @param requirementId       the id of the Requirement to edited
      * @param priorityNumber      the priority number of Requirement object to be edited
-     * @param description         the decsription of Requirement object to be edited
+     * @param description         the description of Requirement object to be edited
      * @param estimateTime        the time estimation of Requirement object to be edited
-     * @param status              the status of Requiremnet object to be edited
-     * @param requirementType     the type of Requiremnet object to be edited
-     * @param deadline            the deadline of Requiremnet object to be edited
-     * @param responsibleEmployee the responsible Employee of Requiremnet object to be edited
+     * @param status              the status of Requirement object to be edited
+     * @param requirementType     the type of Requirement object to be edited
+     * @param deadline            the deadline of Requirement object to be edited
+     * @param responsibleEmployee the responsible Employee of Requirement object to be edited
      */
     public void setRequirement(String projectName, String requirementId,
                                int priorityNumber, String description, double estimateTime,
@@ -261,7 +261,7 @@ public class SystemAdapter {
     }
 
     /**
-     * Adds a Task object to the given Emplyee object
+     * Adds a Task object to the given Employee object
      *
      * @param employee the Employee object to add Task to
      * @param task     the Task object to be added to Employee

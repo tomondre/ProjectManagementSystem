@@ -25,7 +25,6 @@ public class Task implements Serializable
    * @param timeUsed            the used time og the Task object
    * @param status              the status of the Task object
    * @param responsibleEmployee the Employee object of the Task object
-   * @author Junjie Chen
    */
   public Task(int taskID, String description, boolean status, double timeUsed,
       double estimatedTime, MyDate deadline, EmployeeList employees,

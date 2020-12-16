@@ -18,7 +18,7 @@ public class Employee implements Serializable
   private TaskList tasks;
 
   /**
-   * A constructor for creating Employee
+   * A constructor for creating Employee object
    *
    * @param employeeID the unique ID of the Employee object
    * @param firstName  the first name of the Employee object
@@ -153,7 +153,7 @@ public class Employee implements Serializable
   }
 
   /**
-   * Cleares a taskList inside the Employee Object
+   * Clears a taskList inside the Employee Object
    */
   public void resetTasks()
   {

@@ -29,7 +29,7 @@ public class EmployeeList implements Serializable
 
   /**
    * Adds an Employee object to the list if there is no other existing Employee with the same ID
-   * @param employee
+   * @param employee the Employee object to be added
    */
   public void addEmployee(Employee employee)
   {
