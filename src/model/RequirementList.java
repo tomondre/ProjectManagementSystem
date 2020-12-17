@@ -71,7 +71,7 @@ public class RequirementList implements Serializable
   }
 
   /**
-   * Sorts the Requirement objects by theirs priority
+   * Sorts the Requirement objects by their priority
    */
   public void sortRequirementsByPriorities()
   {

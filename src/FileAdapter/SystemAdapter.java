@@ -324,7 +324,7 @@ public class SystemAdapter {
         temp = "<ongoingProjects>" + temp;
         temp += "</ongoingProjects>";
         try {
-            mtxtfio.writeToFile("export.xml", temp);
+            mtxtfio.writeToFile("../ColourITWebPage/XML/export.xml", temp);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
